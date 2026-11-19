@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[미션 4] 나만의 온라인 개인전 웹갤러리 · 생각나름 자료실</title>
+<style>
+  :root {
+    --bg: #F8FAF7;
+    --card: #FFFFFF;
+    --ink: #1E293B;
+    --ink-sub: #334155;
+    --green: #166534;
+    --green-soft: #DCFCE7;
+    --blue: #1565C0;
+    --blue-bg: #EFF6FF;
+    --blue-bd: #BFDBFE;
+    --amber-bg: #FFFBEB;
+    --amber-bd: #FDE68A;
+    --border: #E2E8F0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    line-height: 1.72;
+    word-break: keep-all;
+  }
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 12px;
+  }
+  .top-nav-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .top-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-pill {
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: var(--ink);
+    background: #F1F5F9;
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
+    border: 1px solid #CBD5E1;
+  }
+  .nav-pill:hover, .nav-pill:active {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 20px 16px 90px;
+  }
+  .hero {
+    background: var(--card);
+    border: 2px solid #BBF7D0;
+    border-radius: 20px;
+    padding: 26px 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 16px rgba(22, 101, 52, 0.06);
+  }
+  .badge {
+    display: inline-block;
+    background: var(--green-soft);
+    color: var(--green);
+    font-weight: 800;
+    font-size: 15px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  h1 {
+    margin: 0 0 10px;
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .hero p {
+    margin: 0;
+    font-size: 18px;
+    color: var(--ink-sub);
+  }
+  .step-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 22px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  }
+  .step-title {
+    margin: 0 0 12px;
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1.4;
+  }
+  .sub-item {
+    border: 1px solid var(--border);
+    background: #F8FAFC;
+    border-radius: 14px;
+    padding: 16px;
+    margin: 14px 0;
+  }
+  .sub-item h3 {
+    margin: 0 0 6px;
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .sub-item p {
+    margin: 0 0 10px;
+    font-size: 16.5px;
+    color: var(--ink-sub);
+  }
+  .prompt-box {
+    background: var(--blue-bg);
+    border: 2px solid var(--blue-bd);
+    border-radius: 14px;
+    padding: 16px;
+    margin: 14px 0;
+  }
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .prompt-label {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--blue);
+  }
+  .copy-btn {
+    appearance: none;
+    border: none;
+    background: var(--blue);
+    color: #FFFFFF;
+    font-size: 15.5px;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(21, 101, 192, 0.25);
+    transition: transform 0.1s ease, background 0.15s ease;
+  }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn.copied { background: #15803D; }
+  .prompt-text {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: inherit;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: #0F172A;
+    font-weight: 500;
+  }
+  .tip-box {
+    background: var(--amber-bg);
+    border: 1.5px solid var(--amber-bd);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-top: 14px;
+    font-size: 16.5px;
+    color: #451A03;
+  }
+  .list-clean {
+    margin: 10px 0;
+    padding-left: 20px;
+  }
+  .list-clean li {
+    margin-bottom: 8px;
+  }
+  .submit-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    background: var(--green);
+    color: #FFFFFF;
+    font-size: 19px;
+    font-weight: 800;
+    padding: 16px 20px;
+    border-radius: 14px;
+    margin-top: 14px;
+    box-shadow: 0 4px 12px rgba(22, 101, 52, 0.25);
+  }
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #0F172A;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-size: 15.5px;
+    font-weight: 700;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.22s ease;
+    z-index: 999;
+    white-space: nowrap;
+    max-width: 92vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  @media (min-width: 640px) {
+    body { font-size: 18.5px; }
+    h1 { font-size: 30px; }
+    .step-card { padding: 28px 26px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav" aria-label="단계 바로가기">
+  <div class="top-nav-inner">
+    <a class="nav-pill" href="#step1">1단계 검색</a>
+    <a class="nav-pill" href="#step2">2단계 1장완성</a>
+    <a class="nav-pill" href="#step3">3단계 연작3장</a>
+    <a class="nav-pill" href="#step4">4단계 피클웹</a>
+    <a class="nav-pill" href="#step5">5단계 변신</a>
+    <a class="nav-pill" href="#step6">6단계 제출</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <span class="badge">생각나름 · 11월 멤버십 자료실</span>
+    <h1>[미션 4] 나만의 온라인 개인전 웹갤러리 만들기</h1>
+    <p>내 그림 4장을 세상에 하나뿐인 전시관 웹사이트로 걸어두는 모바일 개인전입니다. 위에서부터 천천히 읽으시며 파란 상자의 <strong>📋 복사하기</strong> 버튼을 눌러 그대로 쓰세요.</p>
+  </header>
+
+  <section id="step1" class="step-card">
+    <h2 class="step-title">[1단계] 핀터레스트에서 새로운 스타일 검색하기</h2>
+    <p>앞선 미션과 하는 방법은 똑같습니다! 이번에는 온라인 전시관에 걸어두었을 때 작품처럼 빛나는 고품격 아트 키워드로 출발합니다.</p>
+
+    <div class="sub-item">
+      <h3>1. 두터운 유화 나이프 페인팅</h3>
+      <p>미술관 원화처럼 붓과 나이프 질감이 살아있는 대표 갤러리 스타일</p>
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">📋 영어 키워드 검색어</span>
+          <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+        </div>
+        <pre class="prompt-text">Thick impasto oil painting art</pre>
+      </div>
+    </div>
+
+    <div class="sub-item">
+      <h3>2. 리소그래프 &amp; 실크스크린 포스터 아트</h3>
+      <p>한정판 전시 포스터처럼 색감이 겹쳐지는 독특하고 감각적인 스타일</p>
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">📋 영어 키워드 검색어</span>
+          <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+        </div>
+        <pre class="prompt-text">Risograph print art illustration</pre>
+      </div>
+    </div>
+
+    <div class="sub-item">
+      <h3>3. 몽환적인 스테인드글라스 모자이크 아트</h3>
+      <p>유리 조각 사이로 빛이 스며드는 듯한 신비로운 전시 작품 스타일</p>
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">📋 영어 키워드 검색어</span>
+          <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+        </div>
+        <pre class="prompt-text">Modern stained glass mosaic art</pre>
+      </div>
+    </div>
+
+    <div class="tip-box">💡 <strong>진행 팁:</strong> 핀터레스트에서 마음에 드는 스타일 이미지 1장을 저장합니다.</div>
+  </section>
+
+  <section id="step2" class="step-card">
+    <h2 class="step-title">[2단계] ChatGPT 그림 작업실에서 대표 스타일 1장 완성하기 (바·고·찾·남)</h2>
+    <p>새로 연 작업실 대화창에 핀터레스트 이미지를 올리고, 바·고·찾·남 4단계로 나만의 첫 번째 대표 스타일 1장을 완성합니다.</p>
+    <ul class="list-clean">
+      <li><strong>바꾸고:</strong> 내 취향에 맞게 주인공이나 배경 소재 바꾸기</li>
+      <li><strong>고치고:</strong> 마음에 걸리는 한 곳이라도 수정하기</li>
+      <li><strong>찾고:</strong> 이 스타일을 선택한 나만의 이유 찾기</li>
+      <li><strong>남기고:</strong> 프롬프트 레시피를 작업실에 남기기 + 채팅창 제목 복·붙하기</li>
+    </ul>
+  </section>
+
+  <section id="step3" class="step-card">
+    <h2 class="step-title">[3단계] 🌟 하나의 스타일 DNA로 '서로 다른 장면 3개' 확장하기</h2>
+    <p>2단계에서 스타일 레시피를 뽑고 내가 최종 선택한 바로 그 대표 이미지를 기준으로 삼아, 하나의 세트처럼 어울리는 서로 다른 장면 3장을 연달아 뽑아냅니다.</p>
+
+    <div class="prompt-box">
+      <div class="prompt-header">
+        <span class="prompt-label">💡 한 번에 연작 3장 뽑는 프롬프트</span>
+        <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+      </div>
+      <pre class="prompt-text">이 채팅창에서 내가 스타일 레시피를 뽑고 최종 선택한 바로 위 대표 이미지의 스타일 DNA를 그대로 기준으로 삼아줘.
+
+그 스타일 DNA는 완벽히 유지하되, 단순히 각도만 바꾸지 말고 소재와 배경 공간, 피사체의 행동이 확연히 다른 새로운 3가지 장면을 그려줘. 마치 한 명의 작가가 그린 전시회 연작 시리즈처럼 3장이 서로 확실하게 구분되어야 해.
+[필수 규칙]
+1. 비율: 모바일 전시관 액자에 꽉 차게 들어가도록 세로형(3:4 비율)으로 그려줘.
+2. 장면 차별화: 절대 비슷한 장면을 반복하지 말고, 3장의 배경과 상황을 완전히 다르게 해줘.
+3. 분할 금지: 한 장 안에 모아 그리는 콜라주나 화면 분할 절대 금지! 온전한 단독 이미지로 각각 1장씩 따로따로 총 3장을 생성해줘.</pre>
+    </div>
+
+    <div class="prompt-box">
+      <div class="prompt-header">
+        <span class="prompt-label">💡 무료 버전 등 1장씩 차례대로 뽑을 때</span>
+        <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+      </div>
+      <pre class="prompt-text">위에서 내가 최종 선택한 대표 이미지의 스타일 DNA 그대로,
+세로형(3:4 비율) 단독 이미지로, 배경과 상황이 완전히 다른 새로운 연작 장면 1장만 다시 그려줘.</pre>
+    </div>
+    <p style="font-size:16px; color:var(--ink-sub); margin-top:6px;">(2번, 3번 장면도 똑같이 시키시면 확연히 다른 장면을 얻으실 수 있습니다!)</p>
+  </section>
+
+  <section id="step4" class="step-card">
+    <h2 class="step-title">[4단계] 피클 비서에게 '나만의 온라인 개인전 웹갤러리' 만들기 시키기</h2>
+    <p>피클 앱을 열고, 완성된 4장의 그림(또는 미션 1~3에서 그려둔 그림 포함 4장 이상)을 한 번에 올린 뒤 아래 프롬프트를 보냅니다.</p>
+
+    <div class="prompt-box">
+      <div class="prompt-header">
+        <span class="prompt-label">📋 피클 온라인 개인전 웹갤러리 프롬프트</span>
+        <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+      </div>
+      <pre class="prompt-text">첨부한 4장의 그림으로 스마트폰과 PC에서 바로 열어볼 수 있는 '나만의 온라인 개인전 웹갤러리' 웹사이트를 만들어줘. 라이브 웹 링크와 오프라인 평생 소장용 단일 HTML 파일 둘 다 줘.
+1. 전시관 첫 화면(히어로 영역)엔 그림들과 어울리는 감성적인 전시 제목, 영문 부제, 작가명([내 이름 또는 닉네임]), 짧은 전시 인사말을 우아하게 배치해줘.
+2. 작품 갤러리엔 4장의 그림을 자르거나 찌그러뜨리지 말고 원본 비율(3:4) 그대로 고급 액자 프레임에 담아 전시해줘. 그림 위를 글씨나 버튼으로 덮지 말고, 제목·영문 부제·짧은 도슨트 감상 해설은 액자 아래쪽에 깔끔하게 따로 붙여줘.
+3. 작품을 누르면 화면 가득 크게 펼쳐지는 '전체 화면 감상 창(라이트박스)'이 열리고, 각 작품마다 누를 수 있는 '하트(좋아요)' 버튼과 숫자가 올라가는 기능을 넣어줘.
+4. 스마트폰 세로 화면에서도 글자가 너무 작지 않고(본문 큼직하게) 그림이 잘리지 않게 반응형으로 꼼꼼히 맞춰줘.
+5. 소리는 코드로 짠 인공적인 합성음 말고, 전시회 분위기에 어울리는 무료 정품 잔잔한 피아노(또는 보사노바) 배경음악 ON/OFF 버튼을 오른쪽 아래에 넣어줘.</pre>
+    </div>
+
+    <div class="tip-box">
+      💡 <strong>참고하세요:</strong> <code>[내 이름 또는 닉네임]</code>처럼 대괄호로 적힌 곳은 꼭 본인 이름이나 원하는 말로 바꿔서 보내세요! (하트 좋아요 숫자는 보는 분의 폰·브라우저 안에서 재미로 눌리는 체험용 기능이에요.)
+    </div>
+  </section>
+
+  <section id="step5" class="step-card">
+    <h2 class="step-title">[5단계] 내 손으로 한 곳 고쳐보기 (전시관 변신 치트키)</h2>
+    <p>첫 갤러리 웹사이트를 받아본 뒤, 전시관의 분위기나 음악, 작가 소개를 내 취향대로 한 번 더 다듬어 보세요.</p>
+
+    <div class="sub-item">
+      <h3>1. 밤하늘 달빛 전시관 테마로 변신</h3>
+      <p>어두운 밤하늘에 은은한 금빛 액자가 빛나는 분위기</p>
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">📋 피클 수정 프롬프트</span>
+          <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+        </div>
+        <pre class="prompt-text">방금 만든 온라인 개인전 웹갤러리의 전체 분위기를 '깊은 밤하늘과 은은한 달빛이 비치는 다크 갤러리' 스타일로 바꿔줘. 배경엔 잔잔한 별빛 효과를 깔고 액자는 얇은 금빛 테두리로 꾸며줘. 내가 첨부한 그림은 자르거나 색을 바꾸지 말고 원본 그대로 유지해줘.</pre>
+      </div>
+    </div>
+
+    <div class="sub-item">
+      <h3>2. 작가 소개와 전시 방명록 문구 추가</h3>
+      <p>내 이름과 전시 인사말을 더 따뜻하게 담기</p>
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">📋 피클 수정 프롬프트</span>
+          <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+        </div>
+        <pre class="prompt-text">방금 만든 웹갤러리 상단에 '작가 [내 이름] 소개' 칸을 추가해서, 내가 그림을 그리며 느낀 마음 [예: 일상의 작은 쉼표를 그렸습니다]를 따뜻하게 넣어줘. 맨 아래엔 관람객이 한마디 남길 수 있는 간단한 방명록(또는 응원 버튼)도 달아줘.</pre>
+      </div>
+    </div>
+
+    <div class="sub-item">
+      <h3>3. 작품별 '나의 영감 메모' 버튼 달기</h3>
+      <p>작품 아래 버튼을 누르면 제작 이야기가 펼쳐지게</p>
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">📋 피클 수정 프롬프트</span>
+          <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+        </div>
+        <pre class="prompt-text">각 작품 카드 아래에 '작품 이야기 보기' 작은 버튼을 하나씩 달아줘. 관람객이 그 버튼을 누르면 내가 이 그림을 고른 이유와 스타일 설명 카드가 부드럽게 펼쳐지게 만들어줘.</pre>
+      </div>
+    </div>
+
+    <div class="sub-item">
+      <h3>4. 내가 원하는 전시관 색감·음악으로 바꾸기</h3>
+      <p>갤러리 화이트·우드·한옥 등 나만의 전시 공간</p>
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">📋 피클 수정 프롬프트</span>
+          <button class="copy-btn" type="button" onclick="copyText(this)">📋 복사하기</button>
+        </div>
+        <pre class="prompt-text">방금 만든 온라인 개인전 웹갤러리의 전체 색감과 배경음악을 [원하는 분위기]로 바꿔줘. 전시실 벽면 색상을 [예: 밝은 미술관 화이트와 우드 액자 / 따뜻한 한지 베이지]로 바꾸고, 글자 색과 여백도 그 분위기에 맞게 새로 맞춰줘. 첨부한 그림은 원본 그대로 유지해줘.</pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="step6" class="step-card">
+    <h2 class="step-title">[6단계] 과제 제출하기</h2>
+    <p>피클이 만들어 준 <strong>나만의 온라인 개인전 웹갤러리</strong> 링크를 열어 첫 화면이나 작품 감상 화면을 캡처(1장)한 뒤, 아래 구글 폼에 가볍게 첨부해 제출합니다.</p>
+    <p>단톡방에 자랑하실 때는 <strong>캡처 사진 1장</strong>과 <strong>내 갤러리 웹 링크</strong>를 함께 올려 주시면 다른 분들도 바로 들어가 구경할 수 있어요! (웹 링크는 약 7일 뒤 만료되니, 평생 소장용 HTML 파일도 함께 받아 두세요.)</p>
+    <p><strong>📅 미션 4 제출 마감:</strong> 11월 22일 (일) 밤 12시 자정</p>
+    <a class="submit-btn" href="https://myip.kr/DjOYd" target="_blank" rel="noopener">📝 미션 4 과제 제출하기 (구글 폼)</a>
+  </section>
+
+  <div class="step-card" style="background:#F0FDF4; border-color:#BBF7D0;">
+    <h2 class="step-title" style="margin-bottom:8px;">💬 생각나름 한마디</h2>
+    <p style="margin:0;">이번에 만든 4장뿐 아니라 미션 1·2·3에서 모아둔 그림 8~12장을 한꺼번에 올리면, 진짜 큰 미술관처럼 제1전시실·제2전시실로 나뉜 대형 개인전도 뚝딱 만들어 줍니다! 가족이나 지인분들께 내 전시회 링크를 톡 보내드리면 근사한 선물이 될 거예요.</p>
+  </div>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite">복사됐어요! 이제 붙여넣기 하세요 😊</div>
+
+<script>
+function copyText(btn) {
+  const box = btn.closest('.prompt-box');
+  const text = box.querySelector('.prompt-text').innerText;
+  const done = () => {
+    const orig = btn.innerText;
+    btn.innerText = '✅ 복사 완료!';
+    btn.classList.add('copied');
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => {
+      btn.innerText = orig;
+      btn.classList.remove('copied');
+      toast.classList.remove('show');
+    }, 1800);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+function fallbackCopy(text, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+  cb();
+}
+</script>
+</body>
+</html>
