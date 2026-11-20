@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#1565C0" />
+<meta name="description" content="2027 아트 탁상달력 미션 5 · 달력 프롬프트 3종 원터치 복사 페이지" />
+<title>생각나름 · 미션 5 달력 프롬프트 원터치 복사</title>
+<style>
+  :root {
+    --bg: #F4F8F3;
+    --card: #FFFFFF;
+    --navy: #1C3D5A;
+    --ink: #24435C;
+    --green: #166534;
+    --blue: #1565C0;
+    --blue-dark: #0D47A1;
+    --blue-bg: #EAF2FC;
+    --blue-line: #BFDBFE;
+    --line: #DFE9E1;
+    --gold: #A97B22;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+      'Malgun Gothic', '맑은 고딕', 'Noto Sans KR', sans-serif;
+    font-size: 19px;
+    line-height: 1.7;
+    word-break: keep-all;
+    touch-action: manipulation;
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 18px 16px calc(40px + env(safe-area-inset-bottom));
+  }
+
+  /* ── 머리글 ── */
+  .hero {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 22px;
+    padding: 26px 20px 24px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(28, 61, 90, 0.07);
+    margin-bottom: 18px;
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  h1 {
+    margin: 0 0 14px;
+    font-size: 29px;
+    line-height: 1.34;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    color: var(--navy);
+  }
+  .hero .sub {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.55;
+    color: var(--green);
+  }
+
+  /* ── 공통 카드 ── */
+  .card {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 22px;
+    padding: 22px 18px 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 20px rgba(28, 61, 90, 0.06);
+  }
+  .card-head { text-align: center; margin-bottom: 16px; }
+  .tag {
+    display: inline-block;
+    background: var(--blue-bg);
+    border: 2px solid var(--blue-line);
+    color: var(--blue-dark);
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.2px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .tag.pick {
+    background: #FFF7E6;
+    border-color: #F3D9A4;
+    color: #8A5A00;
+  }
+  h2 {
+    margin: 0;
+    font-size: 25px;
+    line-height: 1.38;
+    font-weight: 900;
+    letter-spacing: -0.6px;
+    color: var(--navy);
+  }
+  .ratio {
+    display: block;
+    margin-top: 6px;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--blue-dark);
+    letter-spacing: -0.2px;
+  }
+  .divider {
+    height: 3px;
+    background: var(--line);
+    border-radius: 3px;
+    margin: 0 4px 16px;
+  }
+
+  .guide {
+    background: #F2F8F3;
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    padding: 14px 14px 12px;
+    margin-bottom: 18px;
+  }
+  .guide p {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.55;
+    color: #1F4B36;
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+  }
+  .guide p + p { margin-top: 8px; }
+  .num {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 900;
+    margin-top: 1px;
+  }
+  .guide .single {
+    font-size: 19px;
+    font-weight: 800;
+    color: #1F4B36;
+    display: block;
+    text-align: center;
+  }
+
+  /* ── 복사 버튼 ── */
+  button.copy-btn {
+    display: block;
+    width: 100%;
+    min-height: 76px;
+    padding: 18px 14px;
+    border: none;
+    border-radius: 18px;
+    background: var(--blue);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 21px;
+    font-weight: 900;
+    line-height: 1.42;
+    letter-spacing: -0.4px;
+    box-shadow: 0 6px 0 var(--blue-dark);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  button.copy-btn:active,
+  button.copy-btn.pressed {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--blue-dark);
+  }
+  button.copy-btn.done {
+    background: #14773F;
+    box-shadow: 0 6px 0 #0B5528;
+    font-size: 19px;
+  }
+
+  /* ── 문장 미리보기 ── */
+  details.peek { margin-top: 16px; }
+  details.peek summary {
+    list-style: none;
+    font-size: 17px;
+    font-weight: 800;
+    color: #4A6B80;
+    padding: 10px 0 8px;
+    border-top: 2px dashed var(--line);
+    text-align: center;
+    cursor: pointer;
+  }
+  details.peek summary::-webkit-details-marker { display: none; }
+  details.peek summary::after { content: ' ＋'; color: var(--blue); }
+  details.peek[open] summary::after { content: ' －'; color: var(--blue); }
+  details.peek pre {
+    margin: 0;
+    padding: 14px;
+    background: #F7FAF8;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    color: #2C4A5E;
+    font-family: inherit;
+    font-size: 17px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* ── 안내 꼬리말 ── */
+  .foot {
+    text-align: center;
+    margin-top: 8px;
+  }
+  .foot p {
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #5A7487;
+  }
+  .foot p:last-child { margin-bottom: 0; }
+
+  /* ── 토스트 ── */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(22px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 22px);
+    max-width: calc(100% - 32px);
+    width: max-content;
+    background: #123B57;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.5;
+    padding: 15px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 26px rgba(15, 45, 65, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    z-index: 99;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (max-width: 360px) {
+    h1 { font-size: 26px; }
+    h2 { font-size: 23px; }
+    button.copy-btn { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hero">
+    <span class="kicker">생각나름 · 11월 멤버십 미션 5</span>
+    <h1>달력 프롬프트 3종<br />원터치 복사</h1>
+    <p class="sub">내가 만들 달력 <strong>하나만</strong> 고르고<br />버튼을 한 번만 누르면 복사됩니다!</p>
+  </header>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">준비 순서</span>
+      <h2>달력이 먼저, 그림이 나중</h2>
+    </div>
+    <div class="divider"></div>
+    <div class="guide">
+      <p><span class="num">1</span><span>아래에서 만들 달력 <strong>하나</strong>를 고릅니다</span></p>
+      <p><span class="num">2</span><span>그 달력의 파란 버튼을 <strong>한 번</strong> 누릅니다</span></p>
+      <p><span class="num">3</span><span>복사된 문장과 그림 12장을 피클 채팅창에 함께 보냅니다</span></p>
+    </div>
+    <div class="guide">
+      <p class="single">세 개를 다 누르실 필요 없어요.<br />내 달력 버튼 하나만 누르세요.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag pick">① 추천</span>
+      <h2>탁상 오리지널 (가로)</h2>
+      <span class="ratio">그림은 3:4 세로형 12장</span>
+    </div>
+    <div class="divider"></div>
+    <div class="guide">
+      <p class="single">책상에서 가장 크게 보는 실용형<br />가로로 놓고 큰 7칸 달력 표를 봅니다</p>
+    </div>
+    <button type="button" class="copy-btn" data-key="p1">📋 오리지널 프롬프트 복사하기</button>
+    <details class="peek">
+      <summary>복사될 문장 그대로 보기</summary>
+      <pre>📋 2027년 스냅스 탁상달력 오리지널 가로 기본 디자인 템플릿에 넣을 그림 12장을 보낼게. 1월~12월까지 보낸 순서대로 인쇄용 고해상도로 바꿔 각 페이지에 1장씩 올려서 장바구니에 담아 줘. 쿠폰 고르기와 결제는 내가 직접 할게.</pre>
+    </details>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">②</span>
+      <h2>탁상 미니</h2>
+      <span class="ratio">그림은 1:1 정사각형 12장</span>
+    </div>
+    <div class="divider"></div>
+    <div class="guide">
+      <p class="single">좁은 자리에 아담하게 두는 책상용<br />네모 그림 12장을 준비합니다</p>
+    </div>
+    <button type="button" class="copy-btn" data-key="p2">📋 탁상 미니 프롬프트 복사하기</button>
+    <details class="peek">
+      <summary>복사될 문장 그대로 보기</summary>
+      <pre>📋 2027년 스냅스 탁상 미니 달력 기본 디자인 템플릿에 넣을 그림 12장을 보낼게. 1월~12월까지 보낸 순서대로 인쇄용 고해상도로 바꿔 각 페이지에 1장씩 올려서 장바구니에 담아 줘. 쿠폰 고르기와 결제는 내가 직접 할게.</pre>
+    </details>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">③</span>
+      <h2>우드블럭 달력</h2>
+      <span class="ratio">표지 없이 1:1 정사각형 12장</span>
+    </div>
+    <div class="divider"></div>
+    <div class="guide">
+      <p class="single">원목 소품·액자 느낌<br />표지 없이 12장만 준비합니다</p>
+    </div>
+    <button type="button" class="copy-btn" data-key="p3">📋 우드블럭 프롬프트 복사하기</button>
+    <details class="peek">
+      <summary>복사될 문장 그대로 보기</summary>
+      <pre>📋 2027년 스냅스 우드블럭 달력 기본 디자인 템플릿에 넣을 그림 12장을 보낼게. 표지 없이 1월~12월까지 보낸 순서대로 인쇄용 고해상도로 바꿔 각 페이지에 1장씩 올려서 장바구니에 담아 줘. 쿠폰 고르기와 결제는 내가 직접 할게.</pre>
+    </details>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">보내기 전 확인</span>
+      <h2>이 두 가지만 지켜 주세요</h2>
+    </div>
+    <div class="divider"></div>
+    <div class="guide">
+      <p><span class="num">1</span><span>그림은 <strong>1월 → 12월</strong> 순서대로 보냅니다</span></p>
+      <p><span class="num">2</span><span>표지를 따로 꾸미실 분만 <strong>1장을 더해 13장</strong>을 보내고, 보낼 때 <strong>“이건 표지예요”</strong>라고 한마디 붙여 주세요</span></p>
+    </div>
+  </section>
+
+  <div class="foot">
+    <p>생각나름 · 11월 멤버십 미션 5 전용</p>
+    <p>이 주소는 만료 없이 계속 열립니다.</p>
+  </div>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  var TEXTS = {
+    p1: "📋 2027년 스냅스 탁상달력 오리지널 가로 기본 디자인 템플릿에 넣을 그림 12장을 보낼게. 1월~12월까지 보낸 순서대로 인쇄용 고해상도로 바꿔 각 페이지에 1장씩 올려서 장바구니에 담아 줘. 쿠폰 고르기와 결제는 내가 직접 할게.",
+    p2: "📋 2027년 스냅스 탁상 미니 달력 기본 디자인 템플릿에 넣을 그림 12장을 보낼게. 1월~12월까지 보낸 순서대로 인쇄용 고해상도로 바꿔 각 페이지에 1장씩 올려서 장바구니에 담아 줘. 쿠폰 고르기와 결제는 내가 직접 할게.",
+    p3: "📋 2027년 스냅스 우드블럭 달력 기본 디자인 템플릿에 넣을 그림 12장을 보낼게. 표지 없이 1월~12월까지 보낸 순서대로 인쇄용 고해상도로 바꿔 각 페이지에 1장씩 올려서 장바구니에 담아 줘. 쿠폰 고르기와 결제는 내가 직접 할게."
+  };
+  var DONE_LABEL = {
+    p1: '\u2705 복사되었습니다! 그림 12장과 함께 붙여넣기 하세요.',
+    p2: '\u2705 복사되었습니다! 그림 12장과 함께 붙여넣기 하세요.',
+    p3: '\u2705 복사되었습니다! 그림 12장과 함께 붙여넣기 하세요.'
+  };
+  var toastTimer = null;
+
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 4600);
+  }
+
+  function legacyCopy(text) {
+    var ok = false;
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.width = '1px';
+    ta.style.height = '1px';
+    ta.style.padding = '0';
+    ta.style.border = 'none';
+    ta.style.outline = 'none';
+    ta.style.boxShadow = 'none';
+    ta.style.background = 'transparent';
+    ta.style.opacity = '0';
+    ta.style.fontSize = '16px';
+    document.body.appendChild(ta);
+    try {
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      ta.focus();
+      if (isIOS) {
+        ta.contentEditable = 'true';
+        var range = document.createRange();
+        range.selectNodeContents(ta);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, text.length);
+      } else {
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+      }
+      ok = document.execCommand('copy');
+    } catch (e) {
+      ok = false;
+    }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  async function copyPrompt(key, btn) {
+    var text = TEXTS[key];
+    var ok = false;
+
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch (e) {
+        ok = false;
+      }
+    }
+    if (!ok) ok = legacyCopy(text);
+
+    if (ok) {
+      if (!btn.dataset.origin) btn.dataset.origin = btn.textContent.trim();
+      btn.classList.add('done');
+      btn.textContent = DONE_LABEL[key];
+      if (navigator.vibrate) { try { navigator.vibrate(35); } catch (e) {} }
+      showToast(DONE_LABEL[key]);
+    } else {
+      showToast('복사가 되지 않았어요. 아래 문장 보기를 눌러 길게 눌러 복사해 주세요.');
+    }
+  }
+
+  document.querySelectorAll('button.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.classList.add('pressed');
+      setTimeout(function () { btn.classList.remove('pressed'); }, 160);
+      copyPrompt(btn.dataset.key, btn);
+    });
+  });
+</script>
+</body>
+</html>
