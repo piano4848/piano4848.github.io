@@ -685,7 +685,7 @@
   /* ============ intro ============ */
   function paintIntro(){
     var has = state && state.unlocked.length > 0;
-    var done = state && state.done;
+    var done = state && (state.done || state.unlocked.length >= CARDS.length);
     $('btnStart').hidden = has;
     $('btnResume').hidden = !has;
     $('btnRestart').hidden = !has;
@@ -709,8 +709,16 @@
   });
 
   $('btnResume').addEventListener('click', function(){
-    if(state.done){ renderResult(); show('result'); }
-    else { current = Math.min(state.unlocked.length, CARDS.length - 1); show('quiz'); renderQuestion(); }
+    if(state.done || state.unlocked.length >= CARDS.length){
+      state.done = true;
+      save();
+      renderResult();
+      show('result');
+      return;
+    }
+    current = Math.min(state.unlocked.length, CARDS.length - 1);
+    show('quiz');
+    renderQuestion();
   });
 
   $('btnRestart').addEventListener('click', function(){
