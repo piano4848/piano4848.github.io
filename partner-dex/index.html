@@ -1435,6 +1435,16 @@
   state = loadState();
   paintIntro();
 
+  // 새 버전이 바로 뜨도록 서비스 워커 등록·갱신
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js', {updateViaCache:'none'}).then(function(reg){
+        try{ reg.update(); }catch(e){}
+        if(reg.waiting){ try{ reg.waiting.postMessage({type:'SKIP_WAITING'}); }catch(e){} }
+      }).catch(function(){});
+    });
+  }
+
   // 디버그용 (검수)
   window.__app = {
     get state(){ return state; },
