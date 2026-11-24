@@ -1,13 +1,13 @@
 {
-  "name": "나의 피클 파트너 도감",
-  "short_name": "피클 도감",
-  "description": "6가지 상황을 고르며 나만의 피클 단짝 카드를 모으는 복습 도감",
+  "name": "내 손안의 피클 비서 키우기",
+  "short_name": "피클 비서 키우기",
+  "description": "내가 고른 피클 비서를 Lv.1 새싹에서 Lv.6 만렙 단짝까지 키우는 생각나름 무료 미니강의",
   "lang": "ko",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FBFAF5",
+  "background_color": "#FBF9F4",
   "theme_color": "#1E6F50",
   "icons": [
     { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },

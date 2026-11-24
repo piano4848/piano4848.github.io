@@ -1,5 +1,13 @@
-const CACHE = 'pickle-partner-dex-v2';
-const ASSETS = ['./', './index.html', './manifest.json', './icon.svg', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './icon-apple-180.png'];
+/* 내 손안의 피클 비서 키우기 — v3 (2차 게임형 업그레이드) */
+const CACHE = 'pickle-grow-v3';
+const ASSETS = [
+  './', './index.html', './manifest.json', './icon.svg',
+  './icon-192.png', './icon-512.png', './icon-maskable-512.png', './icon-apple-180.png',
+  './assets/chars/s_think.png', './assets/chars/g_red.png', './assets/chars/n_heart.png',
+  './assets/chars/d_yellow.png', './assets/chars/r_green.png', './assets/chars/m_sky.png',
+  './assets/chars/ch_pinkstar.png', './assets/chars/p_green.png', './assets/chars/b_blue.png',
+  './assets/chars/t_mint.png', './assets/chars/o_pink.png'
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -23,7 +31,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  // Pages: always try the network first so an updated app is never stale offline copy only as fallback.
+  // 문서는 항상 네트워크 먼저 — 새 버전이 바로 뜨도록
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).then((response) => {
@@ -35,7 +43,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets: cache first.
+  // 정적 자산은 캐시 우선
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;

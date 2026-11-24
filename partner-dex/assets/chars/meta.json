@@ -1,0 +1,77 @@
+[
+ {
+  "slug": "s_think",
+  "letter": "ㅅ",
+  "file": "assets/chars/s_think.png"
+ },
+ {
+  "slug": "g_red",
+  "letter": "ㄱ",
+  "file": "assets/chars/g_red.png"
+ },
+ {
+  "slug": "n_heart",
+  "letter": "ㄴ",
+  "file": "assets/chars/n_heart.png"
+ },
+ {
+  "slug": "d_yellow",
+  "letter": "ㄷ",
+  "file": "assets/chars/d_yellow.png"
+ },
+ {
+  "slug": "r_green",
+  "letter": "ㄹ",
+  "file": "assets/chars/r_green.png"
+ },
+ {
+  "slug": "m_sky",
+  "letter": "ㅁ",
+  "file": "assets/chars/m_sky.png"
+ },
+ {
+  "slug": "b_blue",
+  "letter": "ㅂ",
+  "file": "assets/chars/b_blue.png"
+ },
+ {
+  "slug": "s_purple",
+  "letter": "ㅅ",
+  "file": "assets/chars/s_purple.png"
+ },
+ {
+  "slug": "o_pink",
+  "letter": "ㅇ",
+  "file": "assets/chars/o_pink.png"
+ },
+ {
+  "slug": "j_magenta",
+  "letter": "ㅈ",
+  "file": "assets/chars/j_magenta.png"
+ },
+ {
+  "slug": "ch_pinkstar",
+  "letter": "ㅊ",
+  "file": "assets/chars/ch_pinkstar.png"
+ },
+ {
+  "slug": "k_beige",
+  "letter": "ㅋ",
+  "file": "assets/chars/k_beige.png"
+ },
+ {
+  "slug": "t_mint",
+  "letter": "ㅌ",
+  "file": "assets/chars/t_mint.png"
+ },
+ {
+  "slug": "p_green",
+  "letter": "ㅍ",
+  "file": "assets/chars/p_green.png"
+ },
+ {
+  "slug": "h_lavender",
+  "letter": "ㅎ",
+  "file": "assets/chars/h_lavender.png"
+ }
+]
