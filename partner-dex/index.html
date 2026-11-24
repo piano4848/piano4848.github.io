@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>나의 피클 파트너 도감</title>
+<meta name="description" content="6가지 상황을 고르며 나만의 피클 단짝 카드를 모으는 복습 도감" />
+<meta name="theme-color" content="#1E6F50" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="피클 도감" />
+<link rel="manifest" href="./manifest.json" />
+<link rel="apple-touch-icon" href="./icon-apple-180.png" />
+<link rel="icon" type="image/svg+xml" href="./icon.svg" />
+<style>
+  :root{
+    --bg:#FBFAF5;
+    --paper:#FFFFFF;
+    --ink:#1B2A4A;
+    --ink2:#33456A;
+    --green:#1E6F50;
+    --green-d:#144C37;
+    --green-s:#E8F1EC;
+    --orange:#E67E22;
+    --orange-s:#FDF1E4;
+    --line:rgba(27,42,74,0.14);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;
+    font-size:18px;
+    line-height:1.6;
+    letter-spacing:-0.02em;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+    min-height:100vh;
+    min-height:100dvh;
+  }
+  button{font-family:inherit;color:inherit}
+
+  /* ---------- screens ---------- */
+  .screen{
+    display:none;
+    flex-direction:column;
+    min-height:100vh;
+    min-height:100dvh;
+    width:100%;
+    max-width:520px;
+    margin:0 auto;
+    padding:calc(22px + env(safe-area-inset-top)) 20px calc(26px + env(safe-area-inset-bottom));
+  }
+  .screen.active{display:flex}
+
+  /* ---------- shared bits ---------- */
+  .brand{
+    font-size:16px;font-weight:900;color:var(--green);
+    letter-spacing:0.01em;margin:0 0 4px;
+  }
+  .brand span{color:var(--orange)}
+  .btn{
+    display:block;width:100%;border:0;border-radius:18px;
+    padding:20px 18px;font-size:19px;font-weight:900;letter-spacing:-0.02em;
+    cursor:pointer;transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn-primary{
+    background:var(--green);color:#fff;
+    box-shadow:0 5px 0 #0F3A2A;
+  }
+  .btn-primary:active{transform:translateY(4px);box-shadow:0 1px 0 #0F3A2A}
+  .btn-outline{
+    background:#fff;color:var(--green);border:2px solid var(--green);
+    box-shadow:0 4px 0 rgba(30,111,80,0.18);
+  }
+  .btn-outline:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(30,111,80,0.18)}
+  .btn-ghost{
+    background:transparent;color:var(--ink2);font-size:17px;font-weight:800;
+    padding:14px;text-decoration:underline;text-underline-offset:5px;
+    text-decoration-color:rgba(27,42,74,0.3);
+  }
+  .stack{display:flex;flex-direction:column;gap:12px}
+
+  /* ---------- intro ---------- */
+  #screen-intro{justify-content:center}
+  .intro-hero{width:100%;display:flex;justify-content:center;margin:6px 0 10px}
+  .intro-hero svg{width:min(74%,270px);height:auto;animation:floaty 5s ease-in-out infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .title{
+    margin:0 0 14px;font-size:37px;line-height:1.28;font-weight:900;letter-spacing:-0.03em;
+  }
+  .title em{font-style:normal;color:var(--green);display:block}
+  .lead{
+    margin:0 0 8px;font-size:18.5px;font-weight:700;line-height:1.62;color:var(--ink2);
+  }
+  .intro-points{
+    display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px;
+  }
+  .chip{
+    font-size:15.5px;font-weight:900;color:var(--green);
+    background:var(--green-s);border-radius:999px;padding:8px 14px;
+  }
+  .chip.orange{color:#A65A11;background:var(--orange-s)}
+  .install-hint{
+    margin-top:16px;background:#fff;border:1.5px solid var(--line);border-radius:16px;
+    padding:14px 16px;font-size:16px;font-weight:700;color:var(--ink2);line-height:1.55;
+  }
+  .install-hint b{color:var(--green)}
+  .install-hint .more{
+    display:inline-block;margin-top:6px;font-weight:900;color:var(--green);
+    text-decoration:underline;text-underline-offset:4px;background:none;border:0;padding:0;font-size:16px;cursor:pointer;
+  }
+  .install-steps{display:none;margin-top:10px;font-size:15.5px;font-weight:700;line-height:1.6;color:var(--ink2)}
+  .install-steps.open{display:block}
+  .install-steps p{margin:0 0 6px}
+  .install-steps p:last-child{margin:0}
+
+  /* ---------- quiz ---------- */
+  .quiz-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .bar{flex:1;display:flex;gap:5px}
+  .bar i{
+    flex:1;height:9px;border-radius:999px;background:#E4E0D3;
+    transition:background .35s ease, transform .35s ease;
+  }
+  .bar i.on{background:var(--green)}
+  .bar i.now{background:var(--orange);transform:scaleY(1.35)}
+  .counter{font-size:16px;font-weight:900;color:var(--ink);min-width:46px;text-align:right}
+  .kicker-row{display:flex;align-items:center;gap:10px;margin:16px 0 10px}
+  .qnum{
+    font-size:15px;font-weight:900;color:#fff;background:var(--green);
+    border-radius:999px;padding:6px 14px;letter-spacing:0.01em;
+  }
+  .qtag{font-size:15px;font-weight:900;color:var(--orange)}
+  .question{
+    margin:0 0 20px;font-size:25px;line-height:1.44;font-weight:900;letter-spacing:-0.03em;
+  }
+  .options{display:flex;flex-direction:column;gap:12px}
+  .opt{
+    display:flex;gap:13px;align-items:flex-start;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:18px;
+    padding:17px 16px;font-size:17.5px;font-weight:800;line-height:1.5;color:var(--ink);
+    cursor:pointer;transition:border-color .2s ease, background .2s ease, transform .12s ease;
+  }
+  .opt:active{transform:scale(0.99)}
+  .opt .mark{
+    flex:0 0 30px;width:30px;height:30px;border-radius:50%;
+    background:var(--green-s);color:var(--green);
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:900;margin-top:1px;
+  }
+  .opt .txt{flex:1;padding-top:2px}
+  .opt.picked{border-color:var(--ink);background:#fff}
+  .opt.right{border-color:var(--green);background:#F3F8F5}
+  .opt.right .mark{background:var(--green);color:#fff}
+  .opt.wrong{border-color:var(--orange);background:var(--orange-s)}
+  .opt.wrong .mark{background:var(--orange);color:#fff}
+  .opt.quiet{opacity:.55}
+  .opt[disabled]{cursor:default}
+  .tag-best{
+    display:none;margin-top:8px;font-size:14.5px;font-weight:900;color:var(--green);
+  }
+  .opt.right .tag-best{display:block}
+
+  .feedback{
+    display:none;margin-top:18px;background:#fff;border:2px solid var(--green);
+    border-radius:20px;padding:18px 18px 16px;
+    animation:rise .45s cubic-bezier(.2,.8,.25,1) both;
+  }
+  .feedback.warn{border-color:var(--orange)}
+  .feedback.show{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  .fb-title{font-size:20px;font-weight:900;margin:0 0 8px;color:var(--green)}
+  .feedback.warn .fb-title{color:#B45A0C}
+  .fb-body{font-size:16.5px;font-weight:700;line-height:1.62;color:var(--ink2);margin:0}
+  .fb-body b{color:var(--ink);font-weight:900}
+  .fb-actions{margin-top:18px}
+
+  /* ---------- result ---------- */
+  .result-head{text-align:center;margin:6px 0 18px}
+  .result-head .brand{display:block;margin-bottom:2px}
+  .result-title{margin:0;font-size:31px;font-weight:900;line-height:1.3;letter-spacing:-0.03em}
+  .result-sub{margin:6px 0 0;font-size:16.5px;font-weight:700;color:var(--ink2)}
+  .grade{
+    display:flex;align-items:center;gap:16px;background:#fff;
+    border:2px solid var(--green);border-radius:22px;padding:18px 18px;margin-bottom:24px;
+    box-shadow:0 10px 24px rgba(30,111,80,0.10);
+  }
+  .grade .medal{font-size:44px;line-height:1}
+  .grade .g-body{flex:1}
+  .grade .g-label{font-size:14.5px;font-weight:900;color:var(--orange);margin:0 0 2px}
+  .grade .g-name{font-size:23px;font-weight:900;margin:0 0 3px;line-height:1.3}
+  .grade .g-note{font-size:15.5px;font-weight:700;color:var(--ink2);margin:0;line-height:1.5}
+
+  .sec-label{
+    display:flex;align-items:baseline;gap:8px;margin:0 0 12px;
+    font-size:19px;font-weight:900;
+  }
+  .sec-label span{font-size:15px;font-weight:900;color:var(--green)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:26px}
+  .mini{
+    background:#fff;border:1.5px solid var(--line);border-radius:18px;
+    padding:13px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;
+    text-align:center;cursor:pointer;transition:transform .12s ease, box-shadow .2s ease;
+  }
+  .mini:active{transform:scale(0.97)}
+  .mini .no{font-size:13.5px;font-weight:900;color:var(--green);letter-spacing:0.08em}
+  .mini .ico{
+    width:78px;height:78px;border-radius:50%;background:var(--green-s);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .mini .ico svg{width:54px;height:54px;display:block}
+  .mini .nm{font-size:16px;font-weight:900;line-height:1.34}
+
+  .locked-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
+  .locked{
+    display:flex;gap:14px;align-items:center;background:#F3F1E8;
+    border:2px dashed rgba(27,42,74,0.22);border-radius:18px;padding:15px 16px;
+  }
+  .locked .lk{font-size:26px;line-height:1}
+  .locked .lk-t{flex:1}
+  .locked .lk-k{font-size:14.5px;font-weight:900;color:var(--orange);margin:0 0 2px}
+  .locked .lk-n{font-size:16.5px;font-weight:900;color:var(--ink);margin:0;line-height:1.42}
+
+  .result-foot{
+    margin:18px 0 0;text-align:center;font-size:15px;font-weight:700;color:var(--ink2);line-height:1.6;
+  }
+
+  /* ---------- card modal ---------- */
+  .modal{
+    position:fixed;inset:0;z-index:60;display:none;
+    flex-direction:column;align-items:center;justify-content:center;
+    padding:calc(18px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));
+    background:rgba(16,30,26,0.66);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  }
+  .modal.open{display:flex}
+  .modal-kicker{
+    font-size:16px;font-weight:900;color:#fff;margin:0 0 14px;text-align:center;
+    letter-spacing:0.02em;text-shadow:0 2px 10px rgba(0,0,0,0.3);
+  }
+  .flip-card{width:min(80vw,318px);aspect-ratio:3/4;perspective:1400px;position:relative}
+  .flip-inner{
+    position:relative;width:100%;height:100%;
+    transform-style:preserve-3d;
+    transition:transform .95s cubic-bezier(.25,.8,.25,1);
+  }
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+  .face{
+    position:absolute;inset:0;border-radius:22px;overflow:hidden;
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;
+    box-shadow:0 20px 44px rgba(8,24,18,0.42);
+  }
+  .face-back{
+    background:linear-gradient(155deg,#22795A 0%,#17553E 55%,#123F30 100%);
+    color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  }
+  .face-back::before{
+    content:"";position:absolute;inset:12px;border:2px solid rgba(255,255,255,0.28);border-radius:16px;
+  }
+  .back-emblem{
+    width:96px;height:96px;border-radius:50%;
+    border:3px solid rgba(255,255,255,0.75);
+    display:flex;align-items:center;justify-content:center;
+    font-size:44px;
+  }
+  .back-text{font-size:16px;font-weight:900;letter-spacing:0.14em;opacity:.95}
+  .back-dots{display:flex;gap:7px;margin-top:2px}
+  .back-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.45)}
+  .face-front{
+    background:#fff;transform:rotateY(180deg);
+    display:flex;flex-direction:column;padding:16px 16px 14px;
+    border:1px solid rgba(27,42,74,0.08);
+  }
+  .card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .card-no{font-size:14px;font-weight:900;color:var(--green);letter-spacing:0.1em}
+  .card-set{font-size:12.5px;font-weight:900;color:var(--ink2);letter-spacing:0.04em;opacity:.85}
+  .card-illo{
+    flex:0 0 auto;width:100%;display:flex;justify-content:center;margin:10px 0 8px;
+  }
+  .card-illo .illo-ring{
+    width:124px;height:124px;border-radius:50%;background:var(--green-s);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .card-illo svg{width:94px;height:94px;display:block}
+  .card-name{
+    font-size:22px;font-weight:900;line-height:1.3;text-align:center;margin:0 0 4px;letter-spacing:-0.02em;
+  }
+  .card-role{font-size:14.5px;font-weight:900;color:var(--orange);text-align:center;margin:0 0 10px}
+  .card-tip{
+    margin:auto 0 0;background:var(--green-s);border-radius:14px;padding:12px 13px;
+    font-size:15.5px;font-weight:800;line-height:1.5;color:var(--ink);
+    border:1px solid rgba(30,111,80,0.18);
+  }
+  .card-tip b{color:var(--green);display:block;font-size:13px;letter-spacing:0.04em;margin-bottom:3px}
+  .spark{position:absolute;width:9px;height:9px;border-radius:50%;pointer-events:none}
+  @keyframes sparkPop{
+    0%{opacity:0;transform:translate(0,0) scale(0.3)}
+    25%{opacity:1;transform:translate(calc(var(--dx)*0.4),calc(var(--dy)*0.4)) scale(1.15)}
+    100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0.4)}
+  }
+  .modal-actions{width:min(80vw,318px);margin-top:18px}
+  .modal-actions .btn{padding:18px;font-size:18px}
+  .modal-close{
+    margin-top:12px;background:none;border:0;color:#fff;font-size:16px;font-weight:800;
+    text-decoration:underline;text-underline-offset:4px;cursor:pointer;
+  }
+
+  /* ---------- certificate modal ---------- */
+  #cert-modal{background:rgba(16,30,26,0.8)}
+  .cert-frame{
+    background:#fff;border-radius:18px;padding:10px;max-width:min(88vw,380px);
+    box-shadow:0 20px 44px rgba(8,24,18,0.4);
+  }
+  .cert-frame img{display:block;width:100%;height:auto;border-radius:10px}
+  .cert-hint{color:#fff;font-size:15px;font-weight:800;text-align:center;margin:14px 0 0;line-height:1.55;opacity:.95}
+  .cert-actions{width:min(88vw,380px);margin-top:12px;display:flex;flex-direction:column;gap:10px}
+
+  /* ---------- toast ---------- */
+  #toast{
+    position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
+    background:#fff;border:2px solid var(--green);border-radius:999px;
+    padding:14px 22px;font-size:16px;font-weight:900;color:var(--green);
+    box-shadow:0 10px 26px rgba(16,40,30,0.22);
+    opacity:0;pointer-events:none;transition:opacity .3s ease, transform .3s ease;
+    z-index:90;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;
+  }
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  }
+  @media (max-width:360px){
+    .title{font-size:32px}
+    .question{font-size:22.5px}
+    .opt{font-size:16.5px;padding:15px 14px}
+    .card-name{font-size:20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= INTRO ================= -->
+<section id="screen-intro" class="screen active">
+  <p class="brand">생각나름 <span>·</span> 무료 미니강의</p>
+
+  <div class="intro-hero" aria-hidden="true">
+    <svg viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg">
+      <g transform="rotate(-14 110 120)">
+        <rect x="58" y="52" width="104" height="140" rx="16" fill="#DFEDE5" stroke="#1E6F50" stroke-width="3"/>
+      </g>
+      <g transform="rotate(-6 150 115)">
+        <rect x="96" y="44" width="104" height="140" rx="16" fill="#F3E9D8" stroke="#E67E22" stroke-width="3"/>
+      </g>
+      <g transform="rotate(4 190 112)">
+        <rect x="134" y="38" width="108" height="144" rx="18" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="4"/>
+        <circle cx="188" cy="92" r="27" fill="#E8F1EC" stroke="#1E6F50" stroke-width="3.5"/>
+        <path d="M188 78 L206 85 V98 C206 110 198 118 188 123 C178 118 170 110 170 98 V85 Z" fill="#1E6F50"/>
+        <path d="M180 99 L186 105 L197 93" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="152" y="136" width="72" height="9" rx="4.5" fill="#1B2A4A" opacity="0.85"/>
+        <rect x="152" y="152" width="48" height="8" rx="4" fill="#1B2A4A" opacity="0.35"/>
+      </g>
+      <path d="M246 54 l4 12 12 4 -12 4 -4 12 -4 -12 -12 -4 12 -4 Z" fill="#E67E22"/>
+      <path d="M62 36 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3 Z" fill="#1E6F50" opacity="0.75"/>
+    </svg>
+  </div>
+
+  <h1 class="title">나의 피클<em>파트너 도감</em></h1>
+  <p class="lead">시험이 아니에요! 6가지 상황을 고르며 나만의 피클 단짝 카드를 모아보세요.</p>
+  <div class="intro-points">
+    <span class="chip">고르면 카드가 열려요</span>
+    <span class="chip orange">틀려도 괜찮아요</span>
+  </div>
+
+  <div class="stack">
+    <button id="btnStart" class="btn btn-primary">시작하기</button>
+    <button id="btnResume" class="btn btn-outline" hidden>이어서 보기</button>
+    <button id="btnRestart" class="btn btn-ghost" hidden>처음부터 다시 하기</button>
+  </div>
+
+  <div class="install-hint">
+    <b>휴대폰 홈 화면에 추가</b>하면 앱처럼 열려요.
+    <button class="more" id="btnInstall">추가하는 법 보기</button>
+    <div class="install-steps" id="installSteps">
+      <p>· 안드로이드: 오른쪽 위 점 세 개 → ‘홈 화면에 추가’</p>
+      <p>· 아이폰: 아래 공유 버튼 → ‘홈 화면에 추가’</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="screen-quiz" class="screen">
+  <div class="quiz-top">
+    <div class="bar" id="bar"></div>
+    <div class="counter" id="counter">1 / 6</div>
+  </div>
+  <div class="kicker-row">
+    <span class="qnum" id="qnum">상황 1</span>
+    <span class="qtag" id="qtag">돈이 나가는 일</span>
+  </div>
+  <h2 class="question" id="question"></h2>
+  <div class="options" id="options"></div>
+  <div class="feedback" id="feedback">
+    <p class="fb-title" id="fbTitle"></p>
+    <p class="fb-body" id="fbBody"></p>
+    <div class="fb-actions">
+      <button class="btn btn-primary" id="btnCard">내 카드 받기</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESULT ================= -->
+<section id="screen-result" class="screen">
+  <div class="result-head">
+    <p class="brand">나의 피클 파트너 도감</p>
+    <h1 class="result-title" id="resultTitle">도감 완성!</h1>
+    <p class="result-sub" id="resultSub">단짝 카드 6장을 모두 모았어요.</p>
+  </div>
+
+  <div class="grade">
+    <div class="medal" id="gradeEmoji">🏆</div>
+    <div class="g-body">
+      <p class="g-label">나의 피클 파트너 등급</p>
+      <p class="g-name" id="gradeName">피클 단짝 대장</p>
+      <p class="g-note" id="gradeNote"></p>
+    </div>
+  </div>
+
+  <p class="sec-label">나의 단짝 카드 <span id="collected">6 / 6</span></p>
+  <div class="grid" id="grid"></div>
+
+  <p class="sec-label">다음 수업에서 열리는 비밀 카드 <span>2장</span></p>
+  <div class="locked-grid">
+    <div class="locked">
+      <div class="lk">🔒</div>
+      <div class="lk-t">
+        <p class="lk-k">①</p>
+        <p class="lk-n">내 그림으로 만드는 나만의 앱</p>
+      </div>
+    </div>
+    <div class="locked">
+      <div class="lk">🔒</div>
+      <div class="lk-t">
+        <p class="lk-k">②</p>
+        <p class="lk-n">나만의 비서 규칙표 심기</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack">
+    <button id="btnCert" class="btn btn-primary">결과 인증샷 저장하기</button>
+    <button id="btnCopy" class="btn btn-outline">단톡방 자랑 문구 복사</button>
+    <button id="btnAgain" class="btn btn-ghost">처음부터 다시 하기</button>
+  </div>
+
+  <p class="result-foot">내 폰에만 저장되는 도감이에요.<br>앱을 닫아도 카드는 그대로 남아 있어요.</p>
+</section>
+
+<!-- ================= CARD MODAL ================= -->
+<div id="card-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalKicker">
+  <p class="modal-kicker" id="modalKicker">새 단짝 카드를 찾았어요!</p>
+  <div class="flip-card" id="flipCard">
+    <div class="flip-inner">
+      <div class="face face-back">
+        <div class="back-emblem">✦</div>
+        <div class="back-text">피클 파트너</div>
+        <div class="back-dots"><i></i><i></i><i></i></div>
+      </div>
+      <div class="face face-front" id="cardFront"></div>
+    </div>
+  </div>
+  <div class="modal-actions">
+    <button class="btn btn-primary" id="btnNext">다음 상황으로</button>
+    <button class="modal-close" id="btnCloseCard" hidden>닫기</button>
+  </div>
+</div>
+
+<!-- ================= CERT MODAL ================= -->
+<div id="cert-modal" class="modal" role="dialog" aria-modal="true">
+  <div class="cert-frame"><img id="certImg" alt="나의 피클 파트너 도감 결과 인증샷" /></div>
+  <p class="cert-hint">이미지를 저장했어요. 사진첩에서 확인해 보세요.<br>길게 눌러 저장할 수도 있어요.</p>
+  <div class="cert-actions">
+    <button class="btn btn-primary" id="btnCertSave">한 번 더 저장하기</button>
+    <button class="modal-close" id="btnCertClose">닫기</button>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ illustrations ============ */
+  var ILLO = {
+    shield: '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<path d="M60 12 L97 27 V58 C97 82 81 98 60 108 C39 98 23 82 23 58 V27 Z" fill="#E8F1EC" stroke="#1B2A4A" stroke-width="4.2" stroke-linejoin="round"/>' +
+      '<path d="M42 60 L54 72 L79 46" fill="none" stroke="#1E6F50" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<circle cx="94" cy="24" r="7" fill="#E67E22"/>' +
+      '</svg>',
+    vault: '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<rect x="14" y="20" width="92" height="80" rx="14" fill="#E8F1EC" stroke="#1B2A4A" stroke-width="4.2"/>' +
+      '<circle cx="58" cy="60" r="25" fill="#FFFFFF" stroke="#1E6F50" stroke-width="4.5"/>' +
+      '<circle cx="58" cy="60" r="7" fill="#E67E22"/>' +
+      '<path d="M58 60 V71" stroke="#E67E22" stroke-width="6" stroke-linecap="round"/>' +
+      '<path d="M58 41 V48 M58 72 V79 M39 60 H46 M70 60 H77" stroke="#1E6F50" stroke-width="4" stroke-linecap="round"/>' +
+      '<rect x="92" y="48" width="9" height="24" rx="4.5" fill="#1B2A4A"/>' +
+      '</svg>',
+    camera: '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<rect x="10" y="46" width="72" height="52" rx="12" fill="#E8F1EC" stroke="#1B2A4A" stroke-width="4.2"/>' +
+      '<path d="M30 46 L37 34 H55 L62 46" fill="#E8F1EC" stroke="#1B2A4A" stroke-width="4.2" stroke-linejoin="round"/>' +
+      '<circle cx="46" cy="72" r="17" fill="#FFFFFF" stroke="#1E6F50" stroke-width="4.2"/>' +
+      '<circle cx="46" cy="72" r="6" fill="#E67E22"/>' +
+      '<rect x="76" y="18" width="34" height="44" rx="7" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="4"/>' +
+      '<path d="M84 32 H102 M84 41 H102 M84 50 H94" stroke="#1E6F50" stroke-width="3.6" stroke-linecap="round"/>' +
+      '</svg>',
+    phone: '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<rect x="26" y="14" width="58" height="92" rx="14" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="4.2"/>' +
+      '<path d="M46 22 H64" stroke="#1B2A4A" stroke-width="4" stroke-linecap="round" opacity="0.6"/>' +
+      '<path d="M55 40 L78 48 V62 C78 75 68 84 55 89 C42 84 32 75 32 62 V48 Z" fill="#E8F1EC" stroke="#1E6F50" stroke-width="4" stroke-linejoin="round"/>' +
+      '<path d="M44 62 L52 70 L68 53" fill="none" stroke="#1E6F50" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<circle cx="94" cy="30" r="8" fill="#E67E22"/>' +
+      '<path d="M94 26 V31" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"/>' +
+      '</svg>',
+    mail: '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<rect x="34" y="16" width="62" height="42" rx="9" fill="#E8F1EC" stroke="#1B2A4A" stroke-width="3.6"/>' +
+      '<path d="M34 24 L65 45 L96 24" fill="none" stroke="#1B2A4A" stroke-width="3.6" stroke-linejoin="round"/>' +
+      '<rect x="18" y="52" width="66" height="44" rx="9" fill="#FFFFFF" stroke="#1B2A4A" stroke-width="4.2"/>' +
+      '<path d="M18 61 L51 80 L84 61" fill="none" stroke="#1E6F50" stroke-width="4.2" stroke-linejoin="round"/>' +
+      '<path d="M92 88 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 Z" fill="#E67E22"/>' +
+      '<path d="M104 66 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2 Z" fill="#1E6F50" opacity="0.85"/>' +
+      '</svg>',
+    wand: '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<path d="M26 96 L74 44" stroke="#1B2A4A" stroke-width="7" stroke-linecap="round"/>' +
+      '<path d="M26 96 L34 88" stroke="#E67E22" stroke-width="7" stroke-linecap="round"/>' +
+      '<path d="M86 30 l5 14 14 5 -14 5 -5 14 -5 -14 -14 -5 14 -5 Z" fill="#E67E22"/>' +
+      '<path d="M40 26 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3 Z" fill="#1E6F50"/>' +
+      '<rect x="18" y="56" width="40" height="28" rx="10" fill="#E8F1EC" stroke="#1B2A4A" stroke-width="3.4"/>' +
+      '<path d="M26 74 h24 M26 65 h16" stroke="#1E6F50" stroke-width="3.4" stroke-linecap="round"/>' +
+      '</svg>'
+  };
+
+  /* ============ data ============ */
+  var CARDS = [
+    {
+      id:'guardian', no:'01', name:'약속 지키는 파수꾼', emoji:'🛡️', illo:'shield',
+      role:'돈이 나가는 일 담당',
+      tip:'돈이 나가는 일은 마지막 버튼에서 멈추고, 내 대답을 기다려요.',
+      qtag:'돈이 나가는 일',
+      question:'장바구니는 다 채웠는데, 결제 버튼 바로 앞이에요. 피클은 어떻게 할까요?',
+      options:[
+        {t:'바로 결제해 주고, 끝나면 나에게 알려 준다', best:false,
+         fb:'결제는 내 돈이 나가는 일이라 대신 눌러 버리면 되돌리기 어려워요. 피클은 준비만 하고, 마지막 버튼 앞에서 멈춰 서는 게 약속이에요.'},
+        {t:'결제 버튼 앞에서 멈추고, “이대로 결제할까요?” 하고 내 대답을 기다린다', best:true,
+         fb:'피클은 결제 직전까지만 준비해 두고, 마지막 버튼은 내 손으로 누르게 해요. 그래서 마음이 바뀌어도 안심이에요.'},
+        {t:'장바구니를 비우고 처음부터 다시 담는다', best:false,
+         fb:'장바구니를 비우면 고른 것까지 사라져요. 피클은 결제 직전에 멈춰 서서 내 결정만 기다려요.'}
+      ]
+    },
+    {
+      id:'vault', no:'02', name:'비밀 금고 지킴이', emoji:'🔐', illo:'vault',
+      role:'비밀 지키기 담당',
+      tip:'비밀번호와 주민번호는 채팅창이 아니라 금고에 맡겨요.',
+      qtag:'내 정보 지키기',
+      question:'내 주민번호 뒷자리나 비밀번호를 채팅창에 그냥 적어도 될까요?',
+      options:[
+        {t:'피클이 다 알고 있으니 편하게 적어도 된다', best:false,
+         fb:'대화에 남은 숫자는 지우기 전까지 계속 남아요. 비밀번호는 암호화된 금고에 맡기고, 채팅창에는 적지 않는 게 안전해요.'},
+        {t:'아니요. 금고에 저장해 두고, 피클이 로그인 창에 직접 채워 넣게 한다', best:true,
+         fb:'저장한 비밀번호와 카드 정보는 암호화된 금고에 들어 있어서 피클이 그 값을 읽어 말하지 않아요. 로그인 창에는 직접 채워 넣기만 해요.'},
+        {t:'일단 적어 두고, 나중에 “지워 줘”라고 하면 된다', best:false,
+         fb:'한 번 남긴 기록은 지우는 걸 깜빡하기 쉬워요. 처음부터 채팅창에 적지 않고 금고에 맡겨 두면 그럴 일이 없어요.'}
+      ]
+    },
+    {
+      id:'snapshot', no:'03', name:'한눈 정리 달인', emoji:'📸', illo:'camera',
+      role:'사진 읽기 담당',
+      tip:'사진 한 장이면 재료와 금액, 내는 날까지 한눈에 정리돼요.',
+      qtag:'사진 한 장',
+      question:'냉장고나 고지서 사진 한 장만 툭 찍어 보내면 어떻게 될까요?',
+      options:[
+        {t:'사진을 읽고 무엇이 있는지 정리해서 알려 주고, 챙길 일까지 짚어 준다', best:true,
+         fb:'사진 속 글자와 물건까지 읽어서 재료, 금액, 내는 날을 한눈에 정리해 줘요. 글자로 다시 옮겨 적을 필요가 없어요.'},
+        {t:'사진은 못 읽어서, 글자로 다시 적어 줘야 한다', best:false,
+         fb:'피클은 사진 속 글자와 물건까지 읽어요. 찍어서 보내기만 하면 정리해서 알려 줘요.'},
+        {t:'사진을 보려면 컴퓨터로 옮겨서 열어야 한다', best:false,
+         fb:'휴대폰에서 찍어 바로 보내면 돼요. 옮길 필요 없이 그 자리에서 정리해 줘요.'}
+      ]
+    },
+    {
+      id:'shieldcall', no:'04', name:'보이스피싱 방패', emoji:'📞', illo:'phone',
+      role:'수상한 전화 담당',
+      tip:'수상한 전화는 짧게 끊고, 공식 번호로 내가 직접 확인해요.',
+      qtag:'수상한 전화',
+      question:'낯선 번호로 수상한 전화가 왔어요. 피클과 함께라면 어떻게 할까요?',
+      options:[
+        {t:'일단 오래 통화하면서 상대 말을 끝까지 들어 본다', best:false,
+         fb:'오래 통화할수록 말려들기 쉬워요. “제가 직접 확인할게요” 한마디로 끊는 연습이 제일 든든해요.'},
+        {t:'피클과 미리 연습해 둔 대처 문장으로 끊고, 카드사·기관 공식 번호로 내가 직접 확인한다', best:true,
+         fb:'수상한 전화는 길게 말할수록 위험해요. 미리 연습한 문장으로 끊고 공식 번호로 직접 거는 게 가장 안전해요. 피클과 모의훈련으로 미리 연습해 둘 수 있어요.'},
+        {t:'상대가 보낸 링크를 눌러 본인 확인을 한다', best:false,
+         fb:'링크를 누르면 내 정보가 그대로 넘어갈 수 있어요. 링크는 누르지 말고 공식 번호로 확인하세요.'}
+      ]
+    },
+    {
+      id:'mailbox', no:'05', name:'메일함 청소부', emoji:'📬', illo:'mail',
+      role:'메일 정리 담당',
+      tip:'지우기 전에 목록을 먼저 보여 달라고 해요.',
+      qtag:'쌓인 메일',
+      question:'광고 메일이 산더미인 내 메일함, 어떻게 비우면 좋을까요?',
+      options:[
+        {t:'하나씩 직접 열어 보며 지운다', best:false,
+         fb:'하나씩 열어 보면 시간도 마음도 많이 들어요. 말로 부탁하면 골라서 목록으로 한 번에 모아 줘요.'},
+        {t:'“광고 메일만 골라 줘”라고 말하고, 지우기 전에 목록을 먼저 확인한다', best:true,
+         fb:'피클이 광고 메일만 골라 목록으로 보여 줘요. 지우는 건 내가 확인한 다음이에요. 중요한 메일이 섞이지 않게 먼저 보고 지워요.'},
+        {t:'메일함을 통째로 싹 지운다', best:false,
+         fb:'통째로 지우면 중요한 메일까지 사라져요. 지우기 전에 목록을 먼저 보는 습관이 안전해요.'}
+      ]
+    },
+    {
+      id:'rule', no:'06', name:'나만의 규칙 마법사', emoji:'✨', illo:'wand',
+      role:'내 방식 기억하기 담당',
+      tip:'한 번 정한 말투와 순서는 다음에도 그대로 이어져요.',
+      qtag:'말투와 순서',
+      question:'내가 자주 쓰는 말투와 순서를 매번 다시 말하기 귀찮다면, 어떻게 할까요?',
+      options:[
+        {t:'매번 처음부터 다시 설명한다', best:false,
+         fb:'같은 설명을 매번 반복하면 힘들어요. 한 번만 알려 주면 다음부터 알아서 챙겨요.'},
+        {t:'“앞으로는 이렇게 해 줘”라고 한 번 정해 두면, 다음부터 내 말투와 순서대로 해 준다', best:true,
+         fb:'한 번 정해 둔 말투와 순서를 기억해요. 다음에 같은 부탁을 할 때 처음부터 설명하지 않아도 돼요.'},
+        {t:'규칙을 메모장에 적어 두고 매번 복사해 붙여 넣는다', best:false,
+         fb:'복사해 붙이는 일도 손이 가요. 말로 한 번 정해 두면 그다음부터는 말하지 않아도 돼요.'}
+      ]
+    }
+  ];
+
+  var BADGES = [
+    {min:6, emoji:'🏆', name:'피클 단짝 대장', note:'여섯 상황 모두 가장 좋은 방법을 골랐어요.'},
+    {min:5, emoji:'🥇', name:'든든한 피클 파트너', note:'거의 다 맞혔어요. 이제 피클과 무엇이든 함께할 수 있어요.'},
+    {min:4, emoji:'🌱', name:'함께 걷는 피클 친구', note:'차근차근 익혀 가는 중이에요. 다시 한 번 고르면 더 또렷해져요.'},
+    {min:0, emoji:'🌤️', name:'첫걸음 피클 친구', note:'첫걸음이면 충분해요. 해설을 한 번 더 읽어 보면 금방 익숙해져요.'}
+  ];
+
+  var STORE_KEY = 'picklePartnerDex.v1';
+  var state = load();
+  var current = 0;      // index of the question being viewed
+  var answered = false;
+
+  /* ============ elements ============ */
+  var $ = function(id){ return document.getElementById(id); };
+  var screens = { intro:$('screen-intro'), quiz:$('screen-quiz'), result:$('screen-result') };
+
+  /* ============ storage ============ */
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return null;
+      var s = JSON.parse(raw);
+      if(!s || !Array.isArray(s.unlocked)) return null;
+      return { unlocked:s.unlocked, answers:s.answers || {}, done:!!s.done, best:s.best||0 };
+    }catch(e){ return null; }
+  }
+  function save(){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+
+  /* ============ screens ============ */
+  function show(name){
+    Object.keys(screens).forEach(function(k){
+      screens[k].classList.toggle('active', k === name);
+    });
+    window.scrollTo(0,0);
+  }
+
+  /* ============ intro ============ */
+  function paintIntro(){
+    var has = state && state.unlocked.length > 0;
+    var done = state && state.done;
+    $('btnStart').hidden = has;
+    $('btnResume').hidden = !has;
+    $('btnRestart').hidden = !has;
+    if(has){
+      $('btnResume').textContent = done
+        ? '내 도감 다시 보기 (' + state.unlocked.length + '장)'
+        : '이어서 보기 (' + state.unlocked.length + '장 모음)';
+    }
+  }
+
+  $('btnInstall').addEventListener('click', function(){
+    $('installSteps').classList.toggle('open');
+  });
+
+  $('btnStart').addEventListener('click', function(){
+    resetState();
+    current = 0;
+    show('quiz');
+    renderQuestion();
+  });
+
+  $('btnResume').addEventListener('click', function(){
+    if(state.done){ renderResult(); show('result'); }
+    else { current = Math.min(state.unlocked.length, CARDS.length - 1); show('quiz'); renderQuestion(); }
+  });
+
+  $('btnRestart').addEventListener('click', function(){
+    resetState();
+    current = 0;
+    show('quiz');
+    renderQuestion();
+  });
+
+  $('btnAgain').addEventListener('click', function(){
+    resetState();
+    current = 0;
+    show('quiz');
+    renderQuestion();
+  });
+
+  function resetState(){
+    state = { unlocked:[], answers:{}, done:false, best:0 };
+    save();
+    paintIntro();
+  }
+
+  /* ============ quiz ============ */
+  function renderBars(){
+    var bar = $('bar');
+    bar.innerHTML = '';
+    for(var i=0;i<CARDS.length;i++){
+      var el = document.createElement('i');
+      if(state.unlocked.indexOf(CARDS[i].id) !== -1) el.className = 'on';
+      if(i === current) el.className = (el.className ? 'on ' : '') + 'now';
+      bar.appendChild(el);
+    }
+    $('counter').textContent = (current + 1) + ' / ' + CARDS.length;
+  }
+
+  function renderQuestion(){
+    answered = false;
+    var card = CARDS[current];
+    $('qnum').textContent = '상황 ' + (current + 1);
+    $('qtag').textContent = card.qtag;
+    $('question').textContent = card.question;
+    $('feedback').className = 'feedback';
+    $('btnCard').textContent = (current === CARDS.length - 1) ? '마지막 카드 받기' : '내 카드 받기';
+
+    var box = $('options');
+    box.innerHTML = '';
+    card.options.forEach(function(opt, idx){
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.type = 'button';
+      b.dataset.idx = idx;
+      b.innerHTML = '<span class="mark">' + ['①','②','③'][idx] + '</span>' +
+                    '<span class="txt">' + opt.t + '<span class="tag-best">이게 더 좋아요</span></span>';
+      b.addEventListener('click', function(){ pick(idx); });
+      box.appendChild(b);
+    });
+    renderBars();
+    window.scrollTo(0,0);
+  }
+
+  function pick(idx){
+    if(answered) return;
+    answered = true;
+    var card = CARDS[current];
+    var opts = card.options;
+    var chosen = opts[idx];
+    var bestIdx = 0;
+    opts.forEach(function(o,i){ if(o.best) bestIdx = i; });
+
+    var buttons = $('options').querySelectorAll('.opt');
+    for(var i=0;i<buttons.length;i++){
+      var b = buttons[i];
+      b.disabled = true;
+      if(i === bestIdx) b.classList.add('right');
+      if(i === idx && !chosen.best) b.classList.add('wrong');
+      if(i !== idx && i !== bestIdx) b.classList.add('quiet');
+    }
+
+    var fb = $('feedback');
+    var title, body;
+    if(chosen.best){
+      title = '딱 맞혔어요!';
+      body = chosen.fb;
+      fb.className = 'feedback show';
+    }else{
+      title = '괜찮아요, 이게 더 좋아요';
+      body = chosen.fb + ' 가장 좋은 방법은 ' + ['①','②','③'][bestIdx] + '번이에요.';
+      fb.className = 'feedback show warn';
+    }
+    $('fbTitle').textContent = title;
+    $('fbBody').textContent = body;
+
+    state.answers[card.id] = idx;
+    if(chosen.best && state.answers['_best_' + card.id] !== true){
+      state.answers['_best_' + card.id] = true;
+    }
+    save();
+
+    setTimeout(function(){
+      fb.scrollIntoView({behavior:'smooth', block:'center'});
+    }, 120);
+  }
+
+  $('btnCard').addEventListener('click', function(){
+    var card = CARDS[current];
+    if(state.unlocked.indexOf(card.id) === -1) state.unlocked.push(card.id);
+    save();
+    openCard(card, false);
+  });
+
+  /* ============ card modal ============ */
+  var pendingNext = null;
+
+  function cardFrontHTML(card){
+    return '<div class="card-top">' +
+             '<span class="card-no">No.' + card.no + '</span>' +
+             '<span class="card-set">피클 파트너 도감</span>' +
+           '</div>' +
+           '<div class="card-illo"><div class="illo-ring">' + ILLO[card.illo] + '</div></div>' +
+           '<p class="card-name">' + card.name + '</p>' +
+           '<p class="card-role">' + card.role + '</p>' +
+           '<p class="card-tip"><b>한 줄 팁</b>' + card.tip + '</p>';
+  }
+
+  function openCard(card, replay){
+    var modal = $('card-modal');
+    var flip = $('flipCard');
+    $('cardFront').innerHTML = cardFrontHTML(card);
+    flip.classList.remove('flipped');
+    $('modalKicker').textContent = replay ? '내 단짝 카드' : '새 단짝 카드를 찾았어요!';
+    $('btnNext').hidden = !!replay;
+    $('btnCloseCard').hidden = !replay;
+    pendingNext = replay ? null : true;
+    modal.classList.add('open');
+
+    setTimeout(function(){
+      flip.classList.add('flipped');
+      if(!replay) sparkle();
+    }, replay ? 120 : 520);
+  }
+
+  function sparkle(){
+    var wrap = $('flipCard');
+    var colors = ['#FFD8A8','#FFFFFF','#A8DCC2','#F5B971','#8FD3AE'];
+    for(var i=0;i<16;i++){
+      var s = document.createElement('span');
+      s.className = 'spark';
+      var ang = (Math.PI * 2 * i) / 16 + Math.random() * 0.4;
+      var dist = 110 + Math.random() * 90;
+      s.style.setProperty('--dx', Math.cos(ang) * dist + 'px');
+      s.style.setProperty('--dy', Math.sin(ang) * dist + 'px');
+      s.style.background = colors[i % colors.length];
+      s.style.left = '50%';
+      s.style.top = '45%';
+      s.style.animation = 'sparkPop ' + (0.85 + Math.random() * 0.5) + 's ease-out forwards';
+      s.style.animationDelay = (Math.random() * 0.18) + 's';
+      wrap.appendChild(s);
+      (function(node){ setTimeout(function(){ if(node.parentNode) node.parentNode.removeChild(node); }, 1700); })(s);
+    }
+  }
+
+  $('btnNext').addEventListener('click', function(){
+    $('card-modal').classList.remove('open');
+    if(current >= CARDS.length - 1){
+      state.done = true;
+      save();
+      renderResult();
+      show('result');
+    }else{
+      current += 1;
+      show('quiz');
+      renderQuestion();
+    }
+  });
+
+  $('btnCloseCard').addEventListener('click', function(){
+    $('card-modal').classList.remove('open');
+  });
+
+  /* ============ result ============ */
+  function bestCount(){
+    var n = 0;
+    CARDS.forEach(function(c){ if(state.answers['_best_' + c.id] === true) n++; });
+    return n;
+  }
+
+  function gradeFor(n){
+    for(var i=0;i<BADGES.length;i++){
+      if(n >= BADGES[i].min) return BADGES[i];
+    }
+    return BADGES[BADGES.length - 1];
+  }
+
+  function renderResult(){
+    var n = bestCount();
+    var g = gradeFor(n);
+    $('gradeEmoji').textContent = g.emoji;
+    $('gradeName').textContent = g.name;
+    $('gradeNote').textContent = g.note;
+    $('collected').textContent = state.unlocked.length + ' / ' + CARDS.length;
+    $('resultTitle').textContent = '도감 완성!';
+    $('resultSub').textContent = '단짝 카드 ' + state.unlocked.length + '장을 모두 모았어요.';
+
+    var grid = $('grid');
+    grid.innerHTML = '';
+    CARDS.forEach(function(card){
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'mini';
+      d.innerHTML = '<span class="no">No.' + card.no + '</span>' +
+                    '<span class="ico">' + ILLO[card.illo] + '</span>' +
+                    '<span class="nm">' + card.name + '</span>';
+      d.addEventListener('click', function(){ openCard(card, true); });
+      grid.appendChild(d);
+    });
+    window.scrollTo(0,0);
+  }
+
+  /* ============ copy ============ */
+  $('btnCopy').addEventListener('click', function(){
+    var n = bestCount();
+    var g = gradeFor(n);
+    var text = '나의 피클 파트너 도감 완성!\n' +
+               '6가지 상황을 고르며 단짝 카드 ' + state.unlocked.length + '장을 모았어요.\n' +
+               '나의 등급: ' + g.name + '\n\n' +
+               '너도 해 볼래? https://piano4848.github.io/partner-dex/';
+    copyText(text).then(function(){ toast('자랑 문구를 복사했어요'); })
+      .catch(function(){ toast('복사가 안 되면 문구를 길게 눌러 주세요'); });
+  });
+
+  function copyText(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text).catch(function(){
+        return legacyCopy(text);
+      });
+    }
+    return legacyCopy(text);
+  }
+  function legacyCopy(text){
+    return new Promise(function(resolve, reject){
+      try{
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly','');
+        ta.style.position = 'fixed';
+        ta.style.top = '-1000px';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        ok ? resolve() : reject(new Error('copy failed'));
+      }catch(e){ reject(e); }
+    });
+  }
+
+  var toastTimer = null;
+  function toast(msg){
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2400);
+  }
+
+  /* ============ certificate ============ */
+  var lastCertURL = null;
+
+  function buildCertificate(){
+    var W = 1080, H = 1440;
+    var cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    var ctx = cv.getContext('2d');
+    var n = bestCount();
+    var g = gradeFor(n);
+
+    function rr(x,y,w,h,r){
+      ctx.beginPath();
+      ctx.moveTo(x+r,y);
+      ctx.lineTo(x+w-r,y);
+      ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+      ctx.lineTo(x+w,y+h-r);
+      ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+      ctx.lineTo(x+r,y+h);
+      ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+      ctx.lineTo(x,y+r);
+      ctx.quadraticCurveTo(x,y,x+r,y);
+      ctx.closePath();
+    }
+    function setFont(size, weight, family){
+      ctx.font = (weight || 800) + ' ' + size + 'px ' + (family || '"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif');
+    }
+    function wrap(text, maxWidth){
+      var words = text.split(' ');
+      var lines = [], line = '';
+      for(var i=0;i<words.length;i++){
+        var test = line ? line + ' ' + words[i] : words[i];
+        if(ctx.measureText(test).width > maxWidth && line){ lines.push(line); line = words[i]; }
+        else { line = test; }
+      }
+      if(line) lines.push(line);
+      return lines;
+    }
+
+    // background
+    ctx.fillStyle = '#FBFAF5';
+    ctx.fillRect(0,0,W,H);
+
+    // inner frame
+    ctx.strokeStyle = 'rgba(27,42,74,0.16)';
+    ctx.lineWidth = 4;
+    rr(36,36,W-72,H-72,28);
+    ctx.stroke();
+
+    // top brand
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#1E6F50';
+    setFont(34, 900);
+    ctx.fillText('생각나름 · 무료 미니강의', W/2, 128);
+
+    // title
+    ctx.fillStyle = '#1B2A4A';
+    setFont(72, 900);
+    ctx.fillText('나의 피클 파트너 도감', W/2, 232);
+
+    ctx.fillStyle = '#33456A';
+    setFont(30, 800);
+    ctx.fillText('6가지 상황을 고르며 모은 단짝 카드', W/2, 286);
+
+    // grade pill
+    setFont(40, 900);
+    var gText = g.emoji + '  ' + g.name;
+    var gw = ctx.measureText(gText).width + 96;
+    rr(W/2 - gw/2, 330, gw, 96, 48);
+    ctx.fillStyle = '#1E6F50';
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(gText, W/2, 380);
+    ctx.textBaseline = 'alphabetic';
+
+    ctx.fillStyle = '#33456A';
+    setFont(26, 800);
+    ctx.fillText(g.note, W/2, 480);
+
+    // cards grid 3 x 2
+    var cw = 292, ch = 300, gap = 24;
+    var totalW = cw*3 + gap*2;
+    var startX = (W - totalW)/2;
+    var startY = 540;
+
+    CARDS.forEach(function(card, i){
+      var col = i % 3, row = Math.floor(i/3);
+      var x = startX + col*(cw+gap);
+      var y = startY + row*(ch+gap);
+
+      // card
+      rr(x, y, cw, ch, 26);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(27,42,74,0.18)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // number
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#1E6F50';
+      setFont(24, 900);
+      ctx.fillText('No.' + card.no, x + 26, y + 48);
+
+      // emblem circle
+      ctx.beginPath();
+      ctx.arc(x + cw/2, y + 128, 62, 0, Math.PI*2);
+      ctx.fillStyle = '#E8F1EC';
+      ctx.fill();
+
+      // emoji
+      ctx.textAlign = 'center';
+      ctx.font = '62px "Apple Color Emoji","Noto Color Emoji","Segoe UI Emoji",sans-serif';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(card.emoji, x + cw/2, y + 132);
+      ctx.textBaseline = 'alphabetic';
+
+      // name
+      ctx.fillStyle = '#1B2A4A';
+      setFont(30, 900);
+      var lines = wrap(card.name, cw - 44);
+      var baseY = y + 235 - (lines.length - 1) * 18;
+      lines.forEach(function(ln, li){
+        ctx.fillText(ln, x + cw/2, baseY + li*38);
+      });
+
+      // role
+      ctx.fillStyle = '#C06A12';
+      setFont(22, 900);
+      ctx.fillText(card.role, x + cw/2, y + ch - 26);
+    });
+
+    // footer
+    var d = new Date();
+    var dateStr = d.getFullYear() + '. ' + (d.getMonth()+1) + '. ' + d.getDate() + '.';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#1B2A4A';
+    setFont(30, 900);
+    ctx.fillText(dateStr + ' 완성 · 카드 ' + state.unlocked.length + '장', W/2, startY + ch*2 + gap + 90);
+
+    ctx.fillStyle = '#1E6F50';
+    setFont(26, 900);
+    ctx.fillText('piano4848.github.io/partner-dex', W/2, startY + ch*2 + gap + 140);
+
+    return cv;
+  }
+
+  function downloadCert(){
+    var cv = buildCertificate();
+    var url = cv.toDataURL('image/png');
+    lastCertURL = url;
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = '피클-파트너-도감-인증샷.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    $('certImg').src = url;
+    $('cert-modal').classList.add('open');
+  }
+
+  $('btnCert').addEventListener('click', downloadCert);
+  $('btnCertSave').addEventListener('click', function(){
+    if(!lastCertURL) { downloadCert(); return; }
+    var a = document.createElement('a');
+    a.href = lastCertURL;
+    a.download = '피클-파트너-도감-인증샷.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    toast('한 번 더 저장했어요');
+  });
+  $('btnCertClose').addEventListener('click', function(){
+    $('cert-modal').classList.remove('open');
+  });
+
+  /* ============ boot ============ */
+  if(state && state.done){ state.done = true; }
+  paintIntro();
+
+  if('serviceWorker' in navigator && location.protocol === 'https:'){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('./sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
