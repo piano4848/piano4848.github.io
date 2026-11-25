@@ -737,10 +737,10 @@
     setTimeout(function(){
       document.querySelector('.stage').classList.add('hide');
       setTimeout(function(){
-        var card = document.querySelector('.q-card');
+        var anchor = document.querySelector('.options') || document.querySelector('.q-card');
         var hud = document.querySelector('.hud');
         var off = (hud ? hud.getBoundingClientRect().height : 150) + 10;
-        var top = card.getBoundingClientRect().top + window.scrollY - off;
+        var top = anchor.getBoundingClientRect().top + window.scrollY - off;
         window.scrollTo({top: Math.max(0, top), behavior:'smooth'});
       }, 260);
     }, 720);
