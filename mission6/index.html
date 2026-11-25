@@ -170,6 +170,53 @@
     line-height: 1.6;
   }
 
+  /* ── 수강생이 채워 넣는 자리(주황색) ── */
+  .fill {
+    display: inline-block;
+    padding: 0 6px;
+    margin: 0 1px;
+    border: 1.5px solid #F0A85C;
+    border-radius: 7px;
+    background: #FFF1DE;
+    color: #B4480B;
+    font-weight: 900;
+    letter-spacing: -0.2px;
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+  .fill-tip {
+    background: #FFF8EF;
+    border: 2px solid #F6C795;
+    border-radius: 16px;
+    padding: 14px 13px 13px;
+    margin: 0 0 16px;
+    text-align: center;
+  }
+  .fill-tip .ft-badge {
+    display: inline-block;
+    background: #E2711D;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: -0.2px;
+    padding: 4px 13px;
+    border-radius: 999px;
+    margin-bottom: 9px;
+  }
+  .fill-tip p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.62;
+    color: #8A3B06;
+  }
+  .fill-tip p + p { margin-top: 7px; }
+  .fill-tip.quiet {
+    background: #F2F8F3;
+    border: 1.5px solid var(--line);
+  }
+  .fill-tip.quiet p { color: #1F4B36; }
+
   /* ── 26쪽 구성 표 ── */
   .page-map {
     border: 1.5px solid var(--line);
@@ -275,6 +322,16 @@
     word-break: keep-all;
     overflow-wrap: break-word;
   }
+  .pb-foot {
+    margin: 12px 0 0;
+    padding-top: 11px;
+    border-top: 1.5px dashed #F0C08C;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.6;
+    color: #8A3B06;
+    text-align: center;
+  }
 
   /* ── 안내 꼬리말 ── */
   .foot {
@@ -342,6 +399,7 @@
       <p><span class="num">1</span><span>그림 <strong>10장</strong>을 1번부터 10번 순서대로 준비합니다</span></p>
       <p><span class="num">2</span><span>그림마다 <strong>글귀 10개</strong>와 <strong>책 제목·작가명</strong>을 정합니다</span></p>
       <p><span class="num">3</span><span>아래 파란 버튼을 눌러 복사하고, 그림·글귀와 함께 피클 채팅창에 붙여넣습니다</span></p>
+      <p><span class="num">4</span><span>붙여넣은 문장에서 <strong>주황색</strong> <span class="fill">[ ○○ ]</span> <strong>두 곳</strong>을 지우고, 그 자리에 내 책 제목과 작가명을 써 넣습니다</span></p>
     </div>
     <div class="guide">
       <p class="single">그림을 모으는 일이 제일 오래 걸립니다.<br />그림만 준비되면 나머지는 한 번에 됩니다.</p>
@@ -407,10 +465,16 @@
     <div class="guide">
       <p class="single">그림은 보낸 순서대로 그림 1~10이 됩니다.<br />파일 이름에 01_, 02_처럼 번호를 붙여 두세요.</p>
     </div>
+    <div class="fill-tip">
+      <span class="ft-badge">주황색 자리 2곳은 내가 채우는 곳</span>
+      <p>아래 프롬프트 속 <span class="fill">[ ○○ ]</span> 주황색 두 곳이 <strong>내 책 제목</strong>과 <strong>내 작가명</strong> 자리입니다.</p>
+      <p>복사해서 채팅창에 붙여넣은 뒤, 주황색 자리를 지우고 그 자리에 내 제목과 이름을 써 주세요.</p>
+    </div>
     <button type="button" class="copy-btn" data-key="p1">📋 아트북 만들기 프롬프트 복사하기</button>
     <div class="prompt-box">
       <span class="pb-label">👇 이 문장이 그대로 복사됩니다</span>
-      <p class="pb-text">📋 내 그림 10장과 짧은 글귀 10개를 보낼게. A5 세로형 26쪽 소장용 아트북 전자책 PDF로 만들어 줘. 양면으로 펼쳐 보는 전자책이야. 1쪽은 앞표지, 2·3쪽은 속표지와 인사말, 4~23쪽은 짝수 왼쪽에 그림 1~10, 홀수 오른쪽에 글귀 1~10, 24·25쪽은 에필로그와 작가 노트, 26쪽은 뒷표지로 넣어 줘. 책 제목은[ ○○ ], 작가명은[ ○○ ]이야. 완성되면 PDF 파일로 다운로드할 수 있게 해 줘.</p>
+      <p class="pb-text">📋 내 그림 10장과 짧은 글귀 10개를 보낼게. A5 세로형 26쪽 소장용 아트북 전자책 PDF로 만들어 줘. 양면으로 펼쳐 보는 전자책이야. 1쪽은 앞표지, 2·3쪽은 속표지와 인사말, 4~23쪽은 짝수 왼쪽에 그림 1~10, 홀수 오른쪽에 글귀 1~10, 24·25쪽은 에필로그와 작가 노트, 26쪽은 뒷표지로 넣어 줘. 책 제목은<span class="fill">[ ○○ ]</span>, 작가명은<span class="fill">[ ○○ ]</span>이야. 완성되면 PDF 파일로 다운로드할 수 있게 해 줘.</p>
+      <p class="pb-foot">복사한 문장에는 <span class="fill">[ ○○ ]</span>가 그대로 들어갑니다. 붙여넣은 뒤 주황색 자리를 지우고 내 책 제목·작가명을 써 주세요.</p>
     </div>
   </section>
 
@@ -422,6 +486,9 @@
     <div class="divider"></div>
     <div class="guide">
       <p class="single">이건 선택입니다.<br />내가 쓴 글귀 그대로 쓰셔도 좋습니다.</p>
+    </div>
+    <div class="fill-tip quiet">
+      <p>②번 프롬프트에는 <strong>주황색 자리가 없습니다.</strong><br />그대로 복사해서 내가 쓴 글귀 10개와 함께 붙여넣기만 하면 됩니다.</p>
     </div>
     <button type="button" class="copy-btn" data-key="p2">📋 글귀 다듬기 프롬프트 복사하기</button>
     <div class="prompt-box">
