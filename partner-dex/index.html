@@ -40,9 +40,11 @@
   img{display:block;max-width:100%}
   [hidden]{display:none !important}
   button{font-family:inherit}
-  .app{max-width:520px;margin:0 auto;padding:0 18px calc(34px + env(safe-area-inset-bottom));position:relative}
+  .app{max-width:520px;margin:0 auto;padding:0 18px 0;position:relative}
   .screen{display:none}
   .screen.active{display:block}
+  #screen-quiz{padding-bottom:calc(26px + env(safe-area-inset-bottom))}
+  #screen-result{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
 
   /* ---------- shared ---------- */
   .brand{font-size:13px;font-weight:900;letter-spacing:.13em;color:var(--green);margin:0}
@@ -53,36 +55,48 @@
   .btn-outline{background:#fff;color:var(--green);border:2px solid var(--green)}
   .btn-ghost{background:transparent;color:var(--ink2);font-weight:800;font-size:16px;padding:12px}
   .btn[disabled]{opacity:.45;pointer-events:none}
-  .stack{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+  .stack{display:flex;flex-direction:column;gap:9px;margin-top:11px;flex:0 0 auto}
 
-  /* ---------- intro ---------- */
-  #screen-intro{padding-top:calc(28px + env(safe-area-inset-top))}
-  .hero-title{margin:10px 0 0;font-size:41px;line-height:1.1;font-weight:900;letter-spacing:-0.05em;color:var(--ink)}
+  /* ---------- intro (노스크롤 한 화면 맞춤) ---------- */
+  #screen-intro{
+    min-height:100dvh;height:100dvh;
+    padding-top:calc(12px + env(safe-area-inset-top));
+    padding-bottom:calc(10px + env(safe-area-inset-bottom));
+    overflow:auto;overscroll-behavior:contain;
+  }
+  #screen-intro.active{display:flex;flex-direction:column}
+  .hero-title{margin:6px 0 0;font-size:clamp(27px,7.4vw,34px);line-height:1.09;font-weight:900;letter-spacing:-0.05em;color:var(--ink)}
   .hero-title span{display:block}
   .hero-title .hl{color:var(--green)}
-  .hero-sub{margin:12px 0 0;font-size:16px;font-weight:700;color:var(--ink2);line-height:1.5}
-  .pick-label{display:flex;align-items:baseline;justify-content:space-between;margin:24px 0 10px}
-  .pick-label b{font-size:15px;font-weight:900;color:var(--ink)}
-  .pick-label i{font-style:normal;font-size:13px;font-weight:800;color:var(--ink2)}
-  .picker{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-  .pick{position:relative;background:#fff;border:2px solid var(--line);border-radius:18px;padding:6px 4px 8px;cursor:pointer;transition:transform .16s, border-color .16s, box-shadow .16s}
-  .pick img{width:100%;aspect-ratio:1;object-fit:contain;pointer-events:none;transition:transform .18s}
-  .pick b{display:block;text-align:center;font-size:13px;font-weight:900;color:var(--ink2);margin-top:2px}
+  .hero-sub{margin:7px 0 0;font-size:14.5px;font-weight:700;color:var(--ink2);line-height:1.45}
+  .pick-label{display:flex;align-items:baseline;justify-content:space-between;margin:11px 0 7px}
+  .pick-label b{font-size:14px;font-weight:900;color:var(--ink)}
+  .pick-label i{font-style:normal;font-size:12px;font-weight:800;color:var(--ink2)}
+  .picker{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:8px;align-content:stretch;flex:1 1 auto;min-height:0}
+  .pick{position:relative;background:#fff;border:2px solid var(--line);border-radius:16px;padding:4px 3px 5px;cursor:pointer;transition:transform .16s, border-color .16s, box-shadow .16s;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0}
+  .pick .ph{display:block;flex:1 1 auto;width:100%;min-height:0;max-height:clamp(44px,8.6dvh,70px)}
+  .pick img{width:100%;height:100%;object-fit:contain;pointer-events:none;transition:transform .18s}
+  .pick b{flex:0 0 auto;display:block;text-align:center;font-size:11.5px;font-weight:900;color:var(--ink2);margin-top:1px;line-height:1.2}
   .pick:active{transform:scale(.96)}
-  .pick.sel{border-color:var(--green);border-width:3px;padding:5px 3px 7px;background:#F4FAF6;box-shadow:0 8px 18px rgba(30,111,80,.16)}
+  .pick.sel{border-color:var(--green);border-width:3px;padding:3px 2px 4px;background:#F4FAF6;box-shadow:0 8px 18px rgba(30,111,80,.16)}
   .pick.sel b{color:var(--green)}
-  .pick.sel::after{content:"✓";position:absolute;top:-7px;right:-7px;width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;font-weight:900;display:grid;place-items:center;border:2px solid #fff}
+  .pick.sel::after{content:"✓";position:absolute;top:-7px;right:-7px;width:21px;height:21px;border-radius:50%;background:var(--green);color:#fff;font-size:11.5px;font-weight:900;display:grid;place-items:center;border:2px solid #fff}
   .pick.sel img{transform:scale(1.06)}
 
-  .chosen{margin-top:18px;background:#fff;border:2px solid var(--line);border-radius:24px;padding:16px 18px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow)}
-  .chosen .big{width:86px;height:86px;flex:0 0 86px;display:grid;place-items:center;border-radius:22px;background:radial-gradient(circle at 50% 35%,#fff,#F2EEE2)}
-  .chosen .big img{width:76px;animation:breathe 2.8s ease-in-out infinite}
-  .chosen .txt{min-width:0}
-  .chosen .nm{font-size:22px;font-weight:900;letter-spacing:-.03em;line-height:1.2}
-  .chosen .lv{display:inline-flex;align-items:center;gap:6px;margin-top:6px;background:var(--green-l);color:var(--green);font-size:13px;font-weight:900;padding:4px 10px;border-radius:999px}
-  .chosen .say{margin:8px 0 0;font-size:14px;font-weight:700;color:var(--ink2);line-height:1.45}
-  .intro-foot{margin:16px 0 0;text-align:center;font-size:13px;font-weight:700;color:#8A968E;line-height:1.6}
-  .resume-note{margin:14px 0 0;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;font-size:14px;font-weight:700;color:var(--ink2);text-align:center}
+  .chosen{margin-top:9px;background:#fff;border:2px solid var(--line);border-radius:20px;padding:9px 11px 10px;box-shadow:var(--shadow)}
+  .chosen-row{display:flex;align-items:center;gap:11px}
+  .chosen .big{width:52px;height:52px;flex:0 0 52px;display:grid;place-items:center;border-radius:16px;background:radial-gradient(circle at 50% 35%,#fff,#F2EEE2)}
+  .chosen .big img{width:46px;animation:breathe 2.8s ease-in-out infinite}
+  .chosen .txt{min-width:0;flex:1 1 auto}
+  .chosen .nm-row{display:flex;align-items:center;gap:7px}
+  .chosen .nm{font-size:19px;font-weight:900;letter-spacing:-.03em;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chosen .lv{display:inline-flex;align-items:center;gap:5px;background:var(--green-l);color:var(--green);font-size:11.5px;font-weight:900;padding:2px 8px;border-radius:999px;flex:0 0 auto}
+  .chosen .say{margin:2px 0 0;font-size:12.5px;font-weight:700;color:var(--ink2);line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .name-input{display:block;width:100%;margin-top:8px;border:1.5px solid var(--line);border-radius:12px;background:#FBFAF6;padding:8px 10px;font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink);-webkit-appearance:none;appearance:none}
+  .name-input::placeholder{color:#A2ADA6;font-weight:700}
+  .name-input:focus{outline:none;border-color:var(--green);background:#fff;box-shadow:0 0 0 3px rgba(30,111,80,.12)}
+  .intro-foot{margin:8px 0 0;text-align:center;font-size:12px;font-weight:700;color:#8A968E;line-height:1.5;flex:0 0 auto}
+  .resume-note{margin:10px 0 0;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;font-size:14px;font-weight:700;color:var(--ink2);text-align:center}
 
   /* ---------- hud ---------- */
   .hud{position:sticky;top:0;z-index:30;padding:calc(10px + env(safe-area-inset-top)) 0 10px;background:var(--ivory);box-shadow:0 1px 0 rgba(20,40,32,.07)}
@@ -155,7 +169,7 @@
   .result-hero .big{width:172px;height:172px;margin:30px auto 0;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 50% 38%,#fff 42%,#EFEAD9 100%);box-shadow:0 18px 36px rgba(20,40,32,.1), inset 0 0 0 3px #fff}
   .result-hero .big img{width:140px;animation:breathe 2.6s ease-in-out infinite}
   .lv-final{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:var(--green);color:#fff;font-size:14px;font-weight:900;padding:7px 15px;border-radius:999px}
-  .result-name{margin:10px 0 0;font-size:32px;font-weight:900;letter-spacing:-.04em;line-height:1.15}
+  .result-name{margin:10px 0 0;font-size:clamp(24px,7.6vw,32px);font-weight:900;letter-spacing:-.04em;line-height:1.15;word-break:break-all}
   .result-sub{margin:6px 0 0;font-size:15px;font-weight:700;color:var(--ink2)}
   .grade{margin-top:18px;background:#fff;border:2px solid var(--line);border-radius:22px;padding:16px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow)}
   .grade .gd{flex:0 0 54px;width:54px;height:54px;border-radius:16px;background:var(--green-l);display:grid;place-items:center;font-size:28px}
@@ -221,6 +235,27 @@
   #toast.on{opacity:1;transform:translate(-50%,0)}
 
   .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+  /* 짧은 화면(갤럭시 등 680px 남짓) — 모달 카드와 여백을 줄여 버튼이 잘리지 않게 */
+  @media (max-height: 700px){
+    .modal{padding-top:calc(12px + env(safe-area-inset-top));padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+    .m-kicker{margin-bottom:9px;font-size:12px}
+    .scratch-wrap{width:min(268px,70vw)}
+    .view-card{width:min(268px,72vw)}
+    .m-prog{margin-top:11px;padding:6px 14px;font-size:12.5px}
+    .m-actions{margin-top:12px;gap:8px}
+    .m-actions .btn{padding:14px 16px;font-size:17px}
+    .m-hint{margin-top:9px;font-size:12px}
+  }
+  @media (max-height: 660px){
+    .hero-title{font-size:clamp(23px,6.8vw,30px)}
+    .hero-sub{font-size:13px;line-height:1.4;margin-top:6px}
+    .pick-label{margin:8px 0 6px}
+    .pick img{height:clamp(38px,7.4dvh,56px)}
+    .chosen .big{width:46px;height:46px;flex:0 0 46px}
+    .chosen .big img{width:41px}
+    .intro-foot{font-size:11px}
+  }
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   }
@@ -246,12 +281,17 @@
     <div class="picker" id="picker" role="radiogroup" aria-label="키울 피클 비서 선택"></div>
 
     <div class="chosen">
-      <div class="big"><img id="chosenImg" alt="" /></div>
-      <div class="txt">
-        <div class="nm" id="chosenName">생각이</div>
-        <div class="lv" id="chosenLv">Lv.1 새싹 비서</div>
-        <p class="say" id="chosenSay">“오늘부터 제가 민영 님의 비서예요!”</p>
+      <div class="chosen-row">
+        <div class="big"><img id="chosenImg" alt="" /></div>
+        <div class="txt">
+          <div class="nm-row">
+            <div class="nm" id="chosenName">생각이</div>
+            <div class="lv" id="chosenLv">Lv.1 새싹</div>
+          </div>
+          <p class="say" id="chosenSay">오늘부터 제가 도와드릴게요!</p>
+        </div>
       </div>
+      <input id="nameInput" class="name-input" type="text" maxlength="8" placeholder="내 피클 이름 (예: 생각이, 별이, 산이)" aria-label="내 피클 비서 이름" autocomplete="off" autocapitalize="off" spellcheck="false" />
     </div>
 
     <div class="stack">
@@ -519,8 +559,8 @@
   function saveState(){
     try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
   }
-  function freshState(slug){
-    return { picked:slug || 's_think', stage:0, unlocked:[], correct:0, done:false };
+  function freshState(slug, name){
+    return { picked:slug || 's_think', name:(name || '').slice(0, 8), stage:0, unlocked:[], correct:0, done:false };
   }
 
   function show(name){
@@ -533,6 +573,27 @@
      ========================================================= */
   var selSlug = 's_think';
 
+  /* ---- 이름 · 조사 도우미 ---- */
+  function josa(word, withJong, noJong){
+    var w = (word || '').trim();
+    if(!w) return noJong;
+    var code = w.charCodeAt(w.length - 1);
+    if(code < 0xAC00 || code > 0xD7A3) return noJong;
+    return ((code - 0xAC00) % 28) ? withJong : noJong;
+  }
+  function typedName(){
+    var el = $('nameInput');
+    return el ? el.value.replace(/\s+/g, ' ').trim().slice(0, 8) : '';
+  }
+  function charDefault(slug){ return (CHAR[slug] || CHAR.s_think).name; }
+  function introName(){ return typedName() || charDefault(selSlug); }
+  function dispName(){
+    if(state && state.name) return state.name;
+    var t = typedName();
+    if(t) return t;
+    return charDefault(state ? state.picked : selSlug);
+  }
+
   function paintPicker(){
     var box = $('picker');
     box.innerHTML = '';
@@ -543,7 +604,7 @@
       b.setAttribute('role','radio');
       b.setAttribute('aria-checked', c.slug === selSlug ? 'true' : 'false');
       b.setAttribute('aria-label', c.name + ' ' + c.letter);
-      b.innerHTML = '<img src="' + img(c.slug) + '" alt=""><b>' + c.letter + '</b>';
+      b.innerHTML = '<span class="ph"><img src="' + img(c.slug) + '" alt=""></span><b>' + c.letter + '</b>';
       b.addEventListener('click', function(){
         selSlug = c.slug;
         paintPicker();
@@ -555,11 +616,12 @@
   }
   function paintChosen(){
     var c = CHAR[selSlug];
+    var nm = introName();
     $('chosenImg').src = img(c.slug);
-    $('chosenImg').alt = c.name + ' 캐릭터';
-    $('chosenName').textContent = c.name;
-    $('chosenLv').textContent = 'Lv.1 새싹 비서';
-    $('chosenSay').textContent = '“민영 님, 오늘부터 제가 도와드릴게요!”';
+    $('chosenImg').alt = nm + ' 캐릭터';
+    $('chosenName').textContent = nm;
+    $('chosenLv').textContent = 'Lv.1 새싹';
+    $('chosenSay').textContent = typedName() ? '이 이름으로 함께 키울게요!' : '오늘부터 제가 도와드릴게요!';
   }
   function paintIntro(){
     var s = loadState();
@@ -569,7 +631,10 @@
     $('btnResume').hidden = !(has || done);
     if(has) $('btnResume').textContent = '이어서 키우기 (Lv.' + (s.stage + 1) + ')';
     if(done) $('btnResume').textContent = '내 만렙 비서 다시 보기';
-    if(s) { selSlug = s.picked || 's_think'; }
+    if(s){
+      selSlug = s.picked || 's_think';
+      if(s.name && !$('nameInput').value) $('nameInput').value = s.name;
+    }
     paintPicker();
     paintChosen();
   }
@@ -583,13 +648,13 @@
     var c = CHAR[state.picked];
     $('hudImg').src = img(c.slug);
     $('hudImg').alt = '';
-    $('hudName').textContent = c.name;
+    $('hudName').textContent = dispName();
     $('hudProg').textContent = '상황 ' + Math.min(stage + 1, 6) + ' / 6';
     var lv = levelOf(stage);
     $('lvBadge').textContent = 'Lv.' + lv;
     $('lvName').textContent = 'Lv.' + lv + ' ' + LEVELS[lv - 1];
     $('stageImg').src = img(c.slug);
-    $('stageImg').alt = c.name;
+    $('stageImg').alt = dispName();
     $('bubble').textContent = BUBBLES[Math.min(stage, BUBBLES.length - 1)];
   }
 
@@ -646,7 +711,7 @@
     if(isBest){
       combo++;
       state.correct++;
-      $('fbTitle').textContent = '딱 맞혔어요! ' + CHAR[state.picked].name + '가 펄쩍 뛰었어요';
+      $('fbTitle').textContent = '딱 맞혔어요! ' + dispName() + josa(dispName(), '이', '가') + ' 펄쩍 뛰었어요';
       $('fbBody').textContent = card.options[i].fb;
       fb.className = 'fb';
       jump();
@@ -668,11 +733,14 @@
     }
     fb.hidden = false;
     saveState();
-    // 살짝 내려서 해설이 보이게
+    // 살짝 내려서 해설이 보이게 (sticky HUD 높이만큼 비켜 준다)
     setTimeout(function(){
       document.querySelector('.stage').classList.add('hide');
       setTimeout(function(){
-        var top = $('question').getBoundingClientRect().top + window.scrollY - 150;
+        var card = document.querySelector('.q-card');
+        var hud = document.querySelector('.hud');
+        var off = (hud ? hud.getBoundingClientRect().height : 150) + 10;
+        var top = card.getBoundingClientRect().top + window.scrollY - off;
         window.scrollTo({top: Math.max(0, top), behavior:'smooth'});
       }, 260);
     }, 720);
@@ -1057,9 +1125,9 @@
   function renderResult(){
     var c = CHAR[state.picked];
     $('resImg').src = img(c.slug);
-    $('resImg').alt = c.name;
-    $('resName').textContent = c.name;
-    $('resSub').textContent = '여섯 상황을 모두 ' + c.name + '와 함께 넘겼어요.';
+    $('resImg').alt = dispName();
+    $('resName').textContent = dispName();
+    $('resSub').textContent = '여섯 상황을 모두 ' + dispName() + josa(dispName(), '과', '와') + ' 함께 넘겼어요.';
     var g = gradeFor(state.correct);
     $('gradeEmoji').textContent = g.e;
     $('gradeName').textContent = g.n;
@@ -1187,9 +1255,15 @@
     ctx.restore();
 
     // 이름 · 레벨
+    var nm = dispName();
     ctx.fillStyle = '#14261F';
-    ctx.font = '900 78px "Apple SD Gothic Neo","Malgun Gothic",sans-serif';
-    ctx.fillText(c.name, W / 2, 752);
+    var nfs = 78;
+    ctx.font = '900 ' + nfs + 'px "Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+    while(nfs > 38 && ctx.measureText(nm).width > 780){
+      nfs -= 2;
+      ctx.font = '900 ' + nfs + 'px "Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+    }
+    ctx.fillText(nm, W / 2, 752);
 
     var lvTxt = 'Lv.6 만렙 단짝 비서';
     ctx.font = '900 28px "Apple SD Gothic Neo","Malgun Gothic",sans-serif';
@@ -1315,7 +1389,7 @@
     return [
       '내 손안의 피클 비서 키우기 완주!',
       '',
-      '내가 고른 비서: ' + c.name + ' (' + c.letter + ') → Lv.6 만렙 단짝 비서 👑',
+      '내가 고른 비서: ' + dispName() + ' (' + c.letter + ') → Lv.6 만렙 단짝 비서 👑',
       '모은 홀로그램 카드 6장: ' + CARDS.map(function(x){ return x.name; }).join(', '),
       '정답 ' + state.correct + ' / 6 · ' + gradeFor(state.correct).n,
       '',
@@ -1327,7 +1401,7 @@
      9. 흐름
      ========================================================= */
   function startGame(slug){
-    state = freshState(slug);
+    state = freshState(slug, typedName());
     stage = 0;
     lvShown = 1;
     state.stage = 0;
@@ -1387,6 +1461,15 @@
   $('btnStart').addEventListener('click', function(){ startGame(selSlug); });
   $('btnResume').addEventListener('click', resumeGame);
 
+  $('nameInput').addEventListener('input', function(){
+    var v = this.value.replace(/\s{2,}/g, ' ');
+    if(v !== this.value) this.value = v;
+    paintChosen();
+  });
+  $('nameInput').addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); this.blur(); }
+  });
+
   $('btnScratch').addEventListener('click', function(){
     var card = CARDS[stage];
     if(!state.unlocked || state.unlocked.indexOf(stage) < 0){
@@ -1407,6 +1490,7 @@
   function resetAll(){
     try{ localStorage.removeItem(STORE); }catch(e){}
     state = null; stage = 0; combo = 0; lvShown = 1;
+    $('nameInput').value = '';
     $('scratchModal').classList.remove('on');
     $('viewModal').classList.remove('on');
     $('certModal').classList.remove('on');

@@ -1,5 +1,5 @@
-/* 내 손안의 피클 비서 키우기 — v3 (2차 게임형 업그레이드) */
-const CACHE = 'pickle-grow-v3';
+/* 내 손안의 피클 비서 키우기 — v4 (이름 직접 짓기 · 캐릭터 누끼 보정 · 한 화면 맞춤) */
+const CACHE = 'pickle-grow-v4';
 const ASSETS = [
   './', './index.html', './manifest.json', './icon.svg',
   './icon-192.png', './icon-512.png', './icon-maskable-512.png', './icon-apple-180.png',
