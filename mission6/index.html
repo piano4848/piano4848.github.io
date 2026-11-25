@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#1565C0" />
+<meta name="description" content="아트북 전자책 화집 미션 6 · 아트북 프롬프트 원터치 복사 페이지" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%96%3C/text%3E%3C/svg%3E" />
+<title>생각나름 · 미션 6 아트북 프롬프트 원터치 복사</title>
+<style>
+  :root {
+    --bg: #F4F8F3;
+    --card: #FFFFFF;
+    --navy: #1C3D5A;
+    --ink: #24435C;
+    --green: #166534;
+    --blue: #1565C0;
+    --blue-dark: #0D47A1;
+    --blue-bg: #EAF2FC;
+    --blue-line: #BFDBFE;
+    --line: #DFE9E1;
+    --gold: #A97B22;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+      'Malgun Gothic', '맑은 고딕', 'Noto Sans KR', sans-serif;
+    font-size: 19px;
+    line-height: 1.7;
+    word-break: keep-all;
+    touch-action: manipulation;
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 18px 16px calc(40px + env(safe-area-inset-bottom));
+  }
+
+  /* ── 머리글 ── */
+  .hero {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 22px;
+    padding: 26px 20px 24px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(28, 61, 90, 0.07);
+    margin-bottom: 18px;
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  h1 {
+    margin: 0 0 14px;
+    font-size: 29px;
+    line-height: 1.34;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    color: var(--navy);
+  }
+  .hero .sub {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.55;
+    color: var(--green);
+  }
+
+  /* ── 공통 카드 ── */
+  .card {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 22px;
+    padding: 22px 18px 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 20px rgba(28, 61, 90, 0.06);
+  }
+  .card-head { text-align: center; margin-bottom: 16px; }
+  .tag {
+    display: inline-block;
+    background: var(--blue-bg);
+    border: 2px solid var(--blue-line);
+    color: var(--blue-dark);
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.2px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .tag.pick {
+    background: #FFF7E6;
+    border-color: #F3D9A4;
+    color: #8A5A00;
+  }
+  .tag.warn {
+    background: #FEF2F2;
+    border-color: #FBC9C9;
+    color: #A11212;
+  }
+  h2 {
+    margin: 0;
+    font-size: 25px;
+    line-height: 1.38;
+    font-weight: 900;
+    letter-spacing: -0.6px;
+    color: var(--navy);
+  }
+  .sub-note {
+    display: block;
+    margin-top: 6px;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--blue-dark);
+    letter-spacing: -0.2px;
+  }
+  .divider {
+    height: 3px;
+    background: var(--line);
+    border-radius: 3px;
+    margin: 0 4px 16px;
+  }
+
+  .guide {
+    background: #F2F8F3;
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    padding: 14px 14px 12px;
+    margin-bottom: 18px;
+  }
+  .guide p {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.55;
+    color: #1F4B36;
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+  }
+  .guide p + p { margin-top: 8px; }
+  .num {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 900;
+    margin-top: 1px;
+  }
+  .guide .single {
+    font-size: 19px;
+    font-weight: 800;
+    color: #1F4B36;
+    display: block;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* ── 26쪽 구성 표 ── */
+  .page-map {
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .prow {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 14px;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .prow + .prow { border-top: 1.5px solid var(--line); }
+  .prow:nth-child(odd) { background: #FAFCFA; }
+  .ppage {
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+  .pdesc { font-weight: 700; color: #34566E; }
+
+  /* ── 목록 ── */
+  ul.bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul.bullets li {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #2C4A5E;
+  }
+  ul.bullets li + li { margin-top: 10px; }
+  ul.bullets .dot {
+    flex: 0 0 auto;
+    color: var(--green);
+    font-weight: 900;
+    font-size: 19px;
+    line-height: 1.6;
+  }
+  ul.bullets strong { color: var(--navy); font-weight: 900; }
+
+  /* ── 복사 버튼 ── */
+  button.copy-btn {
+    display: block;
+    width: 100%;
+    min-height: 76px;
+    padding: 18px 14px;
+    border: none;
+    border-radius: 18px;
+    background: var(--blue);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 21px;
+    font-weight: 900;
+    line-height: 1.42;
+    letter-spacing: -0.4px;
+    box-shadow: 0 6px 0 var(--blue-dark);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  button.copy-btn:active,
+  button.copy-btn.pressed {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--blue-dark);
+  }
+  button.copy-btn.done {
+    background: #14773F;
+    box-shadow: 0 6px 0 #0B5528;
+    font-size: 19px;
+  }
+
+  /* ── 복사될 문장 (항상 펼침) ── */
+  .prompt-box {
+    margin-top: 16px;
+    background: #F7FAF8;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .pb-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 900;
+    color: #4A6B80;
+    letter-spacing: -0.2px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .pb-text {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.68;
+    color: #2C4A5E;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* ── 안내 꼬리말 ── */
+  .foot {
+    text-align: center;
+    margin-top: 8px;
+  }
+  .foot p {
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #5A7487;
+  }
+  .foot p:last-child { margin-bottom: 0; }
+
+  /* ── 토스트 ── */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(22px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 22px);
+    max-width: calc(100% - 32px);
+    width: max-content;
+    background: #123B57;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.5;
+    padding: 15px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 26px rgba(15, 45, 65, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    z-index: 99;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (max-width: 360px) {
+    h1 { font-size: 26px; }
+    h2 { font-size: 23px; }
+    button.copy-btn { font-size: 19px; }
+    .prow { grid-template-columns: 82px 1fr; font-size: 17px; padding: 11px 12px; }
+    ul.bullets li, .guide p, .guide .single { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hero">
+    <span class="kicker">생각나름 · 11월 멤버십 미션 6</span>
+    <h1>아트북 전자책 화집<br />원터치 복사</h1>
+    <p class="sub">그림 10장과 글귀 10개만 준비되면<br /><strong>버튼 한 번</strong>으로 끝납니다!</p>
+  </header>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">준비 순서</span>
+      <h2>그림 → 글귀 → 버튼 한 번</h2>
+    </div>
+    <div class="divider"></div>
+    <div class="guide">
+      <p><span class="num">1</span><span>그림 <strong>10장</strong>을 1번부터 10번 순서대로 준비합니다</span></p>
+      <p><span class="num">2</span><span>그림마다 <strong>글귀 10개</strong>와 <strong>책 제목·작가명</strong>을 정합니다</span></p>
+      <p><span class="num">3</span><span>아래 파란 버튼을 눌러 복사하고, 그림·글귀와 함께 피클 채팅창에 붙여넣습니다</span></p>
+    </div>
+    <div class="guide">
+      <p class="single">그림을 모으는 일이 제일 오래 걸립니다.<br />그림만 준비되면 나머지는 한 번에 됩니다.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">26쪽 구성</span>
+      <h2>26쪽은 이렇게 채워집니다</h2>
+      <span class="sub-note">왼쪽에 그림, 오른쪽에 글귀</span>
+    </div>
+    <div class="divider"></div>
+    <div class="page-map">
+      <div class="prow"><span class="ppage">1쪽</span><span class="pdesc">앞표지 — 책 제목과 작가명</span></div>
+      <div class="prow"><span class="ppage">2·3쪽</span><span class="pdesc">속표지와 인사말</span></div>
+      <div class="prow"><span class="ppage">4~23쪽</span><span class="pdesc">그림 1~10(왼쪽) · 글귀 1~10(오른쪽)</span></div>
+      <div class="prow"><span class="ppage">24·25쪽</span><span class="pdesc">에필로그와 작가 노트</span></div>
+      <div class="prow"><span class="ppage">26쪽</span><span class="pdesc">뒷표지</span></div>
+    </div>
+    <div class="guide" style="margin-top:18px; margin-bottom:0;">
+      <p class="single">그림과 글귀는 한 쌍씩, 같은 순서로 준비하시면 됩니다.<br />4쪽에 그림 1, 5쪽에 글귀 1이 나란히 놓입니다.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag pick">그림 10장</span>
+      <h2>이미 만든 그림 그대로<br />쓰셔도 됩니다</h2>
+    </div>
+    <div class="divider"></div>
+    <ul class="bullets">
+      <li><span class="dot">•</span><span><strong>미션 1~5에서 이미 만든 그림</strong> 중 마음에 드는 10장을 고르시면 됩니다</span></li>
+      <li><span class="dot">•</span><span>비율은 <strong>3:4 세로형</strong>을 추천합니다. 이미 만든 <strong>2:3 세로·1:1 정사각형</strong> 그림도 그대로 들어갑니다</span></li>
+      <li><span class="dot">•</span><span>표지는 10장 중 <strong>제일 마음에 드는 1장</strong>을 쓰시면 됩니다. 따로 그리지 않으셔도 괜찮습니다</span></li>
+      <li><span class="dot">•</span><span>새로 그리실 분은 챗GPT 무료 플랜 기준 <strong>하루 2~5장</strong>씩이니, 며칠에 걸쳐 조금씩 모아 두시면 됩니다</span></li>
+      <li><span class="dot">•</span><span>한 가지 스타일로 모으면 화집처럼 멋지고, 여러 스타일을 모으면 <strong>나의 11월 그림 일기</strong>가 됩니다. 둘 다 좋습니다</span></li>
+      <li><span class="dot">•</span><span><strong>10장보다 많아도 괜찮습니다.</strong> 그림 12장이면 30쪽, 15장이면 36쪽이 됩니다</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">글귀 10개</span>
+      <h2>그림마다 한두 줄이면<br />충분합니다</h2>
+    </div>
+    <div class="divider"></div>
+    <ul class="bullets">
+      <li><span class="dot">•</span><span>그림 1~10에 <strong>한두 줄씩</strong> 붙입니다. 길게 쓰지 않으셔도 됩니다</span></li>
+      <li><span class="dot">•</span><span>그림을 보며 떠오른 생각, 그날의 기분, 만든 이유 한 줄이면 충분합니다</span></li>
+      <li><span class="dot">•</span><span>내가 쓴 말투 그대로여도 좋고, 아래 ②번 프롬프트로 다듬으셔도 됩니다</span></li>
+      <li><span class="dot">•</span><span>함께 <strong>책 제목과 작가명</strong>을 정해 주세요. 표지와 속표지에 들어갑니다</span></li>
+      <li><span class="dot">•</span><span>작가명은 활동명(예: 생각나름)으로 쓰셔도 좋습니다</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">① 아트북 만들기</span>
+      <h2>그림 10장 + 글귀 10개를<br />준비한 뒤</h2>
+    </div>
+    <div class="divider"></div>
+    <div class="guide">
+      <p class="single">그림은 보낸 순서대로 그림 1~10이 됩니다.<br />파일 이름에 01_, 02_처럼 번호를 붙여 두세요.</p>
+    </div>
+    <button type="button" class="copy-btn" data-key="p1">📋 아트북 만들기 프롬프트 복사하기</button>
+    <div class="prompt-box">
+      <span class="pb-label">👇 이 문장이 그대로 복사됩니다</span>
+      <p class="pb-text">📋 내 그림 10장과 짧은 글귀 10개를 보낼게. A5 세로형 26쪽 소장용 아트북 전자책 PDF로 만들어 줘. 양면으로 펼쳐 보는 전자책이야. 1쪽은 앞표지, 2·3쪽은 속표지와 인사말, 4~23쪽은 짝수 왼쪽에 그림 1~10, 홀수 오른쪽에 글귀 1~10, 24·25쪽은 에필로그와 작가 노트, 26쪽은 뒷표지로 넣어 줘. 책 제목은[ ○○ ], 작가명은[ ○○ ]이야. 완성되면 PDF 파일로 다운로드할 수 있게 해 줘.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">② 글귀 다듬기 · 선택</span>
+      <h2>내가 쓴 글귀를<br />다듬고 싶을 때</h2>
+    </div>
+    <div class="divider"></div>
+    <div class="guide">
+      <p class="single">이건 선택입니다.<br />내가 쓴 글귀 그대로 쓰셔도 좋습니다.</p>
+    </div>
+    <button type="button" class="copy-btn" data-key="p2">📋 글귀 다듬기 프롬프트 복사하기</button>
+    <div class="prompt-box">
+      <span class="pb-label">👇 이 문장이 그대로 복사됩니다</span>
+      <p class="pb-text">📋 내가 쓴 글귀 10개를 보낼게. 뜻은 바꾸지 말고, 화집에 어울리게 한두 줄로 다듬어 줘. 어려운 말은 빼고 담백하게 써 줘.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag warn">꼭 기억하세요</span>
+      <h2>미리보기 주소만<br />저장하면 안 됩니다</h2>
+    </div>
+    <div class="divider"></div>
+    <ul class="bullets">
+      <li><span class="dot">•</span><span>피클이 만들어 준 <strong>웹 미리보기 주소는 7일 뒤 만료</strong>될 수 있습니다</span></li>
+      <li><span class="dot">•</span><span>그래서 꼭 <strong>PDF 파일 자체를 다운로드</strong>해서 내 폰·컴퓨터에 저장해 주세요. 이 파일이 미션 6 결과물입니다</span></li>
+      <li><span class="dot">•</span><span>카톡으로 나눌 때도 주소가 아니라 <strong>저장한 PDF 파일</strong>을 보내 주세요</span></li>
+      <li><span class="dot">•</span><span>저장 위치: 폰은 <strong>내 파일 &gt; 다운로드</strong>(기종에 따라 문서), 컴퓨터는 <strong>다운로드</strong> 폴더</span></li>
+      <li><span class="dot">•</span><span>크레딧 안내: 그림 10장과 글귀를 한 번에 보내면 시간은 조금 길어질 수 있지만 크레딧은 덜 듭니다. 나눠 보내셔도 순서는 그대로 지켜 주세요</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <span class="tag">마감 안내</span>
+      <h2>11월 29일(일) 자정까지</h2>
+    </div>
+    <div class="divider"></div>
+    <div class="guide" style="margin-bottom:0;">
+      <p class="single">완성되면 첫 화면(표지)과 펼침면을 캡처해 두세요.<br />제출 폼 주소는 자료실 미션 6 탭에 있습니다.<br />마감이 지나도 폼은 계속 열려 있으니, 늦으셔도 일단 넣어 주세요.</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    <p>생각나름 · 11월 멤버십 미션 6 전용</p>
+    <p>이 주소는 만료 없이 계속 열립니다.</p>
+  </div>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  var TEXTS = {
+    p1: "📋 내 그림 10장과 짧은 글귀 10개를 보낼게. A5 세로형 26쪽 소장용 아트북 전자책 PDF로 만들어 줘. 양면으로 펼쳐 보는 전자책이야. 1쪽은 앞표지, 2·3쪽은 속표지와 인사말, 4~23쪽은 짝수 왼쪽에 그림 1~10, 홀수 오른쪽에 글귀 1~10, 24·25쪽은 에필로그와 작가 노트, 26쪽은 뒷표지로 넣어 줘. 책 제목은[ ○○ ], 작가명은[ ○○ ]이야. 완성되면 PDF 파일로 다운로드할 수 있게 해 줘.",
+    p2: "📋 내가 쓴 글귀 10개를 보낼게. 뜻은 바꾸지 말고, 화집에 어울리게 한두 줄로 다듬어 줘. 어려운 말은 빼고 담백하게 써 줘."
+  };
+  var DONE_LABEL = {
+    p1: '\u2705 복사되었습니다! 그림 10장·글귀와 함께 붙여넣기 하세요.',
+    p2: '\u2705 복사되었습니다! 내가 쓴 글귀 10개와 함께 붙여넣기 하세요.'
+  };
+  var toastTimer = null;
+
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 4600);
+  }
+
+  function legacyCopy(text) {
+    var ok = false;
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.width = '1px';
+    ta.style.height = '1px';
+    ta.style.padding = '0';
+    ta.style.border = 'none';
+    ta.style.outline = 'none';
+    ta.style.boxShadow = 'none';
+    ta.style.background = 'transparent';
+    ta.style.opacity = '0';
+    ta.style.fontSize = '16px';
+    document.body.appendChild(ta);
+    try {
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      ta.focus();
+      if (isIOS) {
+        ta.contentEditable = 'true';
+        var range = document.createRange();
+        range.selectNodeContents(ta);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, text.length);
+      } else {
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+      }
+      ok = document.execCommand('copy');
+    } catch (e) {
+      ok = false;
+    }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  async function copyPrompt(key, btn) {
+    var text = TEXTS[key];
+    var ok = false;
+
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch (e) {
+        ok = false;
+      }
+    }
+    if (!ok) ok = legacyCopy(text);
+
+    if (ok) {
+      if (!btn.dataset.origin) btn.dataset.origin = btn.textContent.trim();
+      btn.classList.add('done');
+      btn.textContent = DONE_LABEL[key];
+      if (navigator.vibrate) { try { navigator.vibrate(35); } catch (e) {} }
+      showToast(DONE_LABEL[key]);
+    } else {
+      showToast('복사가 되지 않았어요. 아래 문장을 길게 눌러 직접 복사해 주세요.');
+    }
+  }
+
+  document.querySelectorAll('button.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.classList.add('pressed');
+      setTimeout(function () { btn.classList.remove('pressed'); }, 160);
+      copyPrompt(btn.dataset.key, btn);
+    });
+  });
+</script>
+</body>
+</html>
