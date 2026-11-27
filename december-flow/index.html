@@ -42,7 +42,7 @@
   /* masthead */
   .masthead { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; padding-bottom: 26px; border-bottom: 1px solid var(--rule); }
   .masthead__text { min-width: 0; }
-  .eyebrow { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .eyebrow { font-family: var(--sans); font-size: 11.5px; font-weight: 500; letter-spacing: 0.14em; color: var(--muted); }
   h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.28; letter-spacing: -0.02em; color: var(--ink); margin-top: 12px; }
   .subtitle { margin-top: 14px; font-size: 15px; color: var(--muted); }
   .meta { margin-top: 10px; font-size: 12.5px; letter-spacing: 0.01em; color: var(--soft); }
@@ -108,7 +108,7 @@
   .tag--live { color: #fff; background: var(--accent); border-color: var(--accent); }
   .card__date { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; color: var(--accent); }
   .card__title { margin-top: 10px; font-size: 19px; font-weight: 600; line-height: 1.4; color: var(--ink); letter-spacing: -0.01em; }
-  .card__list { list-style: none; margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px 18px; }
+  .card__list { list-style: none; margin-top: 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .card__list li { position: relative; padding-left: 13px; font-size: 14.5px; color: var(--ink-2); line-height: 1.5; }
   .card__list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 4px; height: 4px; background: var(--accent); opacity: .55; }
   .card__tip { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule-soft); font-size: 13.5px; line-height: 1.65; color: var(--muted); }
@@ -136,7 +136,7 @@
     .cards { grid-template-columns: minmax(0, 1fr); }
     .parallel { grid-template-columns: minmax(0, 1fr); }
     .card { padding: 22px 20px 22px; }
-    .card__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; }
+    .card__list { gap: 6px; }
     .card__list li { font-size: 14px; }
     .details { margin-top: 44px; }
   }
@@ -162,7 +162,7 @@
 <main class="page">
   <header class="masthead">
     <div class="masthead__text">
-      <p class="eyebrow">Thinking Atelier · 2026 December</p>
+      <p class="eyebrow">생각나름 · 2026년 12월</p>
       <h1>12월 한 달 과정 · 8회차 수업 흐름</h1>
       <p class="subtitle">생각나름 써먹는 AI 루틴 클래스 · 12/5(토) ~ 12/24(목)</p>
       <p class="meta">8회차 · 라이브 줌 2회 · 핵심 실습 6회</p>
@@ -193,7 +193,7 @@
   <rect width="1120" height="600" fill="#FAF9F6"/>
   <rect width="1120" height="600" fill="url(#dots)" opacity="0.45"/>
   <line x1="40" y1="48" x2="1080" y2="48" stroke="rgba(24,24,27,0.12)" stroke-width="1"/>
-  <text x="40" y="34" font-family="'Geist Mono',ui-monospace,monospace" font-size="8" font-weight="500" letter-spacing="0.2em" fill="#5A5A63">THINKING ATELIER · 8 SESSIONS</text>
+  <text x="40" y="34" font-family="'Geist Mono',ui-monospace,monospace" font-size="8" font-weight="500" letter-spacing="0.2em" fill="#5A5A63">DECEMBER 2026 · 8 SESSIONS</text>
   <text x="1080" y="34" text-anchor="end" font-family="'Geist Mono',ui-monospace,monospace" font-size="8" font-weight="500" letter-spacing="0.2em" fill="#5A5A63">12.05 — 12.24</text>
   <g stroke="#5A5A63" stroke-width="1" fill="none">
     <line x1="284" y1="182" x2="314" y2="182" marker-end="url(#arrow)"/>
@@ -366,12 +366,12 @@
 
   <section class="parallel" aria-label="함께 이어지는 것">
     <div class="parallel__cell">
-      <p class="parallel__label">Weekday · Tue Wed Fri</p>
+      <p class="parallel__label">Tue · Wed · Fri</p>
       <p class="parallel__title">평일에는 작은 AI 루틴</p>
       <p class="parallel__text">화·수·금, 짧게 하나씩. 회차 사이에 손이 쉬지 않도록 그날 바로 쓸 수 있는 것부터 붙입니다.</p>
     </div>
     <div class="parallel__cell">
-      <p class="parallel__label">Studio · 3 times a week</p>
+      <p class="parallel__label">3 times a week</p>
       <p class="parallel__title">주 3회 이상 그림 작업실</p>
       <p class="parallel__text">12월 내내 함께 갑니다. 만든 그림은 그대로 쌓여 다음 재료가 됩니다.</p>
     </div>
