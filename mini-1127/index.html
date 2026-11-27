@@ -1101,12 +1101,12 @@
   /* ── 맨 위로 ── */
   #toTop{
     position:fixed;
-    right:14px;
-    bottom:calc(18px + env(safe-area-inset-bottom));
+    right:10px;
+    bottom:calc(12px + env(safe-area-inset-bottom));
     z-index:70;
     display:grid;
     place-items:center;
-    width:46px;height:46px;
+    width:42px;height:42px;
     border:0;
     border-radius:50%;
     background:linear-gradient(180deg,#FFFFFF,#EFF9F3);
@@ -1120,7 +1120,7 @@
     pointer-events:none;
     transition:opacity .25s ease, transform .3s cubic-bezier(.2,1.5,.4,1);
   }
-  #toTop.show{opacity:1;transform:none;pointer-events:auto}
+  #toTop.show{opacity:.94;transform:none;pointer-events:auto}
   #toTop:active{transform:translateY(2px)}
 
   /* ── 꼬리말 ── */
@@ -1978,7 +1978,7 @@
       updateSpy();
       var top = window.pageYOffset || document.documentElement.scrollTop;
       var toTop = $('#toTop');
-      if (toTop) toTop.classList.toggle('show', top > 620);
+      if (toTop) toTop.classList.toggle('show', top > 1100);
       ticking = false;
     });
   }
