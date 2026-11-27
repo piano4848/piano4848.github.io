@@ -535,6 +535,8 @@
   /* ── 단계 카드 ── */
   .card{
     --accent:var(--green);
+    --accent-d:#0E5C3D;
+    --accent-s:#0A4630;
     position:relative;
     background:var(--paper);
     border:1.5px solid var(--line);
@@ -545,8 +547,8 @@
     scroll-margin-top:calc(var(--stick) + 10px);
     overflow:hidden;
   }
-  .card.alt{--accent:var(--coral)}
-  .card.gold{--accent:var(--yellow)}
+  .card.alt{--accent:var(--coral);--accent-d:#B23D26;--accent-s:#8E2C1A}
+  .card.gold{--accent:var(--yellow);--accent-d:#C08A0C;--accent-s:#96690A}
   .step-head{
     position:relative;
     display:flex;
@@ -561,12 +563,12 @@
     gap:5px;
     padding:4px 11px;
     border-radius:999px;
-    background:linear-gradient(180deg,var(--accent),color-mix(in srgb, var(--accent) 78%, #000 22%));
+    background:linear-gradient(180deg,var(--accent),var(--accent-d));
     color:#fff;
     font-size:.74rem;
     font-weight:900;
     letter-spacing:-.3px;
-    box-shadow:0 3px 0 color-mix(in srgb, var(--accent) 55%, #000 45%), 0 6px 12px -8px rgba(12,59,41,.8);
+    box-shadow:0 3px 0 var(--accent-s), 0 6px 12px -8px rgba(12,59,41,.8);
   }
   .done-chip{
     display:none;
