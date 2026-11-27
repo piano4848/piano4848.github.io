@@ -33,6 +33,8 @@
     color: var(--ink);
     font-size: 15px;
     line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
     -webkit-font-smoothing: antialiased;
   }
   .page { max-width: 1200px; margin: 0 auto; padding: 52px 40px 64px; }
@@ -43,7 +45,7 @@
   .eyebrow { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
   h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.28; letter-spacing: -0.02em; color: var(--ink); margin-top: 12px; }
   .subtitle { margin-top: 14px; font-size: 15px; color: var(--muted); }
-  .meta { margin-top: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; color: var(--soft); text-transform: uppercase; }
+  .meta { margin-top: 10px; font-size: 12.5px; letter-spacing: 0.01em; color: var(--soft); }
   .actions { display: flex; gap: 8px; flex-shrink: 0; }
   .btn {
     appearance: none; border: 1px solid var(--ink); background: transparent; color: var(--ink);
@@ -63,7 +65,10 @@
   .mobile-flow { display: none; list-style: none; margin-top: 8px; }
 
   /* mobile timeline */
+  .mobile-flow { position: relative; }
   .mflow__item { position: relative; }
+  .mflow__item::before { content: ""; position: absolute; left: 19px; top: 34px; bottom: 0; width: 1px; background: var(--rule); }
+  .mflow__item:last-child::before { display: none; }
   .mnode {
     display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; width: 100%;
     text-align: left; background: none; border: 0; padding: 0 0 26px; cursor: pointer;
@@ -195,8 +200,9 @@
     <line x1="544" y1="182" x2="574" y2="182" marker-end="url(#arrow)"/>
     <line x1="804" y1="182" x2="834" y2="182" marker-end="url(#arrow)"/>
     <line x1="950" y1="268" x2="950" y2="374" marker-end="url(#arrow)"/>
-    <line x1="796" y1="482" x2="546" y2="482" marker-end="url(#arrow)"/>
-    <line x1="536" y1="482" x2="286" y2="482" marker-end="url(#arrow)"/>
+    <line x1="836" y1="482" x2="806" y2="482" marker-end="url(#arrow)"/>
+    <line x1="576" y1="482" x2="546" y2="482" marker-end="url(#arrow)"/>
+    <line x1="316" y1="482" x2="286" y2="482" marker-end="url(#arrow)"/>
   </g>
   <g class="flow-node is-live" data-target="card-1" role="button" tabindex="0" aria-label="01회차 1차 라이브 줌 12.05 (토) 21:00">
     <rect class="node-card node-card--live" x="60" y="96" width="220" height="172" rx="3" fill="#F8FBF9" stroke="#1B7F4E" stroke-width="1.25"/>
@@ -207,7 +213,6 @@
     <text x="80" y="228" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">필수 보안</text>
     <text x="80" y="250" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">주 3회 그림 작업실</text>
     <text x="260" y="126" text-anchor="end" font-family="'Geist Mono',ui-monospace,monospace" font-size="8" font-weight="600" letter-spacing="0.18em" fill="#1B7F4E">LIVE</text>
-    <rect x="214" y="121" width="5" height="5" fill="#1B7F4E"/>
   </g>
   <g class="flow-node" data-target="card-2" role="button" tabindex="0" aria-label="02회차 핵심 실습 1 내 돈과 혜택 챙기기">
     <rect class="node-card" x="320" y="96" width="220" height="172" rx="3" fill="#FFFFFF" stroke="rgba(24,24,27,0.16)" stroke-width="1"/>
@@ -233,36 +238,35 @@
     <text x="860" y="228" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">서류</text>
   </g>
   <g class="flow-node" data-target="card-5" role="button" tabindex="0" aria-label="05회차 핵심 실습 4 나만의 매일 AI 루틴">
-    <rect class="node-card" x="60" y="396" width="220" height="172" rx="3" fill="#FFFFFF" stroke="rgba(24,24,27,0.16)" stroke-width="1"/>
-    <text x="80" y="426" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="500" fill="#5A5A63">핵심 실습 4</text>
-    <text x="80" y="454" font-family="'Noto Sans KR','Geist',sans-serif" font-size="15" font-weight="600" fill="#18181B">나만의 매일 AI 루틴</text>
-    <text x="80" y="484" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">동네 소식 · 약 챙김 전화</text>
-    <text x="80" y="506" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">항공권 · 일정</text>
+    <rect class="node-card" x="840" y="396" width="220" height="172" rx="3" fill="#FFFFFF" stroke="rgba(24,24,27,0.16)" stroke-width="1"/>
+    <text x="860" y="426" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="500" fill="#5A5A63">핵심 실습 4</text>
+    <text x="860" y="454" font-family="'Noto Sans KR','Geist',sans-serif" font-size="15" font-weight="600" fill="#18181B">나만의 매일 AI 루틴</text>
+    <text x="860" y="484" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">동네 소식 · 약 챙김 전화</text>
+    <text x="860" y="506" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">항공권 · 일정</text>
   </g>
   <g class="flow-node is-live" data-target="card-6" role="button" tabindex="0" aria-label="06회차 2차 라이브 줌 12.19 (토) 21:00">
-    <rect class="node-card node-card--live" x="320" y="396" width="220" height="172" rx="3" fill="#F8FBF9" stroke="#1B7F4E" stroke-width="1.25"/>
-    <text x="340" y="426" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="600" fill="#1B7F4E">2차 라이브 줌</text>
-    <text x="340" y="454" font-family="'Noto Sans KR','Geist',sans-serif" font-size="15" font-weight="600" fill="#18181B" letter-spacing="0.01em">12.19 (토) 21:00</text>
-    <text x="340" y="484" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">중간 점검 &amp; Q&amp;A</text>
-    <text x="340" y="506" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">막힌 점 같이 풀기</text>
-    <text x="340" y="528" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">실전 응용 확장</text>
-    <text x="520" y="426" text-anchor="end" font-family="'Geist Mono',ui-monospace,monospace" font-size="8" font-weight="600" letter-spacing="0.18em" fill="#1B7F4E">LIVE</text>
-    <rect x="474" y="421" width="5" height="5" fill="#1B7F4E"/>
+    <rect class="node-card node-card--live" x="580" y="396" width="220" height="172" rx="3" fill="#F8FBF9" stroke="#1B7F4E" stroke-width="1.25"/>
+    <text x="600" y="426" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="600" fill="#1B7F4E">2차 라이브 줌</text>
+    <text x="600" y="454" font-family="'Noto Sans KR','Geist',sans-serif" font-size="15" font-weight="600" fill="#18181B" letter-spacing="0.01em">12.19 (토) 21:00</text>
+    <text x="600" y="484" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">중간 점검 &amp; Q&amp;A</text>
+    <text x="600" y="506" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">막힌 점 같이 풀기</text>
+    <text x="600" y="528" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">실전 응용 확장</text>
+    <text x="780" y="426" text-anchor="end" font-family="'Geist Mono',ui-monospace,monospace" font-size="8" font-weight="600" letter-spacing="0.18em" fill="#1B7F4E">LIVE</text>
   </g>
   <g class="flow-node" data-target="card-7" role="button" tabindex="0" aria-label="07회차 핵심 실습 5 디지털 대청소">
-    <rect class="node-card" x="580" y="396" width="220" height="172" rx="3" fill="#FFFFFF" stroke="rgba(24,24,27,0.16)" stroke-width="1"/>
-    <text x="600" y="426" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="500" fill="#5A5A63">핵심 실습 5</text>
-    <text x="600" y="454" font-family="'Noto Sans KR','Geist',sans-serif" font-size="15" font-weight="600" fill="#18181B">디지털 대청소</text>
-    <text x="600" y="484" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">메일함 · 드라이브 폴더</text>
-    <text x="600" y="506" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">구독 점검 · PDF 요약</text>
+    <rect class="node-card" x="320" y="396" width="220" height="172" rx="3" fill="#FFFFFF" stroke="rgba(24,24,27,0.16)" stroke-width="1"/>
+    <text x="340" y="426" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="500" fill="#5A5A63">핵심 실습 5</text>
+    <text x="340" y="454" font-family="'Noto Sans KR','Geist',sans-serif" font-size="15" font-weight="600" fill="#18181B">디지털 대청소</text>
+    <text x="340" y="484" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">메일함 · 드라이브 폴더</text>
+    <text x="340" y="506" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">구독 점검 · PDF 요약</text>
   </g>
   <g class="flow-node" data-target="card-8" role="button" tabindex="0" aria-label="08회차 핵심 실습 6 챗GPT × 피클 확장">
-    <rect class="node-card" x="840" y="396" width="220" height="172" rx="3" fill="#FFFFFF" stroke="rgba(24,24,27,0.16)" stroke-width="1"/>
-    <text x="860" y="426" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="500" fill="#5A5A63">핵심 실습 6</text>
-    <text x="860" y="454" font-family="'Noto Sans KR','Geist',sans-serif" font-size="15" font-weight="600" fill="#18181B">챗GPT × 피클 확장</text>
-    <text x="860" y="484" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">홍보 페이지 · 블로그</text>
-    <text x="860" y="506" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">초대장 · 팩트체크</text>
-    <text x="860" y="528" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">답장</text>
+    <rect class="node-card" x="60" y="396" width="220" height="172" rx="3" fill="#FFFFFF" stroke="rgba(24,24,27,0.16)" stroke-width="1"/>
+    <text x="80" y="426" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="500" fill="#5A5A63">핵심 실습 6</text>
+    <text x="80" y="454" font-family="'Noto Sans KR','Geist',sans-serif" font-size="15" font-weight="600" fill="#18181B">챗GPT × 피클 확장</text>
+    <text x="80" y="484" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">홍보 페이지 · 블로그</text>
+    <text x="80" y="506" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">초대장 · 팩트체크</text>
+    <text x="80" y="528" font-family="'Noto Sans KR','Geist',sans-serif" font-size="12" font-weight="400" fill="#5A5A63">답장</text>
   </g>
   <circle cx="170" cy="96" r="17" fill="#1B7F4E" stroke="#1B7F4E" stroke-width="1.25"/>
   <text x="170" y="100" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#FFFFFF">01</text>
@@ -272,14 +276,14 @@
   <text x="690" y="100" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#18181B">03</text>
   <circle cx="950" cy="96" r="17" fill="#FAF9F6" stroke="#18181B" stroke-width="1.25"/>
   <text x="950" y="100" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#18181B">04</text>
-  <circle cx="170" cy="396" r="17" fill="#FAF9F6" stroke="#18181B" stroke-width="1.25"/>
-  <text x="170" y="400" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#18181B">05</text>
-  <circle cx="430" cy="396" r="17" fill="#1B7F4E" stroke="#1B7F4E" stroke-width="1.25"/>
-  <text x="430" y="400" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#FFFFFF">06</text>
-  <circle cx="690" cy="396" r="17" fill="#FAF9F6" stroke="#18181B" stroke-width="1.25"/>
-  <text x="690" y="400" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#18181B">07</text>
   <circle cx="950" cy="396" r="17" fill="#FAF9F6" stroke="#18181B" stroke-width="1.25"/>
-  <text x="950" y="400" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#18181B">08</text>
+  <text x="950" y="400" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#18181B">05</text>
+  <circle cx="690" cy="396" r="17" fill="#1B7F4E" stroke="#1B7F4E" stroke-width="1.25"/>
+  <text x="690" y="400" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#FFFFFF">06</text>
+  <circle cx="430" cy="396" r="17" fill="#FAF9F6" stroke="#18181B" stroke-width="1.25"/>
+  <text x="430" y="400" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#18181B">07</text>
+  <circle cx="170" cy="396" r="17" fill="#FAF9F6" stroke="#18181B" stroke-width="1.25"/>
+  <text x="170" y="400" text-anchor="middle" font-family="'Geist Mono',ui-monospace,monospace" font-size="11" font-weight="600" letter-spacing="0.04em" fill="#18181B">08</text>
 </svg>
     </div>
     <ol class="mobile-flow">
