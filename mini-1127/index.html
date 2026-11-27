@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#1B6B4A" />
+<title>11/27(금) 무료 미니강의 · 원터치 실습 가이드 | 생각아트 × 생각나름</title>
+<style>
+  :root {
+    --bg: #F6FAF7;
+    --card: #FFFFFF;
+    --ink: #17332A;
+    --ink-soft: #3E5C51;
+    --green: #1B6B4A;
+    --green-deep: #10402C;
+    --mint-bg: #E8F5EC;
+    --mint-line: #C6E6D1;
+    --coral: #D9543C;
+    --coral-bg: #FDF0EC;
+    --coral-line: #F3CFC4;
+    --line: #DEEAE1;
+    --warn-bg: #FFF7E8;
+    --warn-line: #F2DCB0;
+    --warn-ink: #7A5312;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+      'Malgun Gothic', '맑은 고딕', 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    touch-action: manipulation;
+  }
+  .wrap {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 16px 16px calc(56px + env(safe-area-inset-bottom));
+  }
+
+  /* ── 머리글 ── */
+  .hero {
+    background: var(--card);
+    border: 2px solid var(--mint-line);
+    border-radius: 22px;
+    padding: 26px 18px 22px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(23, 51, 42, 0.07);
+    margin-bottom: 14px;
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--coral);
+    letter-spacing: -0.2px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    margin: 0 0 6px;
+    font-size: 27px;
+    line-height: 1.35;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    color: var(--green-deep);
+  }
+  .hero .sub {
+    margin: 0;
+    font-size: 23px;
+    line-height: 1.4;
+    font-weight: 900;
+    letter-spacing: -0.6px;
+    color: var(--green);
+  }
+  .hero .lead {
+    margin: 14px 0 0;
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  /* ── 차례 ── */
+  .toc {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 20px;
+    padding: 16px 16px 10px;
+    margin-bottom: 18px;
+  }
+  .toc-title {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--green);
+    margin: 0 0 8px;
+  }
+  .toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: toc;
+  }
+  .toc li { counter-increment: toc; margin: 0; }
+  .toc a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 2px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 800;
+    border-bottom: 1px solid #EDF3EE;
+  }
+  .toc li:last-child a { border-bottom: none; }
+  .toc a::before {
+    content: counter(toc);
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--mint-bg);
+    color: var(--green-deep);
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  /* ── 단계 카드 ── */
+  .card {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 22px;
+    padding: 20px 16px 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(23, 51, 42, 0.05);
+    scroll-margin-top: 12px;
+  }
+  .step-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .step-badge {
+    flex: 0 0 auto;
+    background: var(--green);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .step-badge.coral { background: var(--coral); }
+  h2 {
+    margin: 0 0 4px;
+    font-size: 25px;
+    line-height: 1.35;
+    font-weight: 900;
+    letter-spacing: -0.7px;
+    color: var(--green-deep);
+  }
+  .step-note {
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    color: var(--ink);
+  }
+  h3 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: var(--mint-bg);
+    color: var(--green-deep);
+    font-size: 15px;
+    font-weight: 900;
+    vertical-align: 2px;
+  }
+  p { margin: 0 0 10px; font-size: 17px; line-height: 1.7; }
+  p:last-child { margin-bottom: 0; }
+  .small { font-size: 16px; color: var(--ink-soft); font-weight: 700; }
+
+  .box {
+    background: var(--mint-bg);
+    border: 1.5px solid var(--mint-line);
+    border-radius: 16px;
+    padding: 13px 14px;
+    margin: 0 0 14px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.65;
+    color: #14432F;
+  }
+  .box.warn {
+    background: var(--warn-bg);
+    border-color: var(--warn-line);
+    color: var(--warn-ink);
+  }
+  .box.coral {
+    background: var(--coral-bg);
+    border-color: var(--coral-line);
+    color: #7C2A1B;
+  }
+  .box b { font-weight: 900; }
+
+  /* ── 초대 링크 ── */
+  .link-show {
+    display: block;
+    background: #F1F7F3;
+    border: 1.5px dashed var(--mint-line);
+    border-radius: 14px;
+    padding: 12px 12px;
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--green-deep);
+    text-align: center;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    text-decoration: none;
+  }
+  .link-show span { display: block; font-size: 13px; font-weight: 800; color: var(--ink-soft); letter-spacing: 0.4px; margin-bottom: 4px; }
+
+  /* ── 버튼 ── */
+  .btn-row { display: grid; gap: 10px; margin-bottom: 4px; }
+  .btn-row.two { grid-template-columns: 1fr; }
+  @media (min-width: 430px) { .btn-row.two { grid-template-columns: 1fr 1fr; } }
+
+  button.copy-btn, a.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 62px;
+    padding: 15px 12px;
+    border: none;
+    border-radius: 16px;
+    font-family: inherit;
+    font-size: 19px;
+    font-weight: 900;
+    line-height: 1.35;
+    letter-spacing: -0.4px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.08s ease, background 0.15s ease;
+  }
+  button.copy-btn {
+    background: var(--green);
+    color: #FFFFFF;
+    box-shadow: 0 4px 0 #0F4C33;
+  }
+  button.copy-btn:active, button.copy-btn.pressed { transform: translateY(2px); box-shadow: 0 2px 0 #0F4C33; }
+  button.copy-btn.done {
+    background: #157A4F;
+    box-shadow: 0 4px 0 #0C3E28;
+    font-size: 17px;
+  }
+  a.action-btn {
+    background: #FFFFFF;
+    color: var(--green-deep);
+    border: 2.5px solid var(--green);
+    box-shadow: 0 4px 0 #DCEBE1;
+  }
+  a.action-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #DCEBE1; }
+  a.action-btn.coral { color: #8A2E1C; border-color: var(--coral); box-shadow: 0 4px 0 #F7DED7; }
+
+  /* ── 주문서 문구 ── */
+  .order {
+    border: 2px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 14px 15px;
+    margin-bottom: 14px;
+    background: #FCFEFC;
+  }
+  .order:last-child { margin-bottom: 0; }
+  .order .name {
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    color: var(--green-deep);
+    margin: 0 0 4px;
+  }
+  .order .desc {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 0 0 10px;
+  }
+  .quote {
+    background: #FFFFFF;
+    border-left: 5px solid var(--coral);
+    border-radius: 8px;
+    padding: 11px 13px;
+    margin: 0 0 12px;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.62;
+    color: #233A31;
+  }
+
+  /* ── 강점 목록 ── */
+  .merits { list-style: none; margin: 0 0 6px; padding: 0; }
+  .merits li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #EEF4F0;
+  }
+  .merits li:last-child { border-bottom: none; }
+  .merits .dot {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--coral-bg);
+    color: var(--coral);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 900;
+  }
+  .merits strong { display: block; font-size: 18px; font-weight: 900; color: var(--ink); letter-spacing: -0.3px; }
+  .merits span.txt { display: block; font-size: 16px; font-weight: 700; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ── 순서 ── */
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: st; }
+  .steps li {
+    counter-increment: st;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 0;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.55;
+  }
+  .steps li::before {
+    content: counter(st);
+    flex: 0 0 auto;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .sec-title {
+    margin: 26px 2px 10px;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    color: var(--coral);
+  }
+
+  /* ── 토스트 ── */
+  #toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(22px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 20px);
+    max-width: min(92vw, 520px);
+    padding: 14px 20px;
+    border-radius: 999px;
+    background: #10402C;
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1.4;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(16, 64, 44, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 99;
+  }
+  #toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  .foot {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #6B8577;
+    line-height: 1.7;
+  }
+  .foot b { color: var(--green); font-weight: 900; }
+  .to-top {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--green);
+    text-decoration: none;
+    border-bottom: 2px solid var(--mint-line);
+    padding-bottom: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ── 머리글 ── -->
+  <header class="hero" id="top">
+    <span class="kicker">생각아트 × 생각나름</span>
+    <h1>11/27(금) 무료 미니강의</h1>
+    <p class="sub">원터치 실습 가이드</p>
+    <p class="lead">필요한 문구는 초록색 버튼 한 번이면 복사됩니다.<br />피클 채팅창에 붙여넣고 그대로 말하듯 보내 주세요.</p>
+  </header>
+
+  <!-- ── 차례 ── -->
+  <nav class="toc">
+    <p class="toc-title">오늘의 순서</p>
+    <ol>
+      <li><a href="#step1">피클 앱 설치 &amp; 초대 링크</a></li>
+      <li><a href="#step2">강사 시연 · 눈으로 먼저 보기</a></li>
+      <li><a href="#step3">다 같이 해보는 핵심 실습 2가지</a></li>
+      <li><a href="#step4">내 정보 지키는 필수 보안 2가지</a></li>
+      <li><a href="#step5">복습 게임 &amp; 12월 과정 신청</a></li>
+      <li><a href="#step6">[보너스] 지난 심부름 주문서 모음</a></li>
+    </ol>
+  </nav>
+
+  <!-- ══ 1단계 ══ -->
+  <section class="card" id="step1">
+    <div class="step-head"><span class="step-badge">1단계</span></div>
+    <h2>피클 앱 설치 &amp; 초대 링크</h2>
+    <p class="step-note">오늘 이 링크로 들어오신 분은 아래 순서만 따라 하시면 됩니다.</p>
+
+    <h3><span class="num">1</span>50명 단체 초대 링크</h3>
+    <p class="small">가장 먼저 이 링크를 눌러 주세요. 설치 화면으로 바로 넘어갑니다.</p>
+    <a class="link-show" href="https://pickle.com/i/NCYYQG442Y27" target="_blank" rel="noopener"><span>초대 링크</span>https://pickle.com/i/NCYYQG442Y27</a>
+    <div class="btn-row two">
+      <a class="action-btn" href="https://pickle.com/i/NCYYQG442Y27" target="_blank" rel="noopener">초대 링크 열기</a>
+      <button class="copy-btn" type="button" data-key="link50" data-done="복사 완료! 가족·친구에게 붙여넣어 보내세요.">링크 복사하기</button>
+    </div>
+
+    <div class="sec-title">▶ 마감됐을 때만</div>
+    <h3><span class="num">2</span>예비 개인 초대 링크 (5장)</h3>
+    <p class="small">단체 링크가 마감됐을 때만 쓰는 여분 링크입니다. 다섯 분까지만 됩니다.</p>
+    <a class="link-show" href="https://pickle.com/i/GF733GXM" target="_blank" rel="noopener"><span>예비 초대 링크</span>https://pickle.com/i/GF733GXM</a>
+    <div class="btn-row two">
+      <a class="action-btn" href="https://pickle.com/i/GF733GXM" target="_blank" rel="noopener">예비 링크 열기</a>
+      <button class="copy-btn" type="button" data-key="link5" data-done="복사 완료! 가족·친구에게 붙여넣어 보내세요.">링크 복사하기</button>
+    </div>
+    <div class="box warn" style="margin-top:14px;">
+      <b>꼭 기억해 주세요.</b> 위 단체 링크가 열리면 예비 링크는 쓰지 않으셔도 됩니다. 예비 링크는 <b>“단체 링크가 마감됐을 때만”</b> 사용하세요.
+    </div>
+
+    <div class="sec-title">▶ 피클은 무엇이 다른가</div>
+    <h3>피클의 4가지 강점</h3>
+    <ul class="merits">
+      <li>
+        <span class="dot">1</span>
+        <span><strong>말하면 바로 시작</strong><span class="txt">타자 칠 필요 없이, 말로 시키면 알아서 움직입니다.</span></span>
+      </li>
+      <li>
+        <span class="dot">2</span>
+        <span><strong>무료로 시작</strong><span class="txt">매달 내는 이용료 없이 오늘부터 쓸 수 있습니다.</span></span>
+      </li>
+      <li>
+        <span class="dot">3</span>
+        <span><strong>한국 생활에 딱</strong><span class="txt">동네 맛집 예약·주차·증명서·배송처럼 우리 생활의 일에 맞춰 있습니다.</span></span>
+      </li>
+      <li>
+        <span class="dot">4</span>
+        <span><strong>전화까지 대신</strong><span class="txt">정해 둔 시각에 내 폰으로 전화를 걸어 알려 줍니다. 챗GPT는 못 하는 피클만의 기능입니다.</span></span>
+      </li>
+    </ul>
+
+    <h3 style="margin-top:18px;">설치 핵심 순서</h3>
+    <ol class="steps">
+      <li>초대 링크 누르기</li>
+      <li>피클 설치하기</li>
+      <li>카카오·애플·전화번호 중 편한 방법으로 시작하기</li>
+      <li>알림·권한 허용하기 (허용해야 전화와 일정 안내가 됩니다)</li>
+    </ol>
+  </section>
+
+  <!-- ══ 2단계 ══ -->
+  <section class="card" id="step2">
+    <div class="step-head"><span class="step-badge coral">2단계</span></div>
+    <h2>강사 시연 · 눈으로 먼저 보기</h2>
+    <p class="step-note">제가 먼저 해 보여 드립니다. 따라 하지 않으셔도 되니 편하게 보세요.</p>
+
+    <div class="order">
+      <p class="name">시연 ① 보이스피싱 모의훈련 전화</p>
+      <p class="desc">피클이 사기범 역할을 맡아 실제처럼 전화를 걸어 옵니다. 끊는 연습을 미리 해 두면, 진짜 전화가 왔을 때 손이 먼저 움직입니다.</p>
+      <p class="quote">나 보이스피싱 예방 연습하게, 지금 바로 카드 배송 사칭이나 가족 사칭으로 전화 걸어서 실전처럼 모의훈련 해줘</p>
+      <div class="btn-row">
+        <button class="copy-btn" type="button" data-key="demo1">주문서 복사하기</button>
+      </div>
+    </div>
+
+    <div class="order">
+      <p class="name">시연 ② 사진 한 장으로 중고 판매글</p>
+      <p class="desc">팔고 싶은 물건 사진 한 장만 보내면, 물건 이름·상태·가격대·거래 방법까지 정리한 판매글을 만들어 줍니다. 중고나라·번개장터는 웹에서 등록까지, 당근마켓은 초안까지 됩니다.</p>
+      <p class="quote">이 사진으로 중고 판매글을 써 줘. 물건 이름, 상태, 가격대, 거래 방식까지 정리하고 중고나라랑 번개장터에 올릴 수 있게 다듬어 줘. 당근마켓에 올릴 초안도 같이 만들어 줘. 실제 등록은 내가 확인한 다음에 해 줘</p>
+      <div class="btn-row">
+        <button class="copy-btn" type="button" data-key="demo2">주문서 복사하기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3단계 ══ -->
+  <section class="card" id="step3">
+    <div class="step-head"><span class="step-badge">3단계</span></div>
+    <h2>다 같이 해보는 핵심 실습 2가지</h2>
+    <p class="step-note">이제 직접 해 보실 차례입니다. 버튼을 누르고 채팅창에 붙여넣으세요.</p>
+
+    <div class="order">
+      <p class="name">실습 ① 내 폰으로 걸려 오는 진짜 전화</p>
+      <p class="desc">챗GPT는 못 하는 피클만의 전화 기능입니다. 정해 둔 시각에 내 폰으로 전화가 걸려 옵니다.</p>
+      <p class="quote">매일 아침 9시에 약 먹으라고 전화해 줘</p>
+      <div class="btn-row">
+        <button class="copy-btn" type="button" data-key="prac1">주문서 복사하기</button>
+      </div>
+      <p class="small" style="margin-top:12px;">바로 확인해 보고 싶으면 <b>“5분 뒤에 전화해 줘”</b>라고 말해 보세요.</p>
+    </div>
+
+    <div class="order">
+      <p class="name">실습 ② 내 동네 예약 가능·주차 되는 한식집 찾기</p>
+      <p class="desc">복사한 문구 안의 <b>[우리 동네]</b> 자리에 내 동네 이름을 넣어 말하세요. 예: “운남동”, “수완동”처럼요.</p>
+      <p class="quote">내일 오후 1시 예약 가능하고 주차장 있는 우리 동네 한식집 3곳 찾아줘 (실제 예약은 하지 말고 자리랑 링크만 알려줘)</p>
+      <div class="btn-row">
+        <button class="copy-btn" type="button" data-key="prac2">주문서 복사하기</button>
+      </div>
+      <p class="small" style="margin-top:12px;">오늘은 <b>자리와 링크만</b> 받습니다. 실제 예약 확정은 집에서 네이버 예약을 연결한 뒤에 하실 수 있어요.</p>
+    </div>
+
+    <div class="box coral">
+      <b>보너스 안내 · 피클 친구</b><br />
+      오늘 초대 링크로 가입한 가족·친구를 <b>‘피클 친구’</b>로 연결해 보세요. 두 비서가 서로 이야기하며 약속 시간을 맞춰 줍니다. 예: “이번 주 토요일 저녁에 엄마랑 약속 잡아 줘”
+    </div>
+  </section>
+
+  <!-- ══ 4단계 ══ -->
+  <section class="card" id="step4">
+    <div class="step-head"><span class="step-badge coral">4단계</span></div>
+    <h2>내 정보 지키는 필수 보안 2가지</h2>
+    <p class="step-note">비서를 들이는 첫날, 내 손으로 자물쇠 두 개를 채워 주세요.</p>
+
+    <div class="order">
+      <p class="name">① 권한 설정에서 ‘중간 자율성’ 확인</p>
+      <p class="desc"><b>나의 피클 → 권한 설정</b>으로 들어가 <b>중간 자율성</b>을 확인합니다.</p>
+      <div class="box" style="margin-bottom:0;">
+        중간 자율성은 <b>“되돌리기 힘든 일만 허락 받기”</b> 단계입니다. 메일 살피기·일정 적기 같은 가벼운 일은 알아서 하고, <b>전화·결제·발송·삭제는 반드시 내 허락을 받고</b> 실행합니다.
+      </div>
+      <p class="small" style="margin-top:10px;">이미 설정해 두신 분은 화면만 확인하세요. 단계를 새로 누르면 채팅으로 말해 둔 세부 규칙이 처음 값으로 돌아갑니다.</p>
+    </div>
+
+    <div class="order">
+      <p class="name">② 피클 개선에 함께하기 끄기</p>
+      <p class="desc"><b>나의 피클 → 내 계정 → 피클 개선에 함께하기</b> 스위치를 끕니다.</p>
+      <div class="box warn" style="margin-bottom:0;">
+        이 스위치를 켜 두면 <b>내 대화와 작업 기록이 AI 모델 학습에 쓰일 수 있습니다.</b> 끄면 쓰이지 않습니다. 이 스위치는 비서가 볼 수도, 대신 끌 수도 없으니 <b>내 손으로 직접</b> 꺼 주세요.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 5단계 ══ -->
+  <section class="card" id="step5">
+    <div class="step-head"><span class="step-badge">5단계</span></div>
+    <h2>복습 게임 &amp; 12월 과정 신청</h2>
+    <p class="step-note">오늘 배운 걸 한 번 더 굴려 보고, 12월에 이어서 해 보세요.</p>
+
+    <h3>복습 게임 · 피클 비서 키우기</h3>
+    <p class="small">내 비서 이름을 직접 지어 주고, 상황마다 맞는 선택을 골라 보세요.</p>
+    <div class="btn-row">
+      <a class="action-btn" href="https://piano4848.github.io/partner-dex/" target="_blank" rel="noopener">복습 게임 열기</a>
+    </div>
+
+    <div class="sec-title" style="margin-top:22px;">▶ 12월에 이어서</div>
+    <h3>12월 써먹는 AI 루틴 멤버십</h3>
+    <p class="small">월 49,000원 · 매달 새 루틴과 실습, 보안 세부 설정까지 함께 다룹니다.</p>
+    <div class="btn-row">
+      <a class="action-btn coral" href="https://curious-500.com/v2/membership/explore/110" target="_blank" rel="noopener">멤버십 자세히 보기</a>
+    </div>
+
+    <h3 style="margin-top:22px;">12월 한 달 단과 체험반</h3>
+    <p class="small">59,000원 · 3주 동안 내 생활에 맞춘 자동 루틴을 직접 완성합니다.</p>
+    <div class="btn-row">
+      <a class="action-btn coral" href="https://curious-500.com/v2/study/5192?leader_study_coupon_uuid=2867936d-3bd1-4454-8fdc-4c2af054b009" target="_blank" rel="noopener">단과 체험반 신청하기</a>
+    </div>
+  </section>
+
+  <!-- ══ 6단계 ══ -->
+  <section class="card" id="step6">
+    <div class="step-head"><span class="step-badge coral">보너스</span></div>
+    <h2>지난 미니강의 심부름 주문서</h2>
+    <p class="step-note">지난 시간에 함께 해 본 심부름 네 가지입니다. 그대로 복사해서 오늘 다시 시켜 보세요.</p>
+
+    <div class="order">
+      <p class="name">① 정부24 주민등록등본 0원 발급</p>
+      <p class="desc">집에서 서류를 떼러 가지 않아도 됩니다. 카카오톡 간편인증 한 번이면 발급까지 됩니다.</p>
+      <p class="quote">정부24에서 주민등록등본을 무료로 발급해 줘. 카카오톡 간편인증 한 번으로 로그인하고, 발급 직전에 나한테 한 번 확인해 줘</p>
+      <div class="btn-row">
+        <button class="copy-btn" type="button" data-key="bonus1">주문서 복사하기</button>
+      </div>
+    </div>
+
+    <div class="order">
+      <p class="name">② KTX 열차 좌석 조회 &amp; 결제 직전 멈춤</p>
+      <p class="desc">좌석만 먼저 확인하고, 결제는 내가 결정합니다. 비서가 마음대로 결제하지 않습니다.</p>
+      <p class="quote">KTX 좌석을 조회해 줘. 가는 날은 ○월 ○일, 출발역은 ○○역, 도착역은 ○○역이야. 결제 직전에서 멈추고 나한테 물어봐</p>
+      <div class="btn-row">
+        <button class="copy-btn" type="button" data-key="bonus2">주문서 복사하기</button>
+      </div>
+    </div>
+
+    <div class="order">
+      <p class="name">③ 부크크 전자책 등록 대행</p>
+      <p class="desc">내가 쓴 원고를 전자책으로 올리는 일까지. 최종 등록 버튼은 내가 확인하고 누릅니다.</p>
+      <p class="quote">부크크에 내 전자책을 등록할 준비를 해 줘. 제목, 저자, 가격, 책 소개, 판권지까지 정리해서 보여 주고, 최종 등록은 내가 확인한 다음에 해 줘</p>
+      <div class="btn-row">
+        <button class="copy-btn" type="button" data-key="bonus3">주문서 복사하기</button>
+      </div>
+    </div>
+
+    <div class="order">
+      <p class="name">④ 쿠팡 생필품 최저가 장바구니 담기</p>
+      <p class="desc">여러 곳을 뒤질 필요 없이 최저가만 골라 담아 둡니다. 결제는 하지 않습니다.</p>
+      <p class="quote">쿠팡에서 생필품 최저가를 찾아서 장바구니에 담아 줘. 결제는 하지 말고, 상품 이름과 가격만 보여 줘</p>
+      <div class="btn-row">
+        <button class="copy-btn" type="button" data-key="bonus4">주문서 복사하기</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">
+    <b>생각아트 × 생각나름</b><br />
+    11/27(금) 무료 미니강의 수강생 안내용<br />
+    궁금한 점은 오늘 강의 단톡방에 남겨 주세요.
+    <br /><a class="to-top" href="#top">맨 위로 올라가기</a>
+  </p>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+  var TEXTS = {
+    link50: "https://pickle.com/i/NCYYQG442Y27",
+    link5: "https://pickle.com/i/GF733GXM",
+    demo1: "나 보이스피싱 예방 연습하게, 지금 바로 카드 배송 사칭이나 가족 사칭으로 전화 걸어서 실전처럼 모의훈련 해줘",
+    demo2: "이 사진으로 중고 판매글을 써 줘. 물건 이름, 상태, 가격대, 거래 방식까지 정리하고 중고나라랑 번개장터에 올릴 수 있게 다듬어 줘. 당근마켓에 올릴 초안도 같이 만들어 줘. 실제 등록은 내가 확인한 다음에 해 줘",
+    prac1: "매일 아침 9시에 약 먹으라고 전화해 줘",
+    prac2: "내일 오후 1시 예약 가능하고 주차장 있는 우리 동네 한식집 3곳 찾아줘 (실제 예약은 하지 말고 자리랑 링크만 알려줘)",
+    bonus1: "정부24에서 주민등록등본을 무료로 발급해 줘. 카카오톡 간편인증 한 번으로 로그인하고, 발급 직전에 나한테 한 번 확인해 줘",
+    bonus2: "KTX 좌석을 조회해 줘. 가는 날은 ○월 ○일, 출발역은 ○○역, 도착역은 ○○역이야. 결제 직전에서 멈추고 나한테 물어봐",
+    bonus3: "부크크에 내 전자책을 등록할 준비를 해 줘. 제목, 저자, 가격, 책 소개, 판권지까지 정리해서 보여 주고, 최종 등록은 내가 확인한 다음에 해 줘",
+    bonus4: "쿠팡에서 생필품 최저가를 찾아서 장바구니에 담아 줘. 결제는 하지 말고, 상품 이름과 가격만 보여 줘"
+  };
+  var DEFAULT_DONE = "복사 완료! 피클 채팅창에 붙여넣으세요";
+  var toastTimer = null;
+
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 4200);
+  }
+
+  function legacyCopy(text) {
+    var ok = false;
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.width = '1px';
+    ta.style.height = '1px';
+    ta.style.padding = '0';
+    ta.style.border = 'none';
+    ta.style.outline = 'none';
+    ta.style.boxShadow = 'none';
+    ta.style.background = 'transparent';
+    ta.style.opacity = '0';
+    ta.style.fontSize = '16px';
+    document.body.appendChild(ta);
+    try {
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      ta.focus();
+      if (isIOS) {
+        ta.contentEditable = 'true';
+        var range = document.createRange();
+        range.selectNodeContents(ta);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, text.length);
+      } else {
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+      }
+      ok = document.execCommand('copy');
+    } catch (e) {
+      ok = false;
+    }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  async function copyText(key, btn) {
+    var text = TEXTS[key] || '';
+    var doneMsg = btn.getAttribute('data-done') || DEFAULT_DONE;
+    var ok = false;
+
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch (e) {
+        ok = false;
+      }
+    }
+    if (!ok) ok = legacyCopy(text);
+
+    if (ok) {
+      if (!btn.dataset.origin) btn.dataset.origin = btn.textContent.trim();
+      btn.classList.add('done');
+      btn.textContent = '✅ 복사 완료';
+      if (navigator.vibrate) { try { navigator.vibrate(30); } catch (e) {} }
+      showToast(doneMsg);
+      setTimeout(function () {
+        btn.classList.remove('done');
+        if (btn.dataset.origin) btn.textContent = btn.dataset.origin;
+      }, 4200);
+    } else {
+      showToast('복사가 되지 않았어요. 문구를 길게 눌러 직접 복사해 주세요.');
+    }
+  }
+
+  document.querySelectorAll('button.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.classList.add('pressed');
+      setTimeout(function () { btn.classList.remove('pressed'); }, 150);
+      copyText(btn.dataset.key, btn);
+    });
+  });
+</script>
+</body>
+</html>
