@@ -145,15 +145,31 @@
   }
   @media print {
     @page { size: A4 landscape; margin: 10mm; }
-    body { font-size: 11pt; }
+    body { font-size: 10pt; }
     .page { max-width: none; padding: 0; }
     .actions, .section-note { display: none; }
+    .masthead { padding-bottom: 10px; }
+    h1 { font-size: 24pt; margin-top: 6px; }
+    .subtitle { font-size: 10pt; margin-top: 6px; }
+    .meta { font-size: 8.5pt; margin-top: 4px; }
+    .diagram { margin-top: 8px; }
     .diagram__scroll { display: block !important; overflow: visible; }
     #flowSvg { min-width: 0; width: 100%; }
     .mobile-flow { display: none !important; }
-    .card, .parallel__cell, .masthead, footer { break-inside: avoid; }
-    .card.is-active { box-shadow: none; background: #fff; }
-    .details { break-before: page; }
+    .details { margin-top: 6mm; padding-top: 6px; }
+    .cards { background: transparent; gap: 0; }
+    .card { box-shadow: inset 0 0 0 1px rgba(24,24,27,0.18); padding: 12px 14px 12px; }
+    .card__num { top: 10px; right: 12px; font-size: 8pt; }
+    .card__kicker { font-size: 8.5pt; }
+    .card__title { font-size: 13pt; margin-top: 6px; }
+    .card__list { margin-top: 8px; gap: 2px; }
+    .card__list li { font-size: 9.5pt; }
+    .card__tip { margin-top: 8px; padding-top: 8px; font-size: 9pt; }
+    .card, .parallel__cell, .masthead { break-inside: avoid; }
+    .card.is-active { box-shadow: inset 0 0 0 1px rgba(24,24,27,0.18); background: #fff; }
+    .parallel { margin-top: 6mm; }
+    .parallel__cell { padding: 14px 16px; }
+    footer { margin-top: 6mm; }
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
