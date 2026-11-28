@@ -294,10 +294,8 @@ body.clean .stage{padding:clamp(6px,1.4vh,14px) 0}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
 /* ---------- paused ---------- */
-body.paused .strip-track,
-body.paused .print.dev .ghost,
-body.paused .print.dev .wash,
-body.paused .print.dev{animation-play-state:paused}
+/* pause stops the slide advance and the drifting strip, but a running development always finishes */
+body.paused .strip-track{animation-play-state:paused}
 body.paused::before{animation-play-state:paused}
 
 /* ---------- responsive ---------- */
