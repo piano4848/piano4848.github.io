@@ -615,6 +615,12 @@ body.paused::before{animation-play-state:paused}
   MONTHS.forEach(function(m){ var im = new Image(); im.src = m.img; });
 
   applyMonth(0, {develop: !reduce});
+
+  // ?clean=1 : open straight into the clean recording view (handy as a bookmark for reels)
+  var qs = new URLSearchParams(location.search);
+  if (qs.get("clean") === "1"){
+    document.body.classList.add("clean");
+  }
   if (reduce){
     setPlaying(false);
   } else {
