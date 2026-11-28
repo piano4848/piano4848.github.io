@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a0706">
+<title>생각나름 2027 달력 · 필름 릴 &amp; 암실 현상 (세 장 시안)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23140d0a'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23d8472f'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23e0ac6b' stroke-opacity='.55'/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="assets/jan.jpg">
+<style>
+:root{
+  --ink:#f2e8da;
+  --muted:rgba(242,232,218,.56);
+  --amber:#e0ac6b;
+  --amber-hi:#f2cf9b;
+  --amber-dim:rgba(224,172,107,.34);
+  --red:#d8472f;
+  --paper:#f3ece0;
+  --strip-h:104px;
+  --print-h:min(62vh,560px);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Noto Serif CJK KR","Noto Serif KR",serif;
+  --sans:"Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  background:
+    radial-gradient(120% 90% at 50% 8%, #241511 0%, #150d0a 42%, #0a0706 72%, #050303 100%);
+  color:var(--ink);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(58% 40% at 50% -6%, rgba(216,71,47,.22), transparent 72%),
+    radial-gradient(40% 34% at 8% 96%, rgba(216,71,47,.11), transparent 70%),
+    radial-gradient(34% 28% at 92% 82%, rgba(224,172,107,.08), transparent 72%);
+  animation:breathe 9s ease-in-out infinite alternate;
+}
+@keyframes breathe{from{opacity:.72}to{opacity:1}}
+.vignette{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(78% 62% at 50% 46%, transparent 46%, rgba(0,0,0,.55) 100%);
+}
+.grain{
+  position:fixed;inset:0;z-index:7;pointer-events:none;opacity:.05;
+  background-image:url(assets/grain.png);background-size:190px 190px;
+  mix-blend-mode:overlay;
+}
+.wrap{position:relative;z-index:3;min-height:100%;display:flex;flex-direction:column;}
+
+/* ---------- header ---------- */
+.top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(16px,3vw,34px) 10px;gap:14px;
+  transition:opacity .45s ease, transform .45s ease;
+}
+.brand{display:flex;align-items:baseline;gap:10px;font-size:12px;letter-spacing:.3em;color:rgba(242,232,218,.78);white-space:nowrap;}
+.brand b{font-family:var(--serif);font-weight:600;font-size:14px;letter-spacing:.24em;color:var(--amber-hi);}
+.brand i{font-style:normal;font-size:10px;letter-spacing:.34em;color:rgba(242,232,218,.34);}
+.meta{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(224,172,107,.52);white-space:nowrap;}
+
+/* ---------- film strip ---------- */
+.strip{
+  position:relative;height:var(--strip-h);overflow:hidden;flex:0 0 auto;
+  background:linear-gradient(180deg,#1b1310 0%,#120c09 48%,#0d0908 100%);
+  border-top:1px solid rgba(224,172,107,.10);
+  border-bottom:1px solid rgba(0,0,0,.85);
+  box-shadow:0 14px 30px -20px #000 inset, 0 10px 26px -22px rgba(0,0,0,.9);
+  transition:opacity .45s ease, transform .45s ease;
+}
+.strip::before,.strip::after{
+  content:"";position:absolute;left:0;right:0;height:14px;z-index:3;pointer-events:none;
+  background-image:radial-gradient(5.6px 4.6px at 13px 50%, #050303 96%, rgba(5,3,3,0) 100%);
+  background-size:27px 100%;background-repeat:repeat-x;
+}
+.strip::before{top:3px}
+.strip::after{bottom:3px}
+.strip-shine{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:linear-gradient(104deg,transparent 18%,rgba(255,238,220,.05) 42%,transparent 58%,rgba(255,238,220,.03) 74%,transparent 86%);
+}
+.strip-track{display:flex;width:max-content;height:100%;align-items:center;animation:drift 96s linear infinite;}
+@keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.seq{display:flex;align-items:center;gap:12px;padding-right:12px;height:100%;}
+.cell{display:flex;align-items:center;gap:9px;height:calc(var(--strip-h) - 30px);}
+.win{
+  height:100%;aspect-ratio:3/2;border-radius:2px;overflow:hidden;position:relative;
+  background:#0b0807;box-shadow:0 0 0 1px rgba(0,0,0,.9), 0 2px 6px rgba(0,0,0,.6) inset;
+}
+.win img{width:100%;height:100%;object-fit:cover;filter:brightness(.82) saturate(.92) contrast(1.02);display:block;}
+.rebate{display:flex;flex-direction:column;gap:3px;font-family:var(--mono);line-height:1;color:rgba(224,172,107,.66);}
+.rebate b{font-size:10px;letter-spacing:.16em;font-weight:600;}
+.rebate span{font-size:8px;letter-spacing:.2em;color:rgba(224,172,107,.42);}
+
+/* ---------- layout ---------- */
+.layout{
+  flex:1;display:grid;grid-template-columns:minmax(0,auto) 348px;
+  gap:clamp(28px,4.4vw,64px);justify-content:center;align-content:center;
+  padding:clamp(16px,2.6vh,30px) clamp(16px,3vw,34px) clamp(18px,3vh,32px);
+}
+.stage{display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.5vh,16px);min-width:0;}
+
+/* ---------- developing tray ---------- */
+.tray{
+  position:relative;padding:clamp(12px,1.5vw,17px);border-radius:20px;
+  background:linear-gradient(168deg,#2b1c15 0%,#1c120e 46%,#130c0a 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,214,176,.13),
+    inset 0 -2px 3px rgba(0,0,0,.55),
+    0 0 0 1px rgba(224,172,107,.13),
+    0 34px 64px -30px rgba(0,0,0,.95),
+    0 12px 26px -18px rgba(0,0,0,.8);
+}
+.tray::before{
+  content:"";position:absolute;inset:7px;border-radius:14px;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(120% 86% at 16% 2%, rgba(216,71,47,.20), transparent 56%),
+    radial-gradient(96% 78% at 86% 100%, rgba(224,172,107,.11), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,.035), rgba(0,0,0,.30));
+}
+.tray-glow{
+  position:absolute;inset:-14% -10%;z-index:0;pointer-events:none;opacity:0;
+  background:radial-gradient(46% 40% at 50% 50%, rgba(216,71,47,.30), transparent 70%);
+  transition:opacity 1.2s ease;
+}
+.tray.dev .tray-glow{opacity:.9}
+
+/* ---------- the print ---------- */
+.print{
+  position:relative;z-index:1;height:var(--print-h);aspect-ratio:2/3;width:auto;
+  background:linear-gradient(178deg,#f6efe3 0%,#efe7d8 58%,#e8dfcd 100%);
+  padding:4.2%;border-radius:2px;transform:rotate(-.35deg);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.22),
+    0 22px 36px -16px rgba(0,0,0,.9),
+    0 3px 8px rgba(0,0,0,.5),
+    inset 0 0 0 1px rgba(255,255,255,.35);
+}
+.print::after{
+  content:"";position:absolute;inset:0;border-radius:2px;pointer-events:none;z-index:5;
+  box-shadow:inset 0 0 22px rgba(60,30,10,.13);
+}
+.frame{position:absolute;inset:4.2%;overflow:hidden;background:#120d0b;border-radius:1px;}
+.art{width:100%;height:100%;object-fit:cover;display:block;}
+.ghost{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:var(--art,none);background-size:cover;background-position:center;
+  opacity:0;filter:grayscale(1) sepia(.5) contrast(.6) brightness(1.2) saturate(.35) blur(.6px);
+}
+.print.dev .ghost{animation:develop 2.5s cubic-bezier(.38,.02,.24,1) forwards;}
+@keyframes develop{
+  0%{opacity:1;filter:grayscale(1) sepia(.52) contrast(.58) brightness(1.24) saturate(.28) blur(.9px);}
+  35%{opacity:.92;filter:grayscale(.86) sepia(.46) contrast(.66) brightness(1.18) saturate(.45) blur(.55px);}
+  70%{opacity:.58;filter:grayscale(.44) sepia(.26) contrast(.82) brightness(1.08) saturate(.72) blur(.22px);}
+  100%{opacity:0;filter:grayscale(0) sepia(0) contrast(1) brightness(1) saturate(1) blur(0);}
+}
+.wash{
+  position:absolute;left:0;right:0;top:0;height:62%;z-index:4;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,rgba(255,236,210,0) 0%,rgba(255,236,210,.20) 46%,rgba(255,236,210,.34) 62%,rgba(255,236,210,0) 100%);
+  mix-blend-mode:screen;
+}
+.print.dev .wash{animation:wash 2.5s cubic-bezier(.3,.05,.3,1) forwards;}
+@keyframes wash{
+  0%{transform:translateY(-58%);opacity:0}
+  14%{opacity:.85}
+  62%{opacity:.5}
+  100%{transform:translateY(126%);opacity:0}
+}
+.print.dev{animation:paper 2.5s ease-out forwards;}
+@keyframes paper{from{filter:brightness(.94) contrast(.98)}to{filter:brightness(1) contrast(1)}}
+
+/* ---------- nameplate ---------- */
+.plate{
+  width:calc(var(--print-h) * .6667 + 34px);max-width:100%;
+  border-radius:12px;padding:clamp(10px,1.2vh,14px) clamp(14px,1.6vw,18px);
+  background:linear-gradient(178deg,rgba(224,172,107,.16),rgba(224,172,107,.05) 62%,rgba(0,0,0,.16));
+  border:1px solid rgba(224,172,107,.26);
+  box-shadow:inset 0 1px 0 rgba(255,226,190,.18), 0 10px 22px -16px rgba(0,0,0,.9);
+  text-align:center;
+}
+.month{font-family:var(--serif);font-size:clamp(16px,2.2vh,25px);letter-spacing:.13em;color:var(--amber-hi);white-space:nowrap;}
+.month .ym{color:#ffd9ab;font-variant-numeric:tabular-nums;}
+.month .dash{color:rgba(224,172,107,.5);margin:0 .5em;}
+.month .en{font-size:.72em;letter-spacing:.2em;color:rgba(242,232,218,.72)}
+.caption{
+  margin-top:5px;font-size:clamp(10px,1.25vh,12px);letter-spacing:.06em;color:rgba(242,232,218,.58);
+  display:flex;align-items:center;justify-content:center;gap:.6em;flex-wrap:wrap;
+}
+.caption .no{font-family:var(--mono);font-size:.86em;letter-spacing:.16em;color:rgba(224,172,107,.72)}
+.caption .sep{width:14px;height:1px;background:rgba(224,172,107,.34);display:inline-block}
+
+/* ---------- mini calendar ---------- */
+.cal{
+  width:calc(var(--print-h) * .6667 + 34px);max-width:100%;
+  display:flex;flex-direction:column;gap:5px;padding:0 2px;
+}
+.cal-top{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:9px;letter-spacing:.24em;color:rgba(224,172,107,.55);}
+.cal-top em{font-style:normal;color:rgba(242,232,218,.34)}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px 0;}
+.grid .wd,.grid .d{
+  text-align:center;font-variant-numeric:tabular-nums;line-height:1.55;
+  font-size:clamp(9px,1.12vh,11px);letter-spacing:.02em;
+}
+.grid .wd{font-size:9px;color:rgba(242,232,218,.34);padding-bottom:1px}
+.grid .d{color:rgba(242,232,218,.76);border-radius:4px;}
+.grid .d.sun{color:rgba(216,120,96,.9)}
+.grid .d.sat{color:rgba(150,168,196,.86)}
+.grid .d.off{color:transparent}
+.grid .d.first{color:#ffe0b4;background:rgba(224,172,107,.14);box-shadow:inset 0 0 0 1px rgba(224,172,107,.3)}
+
+/* ---------- side ---------- */
+.side{
+  display:flex;flex-direction:column;gap:clamp(14px,2vh,22px);
+  transition:opacity .45s ease, transform .45s ease;
+}
+.kicker{font-family:var(--mono);font-size:9.5px;letter-spacing:.26em;color:rgba(224,172,107,.6);margin-bottom:8px;}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(22px,2.6vw,31px);letter-spacing:.02em;line-height:1.28;color:#f7ece0;}
+h1 .amp{color:var(--red);font-style:italic;padding:0 .1em;opacity:.9}
+.sub{margin-top:8px;font-size:12.5px;line-height:1.6;color:rgba(242,232,218,.5);letter-spacing:.02em}
+.sub b{color:rgba(224,172,107,.85);font-weight:600}
+.notes{list-style:none;display:flex;flex-direction:column;gap:9px;border-top:1px solid rgba(224,172,107,.16);padding-top:14px;}
+.notes li{position:relative;padding-left:15px;font-size:12px;line-height:1.62;color:rgba(242,232,218,.62);letter-spacing:.01em}
+.notes li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:rgba(216,71,47,.75);box-shadow:0 0 8px rgba(216,71,47,.55)}
+.notes b{color:var(--amber);font-weight:600}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-direction:column;gap:9px;}
+.btn{
+  appearance:none;border:1px solid rgba(224,172,107,.26);background:rgba(224,172,107,.06);
+  color:var(--ink);font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;
+  border-radius:10px;padding:0 14px;height:42px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .12s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:hover{background:rgba(224,172,107,.14);border-color:rgba(224,172,107,.46)}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:2px solid rgba(224,172,107,.7);outline-offset:2px}
+.btn.primary{background:linear-gradient(180deg,rgba(224,172,107,.26),rgba(224,172,107,.14));border-color:rgba(224,172,107,.5);color:#ffe9d0;font-weight:600}
+.btn.primary:hover{background:linear-gradient(180deg,rgba(224,172,107,.34),rgba(224,172,107,.2))}
+.btn svg{width:11px;height:11px;fill:currentColor;flex:0 0 auto}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.chip{
+  appearance:none;border:1px solid rgba(224,172,107,.2);background:rgba(255,255,255,.02);
+  color:rgba(242,232,218,.6);border-radius:9px;height:40px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  transition:all .2s ease;-webkit-tap-highlight-color:transparent;
+}
+.chip span{font-family:var(--sans);font-size:10.5px;letter-spacing:.02em;color:rgba(242,232,218,.42)}
+.chip:hover{border-color:rgba(224,172,107,.4);color:rgba(242,232,218,.85)}
+.chip[aria-pressed="true"]{background:linear-gradient(180deg,rgba(224,172,107,.24),rgba(224,172,107,.1));border-color:rgba(224,172,107,.62);color:#ffe4c2;box-shadow:0 0 18px -8px rgba(224,172,107,.7)}
+.chip[aria-pressed="true"] span{color:rgba(255,228,194,.8)}
+.chip:focus-visible{outline:2px solid rgba(224,172,107,.7);outline-offset:2px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+
+/* ---------- footer ---------- */
+.foot{
+  padding:0 34px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:rgba(242,232,218,.26);
+  transition:opacity .45s ease, transform .45s ease;
+}
+
+/* ---------- clean mode ---------- */
+.chrome{transition:opacity .5s ease, transform .5s ease;}
+body.clean .top,
+body.clean .strip,
+body.clean .side,
+body.clean .foot{opacity:0;pointer-events:none;}
+body.clean .top{transform:translateY(-14px)}
+body.clean .strip{transform:translateY(-10px) scaleY(.9)}
+body.clean .side{transform:translateY(14px)}
+body.clean .foot{transform:translateY(10px)}
+body.clean .layout{grid-template-columns:auto 0;gap:0;padding-top:0;padding-bottom:0}
+body.clean .side{width:0;overflow:hidden;visibility:hidden}
+body.clean .stage{padding:clamp(6px,1.4vh,14px) 0}
+
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,10px);z-index:9;
+  background:rgba(14,9,8,.9);border:1px solid rgba(224,172,107,.28);border-radius:999px;
+  padding:9px 18px;font-size:11.5px;letter-spacing:.04em;color:rgba(242,232,218,.8);
+  opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease;white-space:nowrap;
+  box-shadow:0 10px 30px -12px #000;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- paused ---------- */
+body.paused .strip-track,
+body.paused .print.dev .ghost,
+body.paused .print.dev .wash,
+body.paused .print.dev,
+body.paused .prog i{animation-play-state:paused}
+body.paused::before{animation-play-state:paused}
+
+/* ---------- progress ---------- */
+.prog{position:relative;margin-top:10px;height:2px;border-radius:2px;background:rgba(224,172,107,.14);overflow:hidden;z-index:2}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,rgba(216,71,47,.9),var(--amber));box-shadow:0 0 10px rgba(224,172,107,.55)}
+.prog i.run{animation:grow 5s linear forwards}
+@keyframes grow{from{width:0}to{width:100%}}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  :root{--strip-h:84px;--print-h:min(43vh,420px);}
+  .layout{grid-template-columns:1fr;gap:0;align-content:center;padding:10px 14px 12px;}
+  .side{
+    position:static;gap:0;margin-top:10px;
+  }
+  .side-head{display:none;}
+  .controls{gap:7px;}
+  .btn{height:38px;font-size:12px;border-radius:9px;padding:0 10px}
+  .chip{height:36px}
+  .foot{padding:2px 16px 10px;font-size:8.5px;letter-spacing:.14em}
+  .month{font-size:17px}
+  .caption{font-size:10.5px;gap:.45em}
+  .tray{padding:12px;border-radius:16px}
+  .plate{padding:9px 12px;border-radius:10px}
+  .grid .d,.grid .wd{line-height:1.45}
+}
+@media (max-width:400px){
+  :root{--print-h:min(41vh,400px);}
+  .brand{font-size:10.5px;letter-spacing:.22em}
+  .brand b{font-size:12px}
+  .meta{font-size:8.5px;letter-spacing:.14em}
+}
+@media (prefers-reduced-motion:reduce){
+  .ghost,.wash{display:none}
+  .strip-track{animation:none}
+  body::before{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<div class="wrap">
+  <header class="top chrome">
+    <div class="brand"><b>생각나름</b><span>2027 달력</span><i>세 장 시안</i></div>
+    <div class="meta">DARKROOM · 35mm · 3 FRAMES</div>
+  </header>
+
+  <div class="strip chrome" aria-hidden="true">
+    <div class="strip-track" id="stripTrack"></div>
+    <div class="strip-shine"></div>
+  </div>
+
+  <main class="layout">
+    <section class="stage">
+      <div class="tray" id="tray">
+        <div class="tray-glow"></div>
+        <div class="print" id="print">
+          <div class="frame">
+            <img class="art" id="art" src="assets/jan.jpg" alt="남색 외투의 남자와 올리브 나무 — 1월 그림" width="1200" height="1800">
+            <div class="ghost" id="ghost"></div>
+            <div class="wash"></div>
+          </div>
+        </div>
+        <div class="prog" id="prog"><i id="bar"></i></div>
+      </div>
+
+      <div class="plate">
+        <div class="month">
+          <span class="ym" id="ym">2027. 01</span><span class="dash">—</span><span class="en" id="en">JANUARY</span>
+        </div>
+        <div class="caption">
+          <span class="no" id="fno">FRAME 01</span><span class="sep"></span><span id="cap">남색 외투의 남자와 올리브 나무</span>
+        </div>
+      </div>
+
+      <div class="cal">
+        <div class="cal-top"><span id="calLabel">2027 · 1월</span><em>MINI CALENDAR</em></div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </section>
+
+    <aside class="side chrome">
+      <div class="side-head">
+        <div class="kicker">ANALOG DARKROOM · 2027</div>
+        <h1>필름 릴 <span class="amp">&amp;</span><br>암실 현상 달력</h1>
+        <p class="sub">필름이 멈추면 인화지 위에서 색이 서서히 올라옵니다.<br><b>세 장</b>이 저절로 이어지고, 다시 현상하기로 언제든 되돌려 볼 수 있어요.</p>
+        <ul class="notes">
+          <li>한 장에 <b>5초</b> — 현상 2.5초, 감상 2.5초.</li>
+          <li><b>01 · 02 · 03</b>을 눌러 바로 넘겨 볼 수 있습니다.</li>
+          <li>릴스·쇼츠로 찍을 때는 <b>화면 깨끗이 보기</b> — 버튼이 모두 사라지고, 화면을 한 번 터치하면 돌아옵니다.</li>
+        </ul>
+      </div>
+
+      <div class="controls">
+        <button class="btn primary" id="btnPlay" aria-pressed="false">
+          <svg id="icPause" viewBox="0 0 12 12"><rect x="1.5" y="1" width="3" height="10" rx="1"/><rect x="7.5" y="1" width="3" height="10" rx="1"/></svg>
+          <svg id="icPlay" viewBox="0 0 12 12" style="display:none"><path d="M2.5 1.2 10.5 6 2.5 10.8z"/></svg>
+          <span id="playLabel">잠시 멈추기</span>
+        </button>
+        <div class="chips" role="group" aria-label="월 선택">
+          <button class="chip" data-i="0" aria-pressed="true">01<span>1월</span></button>
+          <button class="chip" data-i="1" aria-pressed="false">02<span>2월</span></button>
+          <button class="chip" data-i="2" aria-pressed="false">03<span>3월</span></button>
+        </div>
+        <div class="row2">
+          <button class="btn" id="btnDev">다시 현상하기</button>
+          <button class="btn" id="btnClean">화면 깨끗이 보기</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+
+  <footer class="foot chrome">
+    <span>생각나름 · 2027 달력 연출 시안</span>
+    <span>FILM REEL &amp; DARKROOM — 3 FRAMES</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">화면을 한 번 터치하면 버튼이 돌아옵니다</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var MONTHS = [
+    {ym:"2027. 01", en:"JANUARY", abbr:"JAN", no:"01",
+     img:"assets/jan.jpg", cap:"남색 외투의 남자와 올리브 나무",
+     alt:"남색 외투를 입은 남자와 올리브 화분이 놓인 푸른 밤 그림 — 1월",
+     start:5, days:31},
+    {ym:"2027. 02", en:"FEBRUARY", abbr:"FEB", no:"02",
+     img:"assets/feb.jpg", cap:"유리 어항과 분홍 국화, 달",
+     alt:"분홍 국화가 꽂힌 유리 어항과 금붕어, 달이 있는 2월 그림",
+     start:1, days:28},
+    {ym:"2027. 03", en:"MARCH", abbr:"MAR", no:"03",
+     img:"assets/mar.jpg", cap:"흰 고양이와 장미 정원",
+     alt:"흰 고양이와 장미 정원, 보름달이 있는 3월 그림",
+     start:1, days:31}
+  ];
+
+  var DEV = 2500, HOLD = 2500, CYCLE = DEV + HOLD;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var printEl = $("print"), trayEl = $("tray"), artEl = $("art"), ghostEl = $("ghost");
+  var ymEl = $("ym"), enEl = $("en"), capEl = $("cap"), fnoEl = $("fno"), calLabel = $("calLabel");
+  var gridEl = $("grid"), barEl = $("bar"), progEl = $("prog");
+  var btnPlay = $("btnPlay"), playLabel = $("playLabel"), icPlay = $("icPlay"), icPause = $("icPause");
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+  var toastEl = $("toast");
+
+  var idx = 0, playing = true, timer = null, pending = null, deadline = 0, remain = 0, devRunning = false;
+
+  /* ---------- film strip ---------- */
+  (function buildStrip(){
+    var track = $("stripTrack");
+    var seqHTML = "";
+    for (var r = 0; r < 2; r++){
+      var html = '<div class="seq">';
+      for (var rep = 0; rep < 4; rep++){
+        for (var i = 0; i < MONTHS.length; i++){
+          var m = MONTHS[i];
+          html += '<div class="cell">' +
+                    '<div class="win"><img src="' + m.img + '" alt="" loading="lazy" decoding="async"></div>' +
+                    '<div class="rebate"><b>' + m.no + '</b><span>' + m.abbr + '</span></div>' +
+                  '</div>';
+        }
+      }
+      html += '</div>';
+      seqHTML += html;
+    }
+    track.innerHTML = seqHTML;
+  })();
+
+  /* ---------- calendar ---------- */
+  function buildCalendar(m){
+    var wd = ["일","월","화","수","목","금","토"];
+    var out = "";
+    for (var w = 0; w < 7; w++) out += '<div class="wd">' + wd[w] + '</div>';
+    for (var i = 0; i < m.start; i++) out += '<div class="d off">.</div>';
+    for (var d = 1; d <= m.days; d++){
+      var col = (m.start + d - 1) % 7;
+      var cls = "d" + (col === 0 ? " sun" : col === 6 ? " sat" : "") + (d === 1 ? " first" : "");
+      out += '<div class="' + cls + '">' + d + '</div>';
+    }
+    var tail = (7 - ((m.start + m.days) % 7)) % 7;
+    for (var t = 0; t < tail; t++) out += '<div class="d off">.</div>';
+    gridEl.innerHTML = out;
+    calLabel.textContent = "2027 · " + (idx + 1) + "월";
+  }
+
+  /* ---------- timers ---------- */
+  function wait(ms, fn){
+    pending = fn; remain = ms; deadline = performance.now() + ms;
+    timer = setTimeout(function(){ timer = null; var f = pending; pending = null; if (f) f(); }, ms);
+  }
+  function holdTimers(){
+    if (timer){ clearTimeout(timer); timer = null; remain = Math.max(0, deadline - performance.now()); }
+  }
+  function resumeTimers(){
+    if (!pending || timer) return;
+    deadline = performance.now() + remain;
+    timer = setTimeout(function(){ timer = null; var f = pending; pending = null; if (f) f(); }, remain);
+  }
+
+  /* ---------- progress ---------- */
+  function startProgress(){
+    barEl.classList.remove("run");
+    void barEl.offsetWidth;
+    barEl.classList.add("run");
+  }
+
+  /* ---------- developing ---------- */
+  function develop(){
+    printEl.classList.remove("dev");
+    void printEl.offsetWidth;
+    ghostEl.style.backgroundImage = "url(" + MONTHS[idx].img + ")";
+    printEl.classList.add("dev");
+    trayEl.classList.add("dev");
+    startProgress();
+    devRunning = true;
+    window.setTimeout(function(){ devRunning = false; trayEl.classList.remove("dev"); }, DEV);
+  }
+
+  function applyMonth(i, opts){
+    opts = opts || {};
+    idx = i;
+    var m = MONTHS[i];
+    artEl.src = m.img;
+    artEl.alt = m.alt;
+    ymEl.textContent = m.ym;
+    enEl.textContent = m.en;
+    capEl.textContent = m.cap;
+    fnoEl.textContent = "FRAME " + m.no;
+    chips.forEach(function(c, k){ c.setAttribute("aria-pressed", String(k === i)); });
+    buildCalendar(m);
+    if (opts.develop !== false) develop();
+  }
+
+  function nextMonth(){
+    applyMonth((idx + 1) % MONTHS.length);
+    armCycle();
+  }
+
+  function armCycle(delay){
+    wait(delay === undefined ? DEV : delay, function(){
+      wait(HOLD, function(){ if (playing) nextMonth(); });
+    });
+  }
+
+  /* ---------- play / pause ---------- */
+  function setPlaying(on){
+    playing = on;
+    document.body.classList.toggle("paused", !on);
+    btnPlay.setAttribute("aria-pressed", on ? "false" : "true");
+    playLabel.textContent = on ? "잠시 멈추기" : "다시 이어 보기";
+    icPause.style.display = on ? "" : "none";
+    icPlay.style.display = on ? "none" : "";
+    if (on) resumeTimers(); else holdTimers();
+  }
+
+  btnPlay.addEventListener("click", function(){ setPlaying(!playing); });
+
+  chips.forEach(function(c){
+    c.addEventListener("click", function(){
+      var i = parseInt(c.getAttribute("data-i"), 10);
+      if (timer){ clearTimeout(timer); timer = null; }
+      pending = null;
+      applyMonth(i);
+      armCycle();
+      if (!playing) setPlaying(true);
+    });
+  });
+
+  $("btnDev").addEventListener("click", function(){
+    if (timer){ clearTimeout(timer); timer = null; }
+    pending = null;
+    develop();
+    armCycle();
+    if (!playing) setPlaying(true);
+  });
+
+  /* ---------- clean mode ---------- */
+  var toastTimer = null;
+  function setClean(on){
+    document.body.classList.toggle("clean", on);
+    if (on){
+      toastEl.classList.add("on");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toastEl.classList.remove("on"); }, 2600);
+    } else {
+      toastEl.classList.remove("on");
+    }
+  }
+  $("btnClean").addEventListener("click", function(e){ e.stopPropagation(); setClean(true); });
+  document.addEventListener("click", function(){
+    if (document.body.classList.contains("clean")) setClean(false);
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && document.body.classList.contains("clean")) setClean(false);
+    if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if (e.key === " "){ e.preventDefault(); setPlaying(!playing); }
+    if (e.key === "1" || e.key === "2" || e.key === "3"){
+      var i = parseInt(e.key, 10) - 1;
+      applyMonth(i); if (timer){ clearTimeout(timer); timer = null; } pending = null; armCycle();
+    }
+    if (e.key === "r" || e.key === "R"){
+      if (timer){ clearTimeout(timer); timer = null; } pending = null; develop(); armCycle();
+    }
+  });
+
+  /* ---------- keyboard hint removed ---------- */
+
+  /* ---------- boot ---------- */
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // preload
+  MONTHS.forEach(function(m){ var im = new Image(); im.src = m.img; });
+
+  applyMonth(0, {develop: !reduce});
+  if (reduce){
+    setPlaying(false);
+  } else {
+    armCycle();
+  }
+
+  // re-arm progress when tab returns
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden){ holdTimers(); }
+    else if (playing){ resumeTimers(); }
+  });
+})();
+</script>
+</body>
+</html>
