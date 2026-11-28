@@ -76,8 +76,8 @@ body::before{
 }
 .strip::before,.strip::after{
   content:"";position:absolute;left:0;right:0;height:14px;z-index:3;pointer-events:none;
-  background-image:radial-gradient(5.6px 4.6px at 13px 50%, #050303 96%, rgba(5,3,3,0) 100%);
-  background-size:27px 100%;background-repeat:repeat-x;
+  background-image:radial-gradient(6.2px 5.2px at 13px 50%, #050303 96%, rgba(5,3,3,0) 100%);
+  background-size:26px 100%;background-repeat:repeat-x;
 }
 .strip::before{top:3px}
 .strip::after{bottom:3px}
@@ -210,7 +210,7 @@ body::before{
   text-align:center;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;
   font-size:clamp(8.5px,1.05vh,10.5px);letter-spacing:.02em;
 }
-.grid .wd{font-size:8.5px;color:rgba(242,232,218,.34)}
+.grid .wd{font-size:8.5px;color:rgba(242,232,218,.42)}
 .grid .d{color:rgba(242,232,218,.76);border-radius:3px;}
 .grid .d.sun{color:rgba(216,120,96,.9)}
 .grid .d.sat{color:rgba(150,168,196,.86)}
@@ -297,19 +297,13 @@ body.clean .stage{padding:clamp(6px,1.4vh,14px) 0}
 body.paused .strip-track,
 body.paused .print.dev .ghost,
 body.paused .print.dev .wash,
-body.paused .print.dev,
-body.paused .prog i{animation-play-state:paused}
+body.paused .print.dev{animation-play-state:paused}
 body.paused::before{animation-play-state:paused}
 
-/* ---------- progress ---------- */
-.prog{position:relative;margin:11px 2px 1px;height:2px;border-radius:2px;background:rgba(224,172,107,.13);overflow:hidden;z-index:2}
-.prog::before,.prog::after{content:"";position:absolute;top:-1px;width:6px;height:4px;border-radius:50%;background:rgba(224,172,107,.35)}
-.prog::before{left:0}.prog::after{right:0}
-.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,rgba(216,71,47,.85),rgba(224,172,107,.95));box-shadow:0 0 9px rgba(224,172,107,.5)}
-.prog i.run{animation:grow 5s linear forwards}
-@keyframes grow{from{width:0}to{width:100%}}
-
 /* ---------- responsive ---------- */
+@media (min-width:1400px){
+  .layout{gap:clamp(70px,7vw,130px)}
+}
 @media (max-width:900px){
   :root{--strip-h:64px;--print-h:clamp(230px,calc(100dvh - 392px),470px);}
   .top{padding:10px 14px 6px}
@@ -334,7 +328,6 @@ body.paused::before{animation-play-state:paused}
   .plate{padding:7px 11px;border-radius:9px;gap:8px}
   .cal{padding-left:8px}
   .grid{grid-auto-rows:13px;grid-template-columns:repeat(7,15px)}
-  .prog{margin:7px 2px 0}
 }
 @media (max-width:400px){
   :root{--print-h:clamp(220px,calc(100dvh - 386px),440px);}
@@ -375,7 +368,6 @@ body.paused::before{animation-play-state:paused}
             <div class="wash"></div>
           </div>
         </div>
-        <div class="prog" id="prog"><i id="bar"></i></div>
       </div>
 
       <div class="plate">
@@ -458,7 +450,7 @@ body.paused::before{animation-play-state:paused}
   var $ = function(id){ return document.getElementById(id); };
   var printEl = $("print"), trayEl = $("tray"), artEl = $("art"), ghostEl = $("ghost");
   var ymEl = $("ym"), enEl = $("en"), capEl = $("cap"), fnoEl = $("fno"), calLabel = $("calLabel");
-  var gridEl = $("grid"), barEl = $("bar"), progEl = $("prog");
+  var gridEl = $("grid");
   var btnPlay = $("btnPlay"), playLabel = $("playLabel"), icPlay = $("icPlay"), icPause = $("icPause");
   var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
   var toastEl = $("toast");
@@ -517,13 +509,6 @@ body.paused::before{animation-play-state:paused}
     timer = setTimeout(function(){ timer = null; var f = pending; pending = null; if (f) f(); }, remain);
   }
 
-  /* ---------- progress ---------- */
-  function startProgress(){
-    barEl.classList.remove("run");
-    void barEl.offsetWidth;
-    barEl.classList.add("run");
-  }
-
   /* ---------- developing ---------- */
   function develop(){
     printEl.classList.remove("dev");
@@ -531,7 +516,6 @@ body.paused::before{animation-play-state:paused}
     ghostEl.style.backgroundImage = "url(" + MONTHS[idx].img + ")";
     printEl.classList.add("dev");
     trayEl.classList.add("dev");
-    startProgress();
     devRunning = true;
     window.setTimeout(function(){ devRunning = false; trayEl.classList.remove("dev"); }, DEV);
   }
@@ -639,7 +623,7 @@ body.paused::before{animation-play-state:paused}
     armCycle();
   }
 
-  // re-arm progress when tab returns
+  // re-arm timers when the tab returns
   document.addEventListener("visibilitychange", function(){
     if (document.hidden){ holdTimers(); }
     else if (playing){ resumeTimers(); }
