@@ -1,0 +1,23 @@
+{
+  "id": "/order-100/",
+  "name": "피클 심부름 주문서 100선",
+  "short_name": "심부름100선",
+  "description": "생활 심부름 주문서 100개를 찾아 피클 채팅창에 붙여넣는 생각아트 실습 페이지",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "/order-100/",
+  "scope": "/order-100/",
+  "display": "standalone",
+  "background_color": "#E5F4ED",
+  "theme_color": "#1B5E3F",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "./screenshots/home-mobile.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "심부름 주문서 100선 첫 화면" },
+    { "src": "./screenshots/home-desktop.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "심부름 주문서 100선 첫 화면" }
+  ]
+}
