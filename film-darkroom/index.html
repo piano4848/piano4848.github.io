@@ -88,6 +88,8 @@ body::before{
     linear-gradient(104deg,transparent 18%,rgba(255,238,220,.05) 42%,transparent 58%,rgba(255,238,220,.03) 74%,transparent 86%);
 }
 .strip-track{display:flex;width:max-content;height:100%;align-items:center;animation:drift 96s linear infinite;}
+.strip-track.halt{animation-play-state:paused;}
+.strip.halt{box-shadow:0 14px 30px -20px #000 inset, 0 10px 26px -22px rgba(0,0,0,.9), 0 0 24px -6px rgba(224,172,107,.16) inset;}
 @keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 .seq{display:flex;align-items:center;gap:12px;padding-right:12px;height:100%;}
 .cell{display:flex;align-items:center;gap:9px;height:calc(var(--strip-h) - 30px);}
@@ -451,6 +453,9 @@ body.paused::before{animation-play-state:paused}
   var printEl = $("print"), trayEl = $("tray"), artEl = $("art"), ghostEl = $("ghost");
   var ymEl = $("ym"), enEl = $("en"), capEl = $("cap"), fnoEl = $("fno"), calLabel = $("calLabel");
   var gridEl = $("grid");
+  var stripEl = document.querySelector(".strip");
+  var trackEl = $("stripTrack");
+  var haltTimer = null;
   var btnPlay = $("btnPlay"), playLabel = $("playLabel"), icPlay = $("icPlay"), icPause = $("icPause");
   var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
   var toastEl = $("toast");
@@ -532,7 +537,20 @@ body.paused::before{animation-play-state:paused}
     fnoEl.textContent = "FRAME " + m.no;
     chips.forEach(function(c, k){ c.setAttribute("aria-pressed", String(k === i)); });
     buildCalendar(m);
+    filmHalt();
     if (opts.develop !== false) develop();
+  }
+
+  // the film stops for a beat as the month lands in the tray
+  function filmHalt(){
+    if (!trackEl) return;
+    trackEl.classList.add("halt");
+    stripEl.classList.add("halt");
+    clearTimeout(haltTimer);
+    haltTimer = window.setTimeout(function(){
+      trackEl.classList.remove("halt");
+      stripEl.classList.remove("halt");
+    }, 700);
   }
 
   function nextMonth(){
