@@ -18,7 +18,7 @@
   --red:#d8472f;
   --paper:#f3ece0;
   --strip-h:78px;
-  --print-h:clamp(280px,calc(100dvh - 340px),620px);
+  --print-h:clamp(280px,calc(100dvh - 358px),620px);
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Noto Serif CJK KR","Noto Serif KR",serif;
   --sans:"Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
   --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
@@ -311,7 +311,7 @@ body.paused::before{animation-play-state:paused}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
-  :root{--strip-h:64px;--print-h:clamp(230px,calc(100dvh - 374px),470px);}
+  :root{--strip-h:64px;--print-h:clamp(230px,calc(100dvh - 392px),470px);}
   .top{padding:10px 14px 6px}
   .layout{grid-template-columns:1fr;gap:0;align-content:center;padding:8px 14px 8px;}
   .stage{gap:9px}
@@ -337,7 +337,7 @@ body.paused::before{animation-play-state:paused}
   .prog{margin:7px 2px 0}
 }
 @media (max-width:400px){
-  :root{--print-h:clamp(220px,calc(100dvh - 370px),450px);}
+  :root{--print-h:clamp(220px,calc(100dvh - 386px),440px);}
   .brand{font-size:10.5px;letter-spacing:.22em}
   .brand b{font-size:12px}
   .meta{font-size:8.5px;letter-spacing:.14em}
