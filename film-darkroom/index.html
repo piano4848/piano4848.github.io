@@ -17,8 +17,8 @@
   --amber-dim:rgba(224,172,107,.34);
   --red:#d8472f;
   --paper:#f3ece0;
-  --strip-h:96px;
-  --print-h:clamp(280px,calc(100dvh - 408px),600px);
+  --strip-h:92px;
+  --print-h:clamp(280px,calc(100dvh - 340px),620px);
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Noto Serif CJK KR","Noto Serif KR",serif;
   --sans:"Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
   --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
@@ -177,40 +177,41 @@ body::before{
 .print.dev{animation:paper 2.5s ease-out forwards;}
 @keyframes paper{from{filter:brightness(.94) contrast(.98)}to{filter:brightness(1) contrast(1)}}
 
-/* ---------- nameplate ---------- */
+/* ---------- nameplate + calendar card ---------- */
 .plate{
-  width:calc(var(--print-h) * .6667 + 34px);max-width:100%;
-  border-radius:12px;padding:clamp(10px,1.2vh,14px) clamp(14px,1.6vw,18px);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+  gap:clamp(9px,1.5vw,18px);text-align:left;
+  width:min(100%, calc(var(--print-h) * .6667 + 158px));
+  border-radius:12px;padding:clamp(8px,1.1vh,12px) clamp(12px,1.4vw,16px);
   background:linear-gradient(178deg,rgba(224,172,107,.16),rgba(224,172,107,.05) 62%,rgba(0,0,0,.16));
   border:1px solid rgba(224,172,107,.26);
   box-shadow:inset 0 1px 0 rgba(255,226,190,.18), 0 10px 22px -16px rgba(0,0,0,.9);
-  text-align:center;
 }
-.month{font-family:var(--serif);font-size:clamp(16px,2.2vh,25px);letter-spacing:.13em;color:var(--amber-hi);white-space:nowrap;}
+.month{font-family:var(--serif);font-size:clamp(13.5px,1.8vh,21px);letter-spacing:.1em;color:var(--amber-hi);white-space:nowrap;}
 .month .ym{color:#ffd9ab;font-variant-numeric:tabular-nums;}
-.month .dash{color:rgba(224,172,107,.5);margin:0 .5em;}
-.month .en{font-size:.72em;letter-spacing:.2em;color:rgba(242,232,218,.72)}
+.month .dash{color:rgba(224,172,107,.5);margin:0 .48em;}
+.month .en{font-size:.7em;letter-spacing:.18em;color:rgba(242,232,218,.72)}
 .caption{
-  margin-top:5px;font-size:clamp(10px,1.25vh,12px);letter-spacing:.06em;color:rgba(242,232,218,.58);
-  display:flex;align-items:center;justify-content:center;gap:.6em;flex-wrap:wrap;
+  margin-top:4px;font-size:clamp(9.5px,1.15vh,11.5px);letter-spacing:.05em;color:rgba(242,232,218,.58);
+  display:flex;align-items:center;gap:.55em;flex-wrap:wrap;
 }
 .caption .no{font-family:var(--mono);font-size:.86em;letter-spacing:.16em;color:rgba(224,172,107,.72)}
-.caption .sep{width:14px;height:1px;background:rgba(224,172,107,.34);display:inline-block}
+.caption .sep{width:12px;height:1px;background:rgba(224,172,107,.34);display:inline-block}
 
-/* ---------- mini calendar ---------- */
+/* ---------- mini calendar (inside the nameplate) ---------- */
 .cal{
-  width:calc(var(--print-h) * .6667 + 34px);max-width:100%;
-  display:flex;flex-direction:column;gap:5px;padding:0 2px;
+  display:flex;flex-direction:column;gap:3px;
+  padding-left:clamp(9px,1.3vw,16px);border-left:1px solid rgba(224,172,107,.18);
 }
-.cal-top{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:9px;letter-spacing:.24em;color:rgba(224,172,107,.55);}
-.cal-top em{font-style:normal;color:rgba(242,232,218,.34)}
-.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px 0;grid-auto-rows:clamp(15px,1.72vh,19px);}
+.cal-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:rgba(224,172,107,.55);}
+.cal-top em{font-style:normal;color:rgba(242,232,218,.3)}
+.grid{display:grid;grid-template-columns:repeat(7,clamp(14px,1.45vw,19px));grid-auto-rows:clamp(12px,1.4vh,17px);}
 .grid .wd,.grid .d{
   text-align:center;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;
-  font-size:clamp(9px,1.12vh,11px);letter-spacing:.02em;
+  font-size:clamp(8.5px,1.05vh,10.5px);letter-spacing:.02em;
 }
-.grid .wd{font-size:9px;color:rgba(242,232,218,.34)}
-.grid .d{color:rgba(242,232,218,.76);border-radius:4px;}
+.grid .wd{font-size:8.5px;color:rgba(242,232,218,.34)}
+.grid .d{color:rgba(242,232,218,.76);border-radius:3px;}
 .grid .d.sun{color:rgba(216,120,96,.9)}
 .grid .d.sat{color:rgba(150,168,196,.86)}
 .grid .d.off{color:transparent}
@@ -310,7 +311,7 @@ body.paused::before{animation-play-state:paused}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
-  :root{--strip-h:66px;--print-h:clamp(230px,calc(100dvh - 424px),430px);}
+  :root{--strip-h:64px;--print-h:clamp(230px,calc(100dvh - 374px),470px);}
   .top{padding:10px 14px 6px}
   .layout{grid-template-columns:1fr;gap:0;align-content:center;padding:8px 14px 8px;}
   .stage{gap:9px}
@@ -330,13 +331,13 @@ body.paused::before{animation-play-state:paused}
   .month{font-size:16.5px}
   .caption{font-size:10.5px;gap:.45em;margin-top:4px}
   .tray{padding:11px;border-radius:15px}
-  .plate{padding:7px 12px;border-radius:9px}
-  .cal{padding:0;gap:4px}
-  .grid{grid-auto-rows:13px}
+  .plate{padding:7px 11px;border-radius:9px;gap:8px}
+  .cal{padding-left:8px}
+  .grid{grid-auto-rows:13px;grid-template-columns:repeat(7,15px)}
   .prog{margin:7px 2px 0}
 }
 @media (max-width:400px){
-  :root{--print-h:clamp(220px,calc(100dvh - 420px),410px);}
+  :root{--print-h:clamp(220px,calc(100dvh - 370px),450px);}
   .brand{font-size:10.5px;letter-spacing:.22em}
   .brand b{font-size:12px}
   .meta{font-size:8.5px;letter-spacing:.14em}
@@ -378,17 +379,18 @@ body.paused::before{animation-play-state:paused}
       </div>
 
       <div class="plate">
-        <div class="month">
-          <span class="ym" id="ym">2027. 01</span><span class="dash">—</span><span class="en" id="en">JANUARY</span>
+        <div class="plate-l">
+          <div class="month">
+            <span class="ym" id="ym">2027. 01</span><span class="dash">—</span><span class="en" id="en">JANUARY</span>
+          </div>
+          <div class="caption">
+            <span class="no" id="fno">FRAME 01</span><span class="sep"></span><span id="cap">남색 외투의 남자와 올리브 나무</span>
+          </div>
         </div>
-        <div class="caption">
-          <span class="no" id="fno">FRAME 01</span><span class="sep"></span><span id="cap">남색 외투의 남자와 올리브 나무</span>
+        <div class="cal">
+          <div class="cal-top"><span id="calLabel">2027 · 1월</span><em>MINI</em></div>
+          <div class="grid" id="grid"></div>
         </div>
-      </div>
-
-      <div class="cal">
-        <div class="cal-top"><span id="calLabel">2027 · 1월</span><em>MINI CALENDAR</em></div>
-        <div class="grid" id="grid"></div>
       </div>
     </section>
 
