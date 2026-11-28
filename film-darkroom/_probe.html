@@ -11,7 +11,7 @@ var w = parseInt(q.get("w")||"390",10), h = parseInt(q.get("h")||"844",10);
 var extra = q.get("clean") ? "?clean=1" : "";
 var f = document.getElementById("f");
 f.width = w; f.height = h;
-f.src = "index.html" + extra;
+f.src = "index.html" + extra + (extra ? "&" : "?") + "t=" + Date.now();
 f.onload = function(){
   setTimeout(function(){
     var d = f.contentDocument, win = f.contentWindow;
