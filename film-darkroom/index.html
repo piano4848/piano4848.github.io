@@ -95,7 +95,7 @@ body::before{
   height:100%;aspect-ratio:3/2;border-radius:2px;overflow:hidden;position:relative;
   background:#0b0807;box-shadow:0 0 0 1px rgba(0,0,0,.9), 0 2px 6px rgba(0,0,0,.6) inset;
 }
-.win img{width:100%;height:100%;object-fit:cover;filter:brightness(.82) saturate(.92) contrast(1.02);display:block;}
+.win img{width:100%;height:100%;object-fit:cover;filter:brightness(.88) saturate(.96) contrast(1.02);display:block;}
 .rebate{display:flex;flex-direction:column;gap:3px;font-family:var(--mono);line-height:1;color:rgba(224,172,107,.66);}
 .rebate b{font-size:10px;letter-spacing:.16em;font-weight:600;}
 .rebate span{font-size:8px;letter-spacing:.2em;color:rgba(224,172,107,.42);}
@@ -206,12 +206,12 @@ body::before{
 }
 .cal-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:rgba(224,172,107,.55);}
 .cal-top em{font-style:normal;color:rgba(242,232,218,.3)}
-.grid{display:grid;grid-template-columns:repeat(7,clamp(14px,1.45vw,19px));grid-auto-rows:clamp(12px,1.4vh,17px);}
+.grid{display:grid;grid-template-columns:repeat(7,clamp(15px,1.5vw,20px));grid-auto-rows:clamp(13px,1.45vh,18px);}
 .grid .wd,.grid .d{
   text-align:center;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;
-  font-size:clamp(8.5px,1.05vh,10.5px);letter-spacing:.02em;
+  font-size:clamp(9.5px,1.1vh,11px);letter-spacing:.02em;
 }
-.grid .wd{font-size:8.5px;color:rgba(242,232,218,.42)}
+.grid .wd{font-size:9px;color:rgba(242,232,218,.42)}
 .grid .d{color:rgba(242,232,218,.76);border-radius:3px;}
 .grid .d.sun{color:rgba(216,120,96,.9)}
 .grid .d.sat{color:rgba(150,168,196,.86)}
@@ -327,7 +327,7 @@ body.paused::before{animation-play-state:paused}
   .tray{padding:11px;border-radius:15px}
   .plate{padding:7px 11px;border-radius:9px;gap:8px}
   .cal{padding-left:8px}
-  .grid{grid-auto-rows:13px;grid-template-columns:repeat(7,15px)}
+  .grid{grid-auto-rows:13.5px;grid-template-columns:repeat(7,15px)}
 }
 @media (max-width:400px){
   :root{--print-h:clamp(220px,calc(100dvh - 386px),440px);}
