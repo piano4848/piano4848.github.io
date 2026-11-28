@@ -266,9 +266,9 @@ h1 .amp{color:var(--red);font-style:italic;padding:0 .1em;opacity:.9}
 
 /* ---------- footer ---------- */
 .foot{
-  padding:0 34px 9px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:0 34px 9px;display:flex;justify-content:space-between;align-items:center;gap:12px;max-height:60px;overflow:hidden;
   font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:rgba(242,232,218,.24);
-  transition:opacity .45s ease, transform .45s ease;
+  transition:opacity .45s ease, transform .45s ease, max-height .45s ease, padding .45s ease;
 }
 
 /* ---------- clean mode ---------- */
@@ -278,6 +278,7 @@ body.clean .top,
 body.clean .side,
 body.clean .foot{opacity:0;pointer-events:none;}
 body.clean .top{transform:translateY(-14px);max-height:0;padding-top:0;padding-bottom:0;margin-top:0;}
+body.clean .foot{max-height:0;padding-top:0;padding-bottom:0;margin:0;}
 body.clean .side{transform:translateY(14px)}
 body.clean .foot{transform:translateY(10px)}
 body.clean .layout{grid-template-columns:auto 0;gap:0;padding-top:0;padding-bottom:0}
