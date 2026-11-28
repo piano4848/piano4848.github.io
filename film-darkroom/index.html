@@ -138,6 +138,7 @@ body::before{
   position:relative;z-index:1;height:var(--print-h);aspect-ratio:2/3;width:auto;
   background:linear-gradient(178deg,#f6efe3 0%,#efe7d8 58%,#e8dfcd 100%);
   padding:4.2%;border-radius:2px;transform:rotate(-.35deg);
+  transition:height .55s cubic-bezier(.32,0,.2,1),width .55s cubic-bezier(.32,0,.2,1);
   box-shadow:
     0 0 0 1px rgba(0,0,0,.22),
     0 22px 36px -16px rgba(0,0,0,.9),
@@ -272,12 +273,11 @@ h1 .amp{color:var(--red);font-style:italic;padding:0 .1em;opacity:.9}
 
 /* ---------- clean mode ---------- */
 .chrome{transition:opacity .5s ease, transform .5s ease;}
+body.clean{--print-h:min(calc(100dvh - 285px), calc((100vw - 60px) * 1.5));}
 body.clean .top,
-body.clean .strip,
 body.clean .side,
 body.clean .foot{opacity:0;pointer-events:none;}
 body.clean .top{transform:translateY(-14px)}
-body.clean .strip{transform:translateY(-10px) scaleY(.9)}
 body.clean .side{transform:translateY(14px)}
 body.clean .foot{transform:translateY(10px)}
 body.clean .layout{grid-template-columns:auto 0;gap:0;padding-top:0;padding-bottom:0}
